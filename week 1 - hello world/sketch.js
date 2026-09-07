@@ -60,7 +60,7 @@ function draw() {
   triangle(x1, y1, x2, y2, x3, y3)
 
   
-  fill(253, 253, 253)
+  fill(220, 223, 234)
   rect(330, 100, 40, 100);
 
   fill(242, 25, 26)
@@ -69,6 +69,9 @@ function draw() {
   ellipse(350, 150, 25, 25);
   fill(62, 242, 26)
   ellipse(350, 180, 25, 25);
+
+  fill(220, 223, 234)
+  rect(340, 200, 20, 20);
 
  
  fill(000);
