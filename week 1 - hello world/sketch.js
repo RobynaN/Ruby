@@ -73,7 +73,11 @@ function draw() {
   fill(220, 223, 234)
   rect(340, 200, 20, 20);
 
- 
+  val = "rgb(15, 35, 147)";
+
+  rect(350, 320, 60, 60);
+  circle(350, 322, 20);
+
  fill(000);
   text("Robyna Nouwens", 20, 30); 
 }
