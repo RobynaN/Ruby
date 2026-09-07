@@ -20,5 +20,12 @@ function draw() {
 function draw() {
   background(240);
   textSize(32);
-  text("Robyna Nouwens", 20, 50);
+  text("Robyna Nouwens", 50, 100);
+
+}
+function draw() {
+  background(240);
+  textStyle(BOLDITALIC);
+  text("Robyna Nouwens", 50, 50);
+
 }
