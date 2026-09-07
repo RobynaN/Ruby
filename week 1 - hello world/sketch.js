@@ -4,28 +4,26 @@ function setup() {
 
 function draw() {
   background(220);
+  fill(252, 0, 0);
+  rect(0, 0, 10, 10);
+  fill(0, 0, 255);
+  //textStyle(BOLD);
+  
 
 }
 function draw() {
-  background(220);
+
+  fill(225,225 ,225);
+  
+  // background(110,110,110)
+  rect(50, 100, 130, 70);
+
   fill(255, 0, 0);
-  rect(mouseX, mouseY, 10, 10);
+  rect(50, 100, 130, 30);
 
-}
-function draw() {
-  background(240);  
-  text("Hallo wereld!", 50, 50);
-
-}
-function draw() {
-  background(240);
-  textSize(32);
-  text("Robyna Nouwens", 50, 100);
-
-}
-function draw() {
-  background(240);
-  textStyle(BOLDITALIC);
-  text("Robyna Nouwens", 50, 50);
-
+ fill(0, 0, 255);
+  rect(50, 165, 130, 30);
+ 
+ fill(000);
+  text("Robyna Nouwens", 20, 30); 
 }
