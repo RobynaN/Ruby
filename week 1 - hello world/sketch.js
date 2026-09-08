@@ -180,4 +180,9 @@ fill(0, 0, 0);
  strokeWeight(1);
  fill(0, 0, 0);
   text("Robyna Nouwens", 20, 30); 
+
+
+}
+function preload() {
+  loadimage("
 }
