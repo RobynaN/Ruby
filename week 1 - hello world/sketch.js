@@ -3,7 +3,8 @@ function setup() {
 }
 
 function draw() {
-  background(254, 254, 254);  
+  background(254, 254, 254); 
+ stroke(0, 0, 0);
   fill(252, 0, 0);
   rect(0, 0, 10, 10);
   fill(0, 0, 255);
@@ -15,7 +16,7 @@ function draw() {
   
   // background(110,110,110)
   rect(50, 100, 130, 70);
-
+ 
   fill(255, 0, 0);
   rect(50, 100, 130, 30);
 
@@ -25,7 +26,8 @@ function draw() {
  fill(255, 255, 255);
   rect(50, 250, 90, 90);
 
-  fill(000);
+  
+  fill(0, 0, 0);
   rect(50, 250, 30, 30);
 
    fill(000);
@@ -39,6 +41,8 @@ function draw() {
 
    fill(000);
   rect(50, 310, 30, 30);
+
+/*house*/
 
   fill(255, 255, 255);
   
@@ -59,7 +63,8 @@ function draw() {
  y2= topHouse;
   triangle(x1, y1, x2, y2, x3, y3)
 
-  
+/*traffic light*/
+
   fill(220, 223, 234)
   rect(330, 100, 40, 100);
 
@@ -75,9 +80,19 @@ function draw() {
 
   val = "rgb(15, 35, 147)";
 
-  rect(350, 320, 60, 60);
-  circle(350, 322, 20);
+/*dobbelsteen*/ 
+strokeWeight(4);
+ val = "rgb(255, 255, 255)";
+ fill(255, 255, 255);
+  rect(350, 320, 100, 100);
 
+  val = "rgb(0, 0, 0)";
+  fill(000);
+  circle(400, 370, 20);
+
+
+/* mario pixel art */
+  noStroke();
   val = "rgb(232, 6, 6)";
  fill(232, 6, 6);
  
@@ -96,14 +111,46 @@ function draw() {
   rect(700, 140, 20,20);
   rect(720, 140, 20,20);
 
-  val = "rgba(105, 47, 0, 0.96)";
-  fill(105, 47, 0, 0.96);
+  val = "rgb(99, 60, 29)";
+fill(99, 60, 29);
   rect(560, 160, 20,20);
+  rect(580, 160, 20,20);
+  rect(600, 160, 20,20);
+  rect(540, 180, 20,20);
+  rect(540, 200, 20,20);
+  rect(560, 220, 20,20);
+  rect(580, 180, 20,20);
+  rect(580, 200, 20,20);
+  rect(600, 200, 20,20);
+
+  val = "rgb(246, 214, 181)";
+fill(246, 214, 181);
+  rect(620, 160, 20,20);
+  rect(640, 160, 20,20);
+  rect(560, 180, 20,20);
+  rect(560, 200, 20,20);
+  rect(620, 180, 20,20);
+  rect(600, 180, 20,20);
+  rect(620, 200, 20,20);
+  rect(640, 200, 20,20);
+  rect(640, 180, 20,20);
+  rect(680, 180, 20,20);
+  rect(660, 200, 20,20);
+  
+  val = "rgb(0, 0, 0)";
+fill(0, 0, 0);
+  rect(660, 160, 20,20);
+  rect(680, 200, 20,20);
+  rect(660, 180, 20,20);
+  rect(660, 220, 20,20);
+
+
   
 
 
   
-
- fill(000);
+/*text*/
+ strokeWeight(1);
+ fill(0, 0, 0);
   text("Robyna Nouwens", 20, 30); 
 }
