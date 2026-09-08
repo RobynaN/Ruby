@@ -170,19 +170,22 @@ fill(0, 0, 0);
 
  text("Mario", 550, 100);
 
-/*Durin pixel art*/
- val = "rgb(194, 109, 247)";
- fill(194, 109, 247);
- rect( 550,340, 20,20);
-
-  
 /*text*/
  strokeWeight(1);
  fill(0, 0, 0);
   text("Robyna Nouwens", 20, 30); 
 
+  /*durin pixel art*/
 
-}
-function preload() {
-  loadimage("
-}
+  text("Durin", 600, 390);
+
+ image(image1, 600, 400, 200, 200); 
+
+ }
+
+ let image1; 
+
+ function preload() {
+ image1 = loadImage("pixelartdurin.jpg");
+
+ }
