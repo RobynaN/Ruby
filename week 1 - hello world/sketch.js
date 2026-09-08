@@ -78,6 +78,8 @@ function draw() {
   rect(350, 320, 60, 60);
   circle(350, 322, 20);
 
+  
+
  fill(000);
   text("Robyna Nouwens", 20, 30); 
 }
