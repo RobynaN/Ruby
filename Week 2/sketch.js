@@ -90,8 +90,65 @@ function draw() {
  fill(22, 183, 36)
    ellipse(circleX + 300, 280, 90, 90);
   
-
+stroke(1)
+   fill(77, 51, 22)
+   rect(600, 280, 30, 140);
+  noStroke()
+    fill(42, 121, 0)
+   ellipse(circleX + 530, 260, 90, 90);
  
+   val = "rgb(51, 144, 58)";
+   fill(51, 144, 58)
+   ellipse(circleX + 520, 280, 90, 90);
+ val = "rgb(22, 183, 36)";
+ fill(22, 183, 36)
+   ellipse(circleX + 500, 260, 90, 90);
+
+
+   stroke(1)
+   fill(77, 51, 22)
+   rect(90, 280, 30, 140);
+  noStroke()
+    fill(42, 121, 0)
+   ellipse(circleX + 25, 260, 90, 90);
+ 
+   val = "rgb(51, 144, 58)";
+   fill(51, 144, 58)
+   ellipse(circleX + 10, 280, 90, 90);
+ val = "rgb(22, 183, 36)";
+ fill(22, 183, 36)
+   ellipse(circleX + 0, 270, 90, 90);
+
+   /*stoplicht*/
+   stroke(1)
+ fill(220, 223, 234)
+  rect(700, 200, 40, 120);
+
+  fill(242, 25, 26)
+  ellipse(720, 220, 25, 25);
+   fill(242, 240,26)
+  ellipse(720, 260, 25, 25);
+  fill(62, 242, 26)
+  ellipse(720, 300, 25, 25);
+
+  fill(220, 223, 234)
+  rect(710, 320, 20, 120);
+
+  /*car*/
+  noStroke()
+
+  val = "rgb(229, 67, 231)";
+  fill(229, 67, 231)
+  rect(400, 360, 180, 110);
+  rect(550, 390, 70, 70);
+  triangle(620, 400, 400,450, 560, 360)
+  val = "rgb(113, 117, 113)";
+  fill(113, 117,113)
+  rect(510, 370, 60, 60);
+  rect(420, 370, 60, 60);
+ ellipse(420, 460, 50, 50);
+ ellipse(560, 460, 50, 50);
+
 
  //line(500, 800, 200, 230 )
  //line(10, 800, 200, 230 )
