@@ -188,4 +188,5 @@ fill(0, 0, 0);
  function preload() {
  image1 = loadImage("pixelartdurin.jpg");
 
+ 
  }
