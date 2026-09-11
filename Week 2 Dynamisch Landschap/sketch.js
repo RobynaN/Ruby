@@ -6,6 +6,14 @@ let cloud1X = 200;
 let cloud2X = 300;
 let cloud3X = 250;
 
+let treespeed = 1
+let tree1X = 300;
+let tree2X = 350;
+let tree3X = 400;
+let tree4X = 450;
+
+let light = 
+
 function setup() {
   createCanvas(800, 600);
  circleX = 100;
@@ -41,7 +49,7 @@ function draw() {
 
   cloud1X = cloud1X + cloudspeed;
   if(cloud1X>= 855)
-    cloud1X = -55;
+    cloud1X = -50;
 
  ellipse(cloud2X + 300, 150, 90, 80);
  ellipse(cloud2X + 350, 150, 100, 100);
@@ -55,9 +63,9 @@ function draw() {
  ellipse(cloud3X + 650, 170, 110, 110);
  ellipse(cloud3X + 700, 170, 90, 80);
 
- cloud = cloud3X + cloudspeed;
+ cloud3X = cloud3X + cloudspeed;
  if(cloud3X>= 855)
-  cloud3X = -45;
+  cloud3X = -50;
  
 
 //  /*bergen*/
@@ -88,6 +96,8 @@ function draw() {
  fill(133,133,133)
  fill(255)
  rect(0, 510, 800, 20);
+
+
  /*tree's*/
  val = "rgb(77, 51, 22)";
  stroke(1)
@@ -97,39 +107,43 @@ function draw() {
    noStroke()
    val = "rgb(42, 121, 0)";
    fill(42, 121, 0)
-   ellipse(circleX + 120, 290, 90, 90);
+   ellipse(tree1X + 120, 290, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(circleX + 140, 300, 90, 90);
+   ellipse(tree1X + 140, 300, 90, 90);
+
+   tree1X = tree1X + treespeed;
+   if(tree1X>= 80)
+    tree1X = 20;
 
    stroke(1)
    fill(77, 51, 22)
    rect(370, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(circleX + 285, 260, 90, 90);
+   ellipse(tree2X + 285, 260, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(circleX + 270, 280, 90, 90);
+   ellipse(tree2X + 270, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(circleX + 300, 280, 90, 90);
+   ellipse(tree2X + 300, 280, 90, 90);
   
 stroke(1)
    fill(77, 51, 22)
    rect(600, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(circleX + 530, 260, 90, 90);
+   ellipse(tree3X + 530, 260, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(circleX + 520, 280, 90, 90);
+   ellipse(tree3X + 520, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(circleX + 500, 260, 90, 90);
+   ellipse(tree3X + 500, 260, 90, 90);
 
 
    stroke(1)
@@ -137,14 +151,14 @@ stroke(1)
    rect(90, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(circleX + 25, 260, 90, 90);
+   ellipse(tree4X + 25, 260, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(circleX + 10, 280, 90, 90);
+   ellipse(tree4X + 10, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(circleX + 0, 270, 90, 90);
+   ellipse(tree4X + 0, 270, 90, 90);
 
    /*stoplicht*/
    stroke(1)
@@ -153,13 +167,26 @@ stroke(1)
 
   fill(242, 25, 26)
   ellipse(720, 220, 25, 25);
+  if(light == 0()){
+    fill(255, 0, 0
+    } else{
+      fill(80, 0,0 )
+    )
    fill(242, 240,26)
   ellipse(720, 260, 25, 25);
+  if(light == 0()){
+    fill(255,94,2)
+  }else{
+    fill(80,50)
+  }circle 
+
   fill(62, 242, 26)
   ellipse(720, 300, 25, 25);
 
   fill(220, 223, 234)
   rect(710, 320, 20, 120);
+
+  
 
   /*car*/
   noStroke()
