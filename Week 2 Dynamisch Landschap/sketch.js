@@ -1,6 +1,14 @@
+let sun= 500;
+let sunspeed = 1
+
+let cloudspeed = 1
+let cloud1X = 200;
+let cloud2X = 300;
+let cloud3X = 250;
+
 function setup() {
   createCanvas(800, 600);
-  circleX = 100;
+ circleX = 100;
 }
 
 function draw() {
@@ -8,30 +16,49 @@ function draw() {
   background(128, 216, 251);
  
   /*zon*/ 
+  
   val = "rgb(255, 196, 0)"; 
   stroke(0, 0 ,0)
   fill(255, 196, 0);
-  ellipse(circleX, 70, 100, 100);
-  //circleX = circleX + 2;
+  ellipse(sun, 70, 100, 100);
+ //circleZon = circleZon + 2;
 
+ sun = sun + sunspeed;
+
+ if(sun>= 855) 
+  sun = -55;
+    
 
   /*wolken*/ 
   val = "rgb(255, 253, 253)";
   noStroke()
   fill(255,255,255)
-  ellipse(circleX, 200, 90, 70);
- //circleX(160, 60, 60)
+  ellipse(cloud1X, 200, 90, 70);
+ //cloud1X(160, 60, 60)
 
- ellipse(circleX + 55, 200, 90, 90);
- ellipse(circleX + 90, 200, 80, 70);
+ ellipse(cloud1X + 55, 200, 90, 90);
+ ellipse(cloud1X + 90, 200, 80, 70);
 
- ellipse(circleX + 300, 150, 90, 80);
- ellipse(circleX + 350, 150, 100, 100);
- ellipse(circleX + 400, 150, 90, 80);
+  cloud1X = cloud1X + cloudspeed;
+  if(cloud1X>= 855)
+    cloud1X = -55;
 
- ellipse(circleX + 600, 170, 90, 80);
- ellipse(circleX + 650, 170, 110, 110);
- ellipse(circleX + 700, 170, 90, 80);
+ ellipse(cloud2X + 300, 150, 90, 80);
+ ellipse(cloud2X + 350, 150, 100, 100);
+ ellipse(cloud2X + 400, 150, 90, 80);
+
+ cloud2X = cloud2X + cloudspeed;
+ if(cloud2X>= 855)
+  cloud2X = -50;
+
+ ellipse(cloud3X + 600, 170, 90, 80);
+ ellipse(cloud3X + 650, 170, 110, 110);
+ ellipse(cloud3X + 700, 170, 90, 80);
+
+ cloud = cloud3X + cloudspeed;
+ if(cloud3X>= 855)
+  cloud3X = -45;
+ 
 
 //  /*bergen*/
  stroke(0, 0,0)
