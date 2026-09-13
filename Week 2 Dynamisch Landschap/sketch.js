@@ -12,7 +12,7 @@ let tree2X = 350;
 let tree3X = 400;
 let tree4X = 450;
 
-let light = 
+let light = 8;
 
 function setup() {
   createCanvas(800, 600);
@@ -167,18 +167,20 @@ stroke(1)
 
   fill(242, 25, 26)
   ellipse(720, 220, 25, 25);
-  if(light == 0()){
-    fill(255, 0, 0
-    } else{
-      fill(80, 0,0 )
-    )
-   fill(242, 240,26)
-  ellipse(720, 260, 25, 25);
-  if(light == 0()){
-    fill(255,94,2)
-  }else{
-    fill(80,50)
-  }circle 
+//   if(light == 0()){
+//   fill(255, 0, 0)
+//     } else{}
+//       fill(80, 0,0 )
+    
+  fill(242, 240,26)
+ellipse(720, 260, 25, 25);
+ if(light == 0){
+  fill(255,94,2)
+  }else{}
+
+
+  fill(80, 0, 50)
+ 
 
   fill(62, 242, 26)
   ellipse(720, 300, 25, 25);
@@ -206,11 +208,5 @@ stroke(1)
 
  //line(500, 800, 200, 230 )
  //line(10, 800, 200, 230 )
-
-
-
- 
- 
-
-
+  
 }
