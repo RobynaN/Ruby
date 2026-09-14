@@ -31,7 +31,7 @@ function setup() {
 }
 
 function draw() {
- wind = sin(frameCount * 2) * 4;
+ wind = sin(frameCount * 0.05) * 2;
  val = "rgb(128, 216, 251)";
   background(128, 216, 251);
  
