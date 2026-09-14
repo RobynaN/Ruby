@@ -11,8 +11,8 @@ let cloud3X = 250;
 // let tree2X = 350;
 // let tree3X = 400;
 // let tree4X = 450;
-let car = 500;
-let carspeed = 1
+let car = 800;
+let carspeed = 3
 
 let light = 0;
 function keyPressed() { 
@@ -205,10 +205,19 @@ stroke(1)
   fill(113, 117,113)
  ellipse(car + 50, 560,50, 50);
  ellipse(car + 180, 560, 50, 50);
- 
+
+ // Stop at the stoplight only when it is red and the car is approaching it.
+ // The front of the car is car + 220, and the stop line is just before the light.
+ const stopLine = 680;
+ const carFront = car + 220;
+ if (light == 0 && car < stopLine && carFront >= stopLine) {
+  carspeed = 0;
+ } else {
+  carspeed = 5;
+ }
  car = car + carspeed; 
  if(car>=855)
-  car = 55; 
+  car = -55; 
 
 
 }
