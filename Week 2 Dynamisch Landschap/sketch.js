@@ -13,6 +13,7 @@ let cloud3X = 250;
 // let tree4X = 450;
 let car = 800;
 let carspeed = 3
+let wind = 0;
 
 let light = 0;
 function keyPressed() { 
@@ -30,6 +31,7 @@ function setup() {
 }
 
 function draw() {
+ wind = sin(frameCount * 2) * 4;
  val = "rgb(128, 216, 251)";
   background(128, 216, 251);
  
@@ -117,11 +119,11 @@ function draw() {
    noStroke()
    val = "rgb(5, 97, 8)";
    fill(42, 121, 0)
-   ellipse(130, 280, 90, 90);
+  ellipse(130 + wind, 280, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(120, 300, 90, 90);
+  ellipse(120 + wind, 300, 90, 90);
 
   //  tree1X = tree1X + treespeed;
   //  if(tree1X>= 80)
@@ -132,28 +134,28 @@ function draw() {
    rect(370, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(260, 250, 90, 90);
+  ellipse(260 + wind, 250, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(220, 260, 90, 90);
+  ellipse(220 + wind, 260, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(240, 280, 90, 90);
+  ellipse(240 + wind, 280, 90, 90);
   
 stroke(1)
    fill(77, 51, 22)
    rect(520, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(530, 260, 90, 90);
+  ellipse(530 + wind, 260, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(520, 280, 90, 90);
+  ellipse(520 + wind, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(500, 260, 90, 90);
+  ellipse(500 + wind, 260, 90, 90);
 
 
    stroke(1)
@@ -161,20 +163,21 @@ stroke(1)
    rect(100, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(400, 260, 90, 90);
+  ellipse(400 + wind, 260, 90, 90);
 
    val = "rgb(10, 178, 24)";
    fill(10, 178, 24)
-   ellipse(120, 300, 90, 90);
+  ellipse(120 + wind, 300, 90, 90);
     fill(42, 121, 0)
-   ellipse(110, 290, 90, 90);
+  ellipse(110 + wind, 290, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(420, 280, 90, 90);
+  ellipse(420 + wind, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(390, 270, 90, 90);
+  ellipse(390 + wind, 270, 90, 90);
+   
 
    /* stoplicht */
    stroke(1);
