@@ -6,13 +6,21 @@ let cloud1X = 200;
 let cloud2X = 300;
 let cloud3X = 250;
 
-let treespeed = 1
-let tree1X = 300;
-let tree2X = 350;
-let tree3X = 400;
-let tree4X = 450;
+// let treespeed = 0
+// let tree1X = 300;
+// let tree2X = 350;
+// let tree3X = 400;
+// let tree4X = 450;
 
-let light = 8;
+let light = 0;
+function keyPressed() { 
+  if (keyCode == ENTER) {
+    light = light + 1;
+    // als het licht groter is dan 2, dan wordt het weer 0 
+    if (light > 2)
+      light = 0;
+  }
+}
 
 function setup() {
   createCanvas(800, 600);
@@ -105,88 +113,81 @@ function draw() {
    rect(220, 300, 30, 140);
 
    noStroke()
-   val = "rgb(42, 121, 0)";
+   val = "rgb(5, 97, 8)";
    fill(42, 121, 0)
-   ellipse(tree1X + 120, 290, 90, 90);
+   ellipse(130, 280, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(tree1X + 140, 300, 90, 90);
+   ellipse(120, 300, 90, 90);
 
-   tree1X = tree1X + treespeed;
-   if(tree1X>= 80)
-    tree1X = 20;
+  //  tree1X = tree1X + treespeed;
+  //  if(tree1X>= 80)
+    // tree1X = 20;
 
    stroke(1)
    fill(77, 51, 22)
    rect(370, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(tree2X + 285, 260, 90, 90);
+   ellipse(260, 250, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(tree2X + 270, 280, 90, 90);
+   ellipse(220, 260, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(tree2X + 300, 280, 90, 90);
+   ellipse(240, 280, 90, 90);
   
 stroke(1)
    fill(77, 51, 22)
-   rect(600, 280, 30, 140);
+   rect(520, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(tree3X + 530, 260, 90, 90);
+   ellipse(530, 260, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(tree3X + 520, 280, 90, 90);
+   ellipse(520, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(tree3X + 500, 260, 90, 90);
+   ellipse(500, 260, 90, 90);
 
 
    stroke(1)
    fill(77, 51, 22)
-   rect(90, 280, 30, 140);
+   rect(100, 280, 30, 140);
   noStroke()
     fill(42, 121, 0)
-   ellipse(tree4X + 25, 260, 90, 90);
+   ellipse(400, 260, 90, 90);
+
+   val = "rgb(10, 178, 24)";
+   fill(10, 178, 24)
+   ellipse(120, 300, 90, 90);
+    fill(42, 121, 0)
+   ellipse(110, 290, 90, 90);
  
    val = "rgb(51, 144, 58)";
    fill(51, 144, 58)
-   ellipse(tree4X + 10, 280, 90, 90);
+   ellipse(420, 280, 90, 90);
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
-   ellipse(tree4X + 0, 270, 90, 90);
+   ellipse(390, 270, 90, 90);
 
-   /*stoplicht*/
-   stroke(1)
- fill(220, 223, 234)
-  rect(700, 200, 40, 120);
+   /* stoplicht */
+   stroke(1);
+   fill(60, 60, 60);
+   rect(700, 200, 40, 120);
 
-  fill(242, 25, 26)
-  ellipse(720, 220, 25, 25);
-//   if(light == 0()){
-//   fill(255, 0, 0)
-//     } else{}
-//       fill(80, 0,0 )
-    
-  fill(242, 240,26)
-ellipse(720, 260, 25, 25);
- if(light == 0){
-  fill(255,94,2)
-  }else{}
+   fill(light == 0 ? color(255, 0, 0) : color(80, 0, 0));
+   circle(720, 220, 25);
+   fill(light == 1 ? color(255, 128, 0) : color(80, 50, 0));
+   circle(720, 260, 25);
+   fill(light == 2 ? color(0, 255, 0) : color(0, 80, 0));
+   circle(720, 300, 25);
 
-
-  fill(80, 0, 50)
- 
-
-  fill(62, 242, 26)
-  ellipse(720, 300, 25, 25);
-
-  fill(220, 223, 234)
-  rect(710, 320, 20, 120);
+   fill(60, 60, 60);
+   rect(710, 320, 20, 120);
 
   
 
@@ -208,5 +209,6 @@ ellipse(720, 260, 25, 25);
 
  //line(500, 800, 200, 230 )
  //line(10, 800, 200, 230 )
-  
+  //elke keer dat je op enter drukt gaat het licht een stap verder 
+
 }
