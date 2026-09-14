@@ -3,9 +3,10 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  val = "rgb(255, 255, 255)";
+  background(255, 255, 255);
 
-  let score = 75;
+  let score = 95;
 
   textAlign(CENTER, CENTER);
   textSize(24);
