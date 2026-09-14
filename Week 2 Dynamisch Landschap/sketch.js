@@ -6,11 +6,6 @@ let cloud1X = 200;
 let cloud2X = 300;
 let cloud3X = 250;
 
-// let treespeed = 0
-// let tree1X = 300;
-// let tree2X = 350;
-// let tree3X = 400;
-// let tree4X = 450;
 let car = 800;
 let carspeed = 3
 let wind = 0;
@@ -19,8 +14,8 @@ let light = 0;
 function keyPressed() { 
   if (keyCode == ENTER) {
     light = light + 1;
-    // als het licht groter is dan 2, dan wordt het weer 0 
-    if (light > 2)
+    // Nederlandse volgorde: rood, rood + oranje, groen,
+    if (light > 3)
       light = 0;
   }
 }
