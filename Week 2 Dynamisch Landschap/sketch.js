@@ -189,7 +189,7 @@ stroke(1)
    fill(60, 60, 60);
    rect(710, 320, 20, 120);
 
-  
+   //elke keer dat je op enter drukt gaat het licht een stap verder 
 
   /*car*/
   noStroke()
@@ -207,8 +207,5 @@ stroke(1)
  ellipse(560, 460, 50, 50);
 
 
- //line(500, 800, 200, 230 )
- //line(10, 800, 200, 230 )
-  //elke keer dat je op enter drukt gaat het licht een stap verder 
 
 }
