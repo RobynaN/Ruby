@@ -57,25 +57,25 @@ function draw() {
  ellipse(cloud1X + 55, 200, 90, 90);
  ellipse(cloud1X + 90, 200, 80, 70);
 
-  cloud1X = cloud1X + cloudspeed;
-  if(cloud1X>= 855)
-    cloud1X = -50;
+  cloud1X = cloud1X - cloudspeed;
+  if(cloud1X<= -600)
+    cloud1X = 855;
 
  ellipse(cloud2X + 300, 150, 90, 80);
  ellipse(cloud2X + 350, 150, 100, 100);
  ellipse(cloud2X + 400, 150, 90, 80);
 
- cloud2X = cloud2X + cloudspeed;
- if(cloud2X>= 855)
-  cloud2X = -50;
+ cloud2X = cloud2X - cloudspeed;
+ if(cloud2X<= -600)
+  cloud2X = 855;
 
  ellipse(cloud3X + 600, 170, 90, 80);
  ellipse(cloud3X + 650, 170, 110, 110);
  ellipse(cloud3X + 700, 170, 90, 80);
 
- cloud3X = cloud3X + cloudspeed;
- if(cloud3X>= 855)
-  cloud3X = -50;
+ cloud3X = cloud3X - cloudspeed;
+ if(cloud3X<= -600)
+  cloud3X = 855;
  
 
 //  /*bergen*/
@@ -206,8 +206,8 @@ stroke(1)
  ellipse(car + 50, 560,50, 50);
  ellipse(car + 180, 560, 50, 50);
 
- // Stop at the stoplight only when it is red and the car is approaching it.
- // The front of the car is car + 220, and the stop line is just before the light.
+ // Stop alleen bij een stoplicht als het rood is en de auto eraan komt.
+ // De voorkant van de auto is auto + 220, en de stopstreep bevindt zich vlak voor het stoplicht.
  const stopLine = 680;
  const carFront = car + 220;
  if (light == 0 && car < stopLine && carFront >= stopLine) {
