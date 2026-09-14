@@ -178,6 +178,7 @@ stroke(1)
    stroke(1);
    fill(60, 60, 60);
    rect(700, 200, 40, 120);
+   
   fill(light == 0 ? color(255, 0, 0) : color(80, 0, 0));
    circle(720, 220, 25);
   fill(light == 1 ? color(0, 255, 0) : color(0, 80, 0));
