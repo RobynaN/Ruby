@@ -183,10 +183,10 @@ stroke(1)
    stroke(1);
    fill(60, 60, 60);
    rect(700, 200, 40, 120);
-
-   fill(light == 0 ? color(255, 0, 0) : color(80, 0, 0));
+ //verander het nog ff naar een nederlandse stoplicht reminder ! 
+  fill((light == 0 || light == 1) ? color(255, 0, 0) : color(80, 0, 0));
    circle(720, 220, 25);
-   fill(light == 1 ? color(255, 128, 0) : color(80, 50, 0));
+  fill((light == 1 || light == 3) ? color(255, 128, 0) : color(80, 50, 0));
    circle(720, 260, 25);
    fill(light == 2 ? color(0, 255, 0) : color(0, 80, 0));
    circle(720, 300, 25);
@@ -213,10 +213,14 @@ stroke(1)
  // De voorkant van de auto is auto + 220, en de stopstreep bevindt zich vlak voor het stoplicht.
  const stopLine = 680;
  const carFront = car + 220;
- if (light == 0 && car < stopLine && carFront >= stopLine) {
+ const approachingStopLine = car < stopLine && carFront >= stopLine - 100;
+ if ((light == 0 || light == 1) && car < stopLine && carFront >= stopLine) {
   carspeed = 0;
+ } else if (light == 3 && approachingStopLine) {
+  // Rem rustig af wanneer het stoplicht oranje is.
+  carspeed = max(0, carspeed - 0.1);
  } else {
-  carspeed = 5;
+  carspeed = min(5, carspeed + 0.1);
  }
  car = car + carspeed; 
  if(car>=855)
