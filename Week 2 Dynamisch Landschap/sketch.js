@@ -11,6 +11,8 @@ let cloud3X = 250;
 // let tree2X = 350;
 // let tree3X = 400;
 // let tree4X = 450;
+let car = 500;
+let carspeed = 1
 
 let light = 0;
 function keyPressed() { 
@@ -196,16 +198,17 @@ stroke(1)
 
   val = "rgb(229, 67, 231)";
   fill(229, 67, 231)
-  rect(400, 360, 180, 110);
-  rect(550, 390, 70, 70);
-  triangle(620, 400, 400,450, 560, 360)
+  rect(car, 440, 180, 110);
+  rect(car + 150, 480,70, 70);
+  // triangle(car, 620, 400, 400,450, 560, 360)
   val = "rgb(113, 117, 113)";
   fill(113, 117,113)
-  rect(510, 370, 60, 60);
-  rect(420, 370, 60, 60);
- ellipse(420, 460, 50, 50);
- ellipse(560, 460, 50, 50);
-
+ ellipse(car + 50, 560,50, 50);
+ ellipse(car + 180, 560, 50, 50);
+ 
+ car = car + carspeed; 
+ if(car>=855)
+  car = 55; 
 
 
 }
