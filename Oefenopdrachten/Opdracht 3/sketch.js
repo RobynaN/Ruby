@@ -1,12 +1,14 @@
+let score = (random(30, 101));
 function setup() {
   createCanvas(400, 200);
 }
 
 function draw() {
   val = "rgb(255, 255, 255)";
-  background(255, 255, 255);
+  background(255,255,255);
 
-  let score = 95;
+  let score = 75
+  
 
   textAlign(CENTER, CENTER);
   textSize(24);

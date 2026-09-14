@@ -173,12 +173,13 @@ stroke(1)
  fill(22, 183, 36)
   ellipse(390 + wind, 270, 90, 90);
    
+  //de bladeren/leaves bewegen.
 
    /* stoplicht */
    stroke(1);
    fill(60, 60, 60);
    rect(700, 200, 40, 120);
-   
+
   fill(light == 0 ? color(255, 0, 0) : color(80, 0, 0));
    circle(720, 220, 25);
   fill(light == 1 ? color(0, 255, 0) : color(0, 80, 0));
@@ -204,7 +205,7 @@ stroke(1)
  ellipse(car + 50, 560,50, 50);
  ellipse(car + 180, 560, 50, 50);
 
- // Stop alleen bij een stoplicht als het rood is en de auto eraan komt.
+ // Stopt alleen bij een stoplicht als het rood is en de auto eraan komt.
  // De voorkant van de auto is auto + 220, en de stopstreep bevindt zich vlak voor het stoplicht.
  const stopLine = 680;
  const carFront = car + 220;
@@ -212,7 +213,7 @@ stroke(1)
  if (light == 0 && car < stopLine && carFront >= stopLine) {
   carspeed = 0;
  } else if (light == 2 && approachingStopLine) {
-  // Rem rustig af wanneer het stoplicht oranje is.
+  // Remt rustig af wanneer het stoplicht oranje is.
   carspeed = max(0, carspeed - 0.1);
  } else {
   carspeed = min(5, carspeed + 0.1);
