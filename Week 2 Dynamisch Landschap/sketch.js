@@ -217,6 +217,7 @@ stroke(1)
   car = -55; 
 
 
+
    // voorgrondboom: wordt na de auto getekend en staat daardoor dichterbij
    //de boom staat hier want anders ging de auto er overheen. 
  stroke(1);

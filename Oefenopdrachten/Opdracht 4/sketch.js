@@ -2,8 +2,8 @@
  let teller = 0 
 
  let light = 0;
- let Xball = 0
- let Yball = 0
+ let Xball = 650
+ let Yball = 220
 
 function keyPressed() { 
   if (keyCode == ENTER) {
@@ -27,6 +27,7 @@ function draw() {
 //instructies.
 val = "rgb(1, 14, 20)";
 fill(1, 14, 20)
+  textSize(12);
   text("1. Houd B in om een blokje te laten verschijnen.", 20, 20);
   text("2. Druk op spatie om het getal op 0 te zetten.", 20, 130);
   text("3. Druk op enter om van rood -> groen -> oranje te gaan.", 20, 240);
@@ -39,6 +40,7 @@ fill(1, 14, 20)
   }
 
 //teller
+  textSize(16);
   text(teller, 20, 180);
 
   teller++;
@@ -61,21 +63,21 @@ fill(1, 14, 20)
    fill(60, 60, 60);
    rect(360, 320, 20, 120);
 
-//eightball
-fill(0)
-val = "rgb(243, 247, 248)";
-fill(0, 8, 9)
-circle(Xball, Yball, 120); 
-  
-  //490,130, 200,200, )
+// eight ball
+noStroke();
+fill(0, 8, 9);
+circle(Xball, Yball, 120);
 
-val = "rgb(0, 8, 9)";
-fill(243, 247, 248)
-circle(Xball, Yball, -5, 90);
-
-// 490,130, 140,140, )
-fill(0)
-text('8', Xball - 13, Yball + 5)
+// White circle and the number eight
+fill(243, 247, 248);
+circle(Xball, Yball, 58);
+fill(0, 8, 9);
+textAlign(CENTER, CENTER);
+textSize(42);
+textStyle(BOLD);
+text('8', Xball, Yball + 1);
+textStyle(NORMAL);
+textAlign(LEFT, BASELINE);
 
 if(keyIsDown(UP_ARROW) || keyIsDown(87)) {
   Yball = Yball - 1
