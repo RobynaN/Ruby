@@ -210,7 +210,7 @@ stroke(1)
  const stopLine = 680;
  const carFront = car + 220;
  const approachingStopLine = car < stopLine && carFront >= stopLine - 100;
- if (light == 0 && car < stopLine && carFront >= stopLine) {
+ if (light == 0 && car < stopLine && carFront < stopLine && carFront >= stopLine - 100) {
   carspeed = 0;
  } else if (light == 2 && approachingStopLine) {
   // Remt rustig af wanneer het stoplicht oranje is.
@@ -218,6 +218,7 @@ stroke(1)
  } else {
   carspeed = min(5, carspeed + 0.1);
  }
+ 
  car = car + carspeed; 
  if(car>=855)
   car = -55; 
