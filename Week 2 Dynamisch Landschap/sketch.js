@@ -120,10 +120,6 @@ function draw() {
    fill(51, 144, 58)
   ellipse(120 + wind, 300, 90, 90);
 
-  //  tree1X = tree1X + treespeed;
-  //  if(tree1X>= 80)
-    // tree1X = 20;
-
    stroke(1)
    fill(77, 51, 22)
    rect(370, 280, 30, 140);
