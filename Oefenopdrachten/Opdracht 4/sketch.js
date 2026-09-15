@@ -62,7 +62,6 @@ fill(1, 14, 20)
    rect(360, 320, 20, 120);
 
 //eightball
-textSize(50)
 fill(0)
 val = "rgb(243, 247, 248)";
 fill(0, 8, 9)
@@ -96,7 +95,7 @@ if(Xball>= 850) {
 if(Xball<= -50) {
   Xball = 850
 }
-if(Yballball>= 470) {
+if(Yball >= 470) {
   Yball = -50
 }
 if(Yball <= -50) {
