@@ -205,15 +205,12 @@ stroke(1)
  ellipse(car + 50, 560,50, 50);
  ellipse(car + 180, 560, 50, 50);
 
- // Stopt alleen bij een stoplicht als het rood is en de auto eraan komt.
- // De voorkant van de auto is auto + 220, en de stopstreep bevindt zich vlak voor het stoplicht.
  const stopLine = 680;
  const carFront = car + 220;
  const approachingStopLine = car < stopLine && carFront >= stopLine - 100;
  if (light == 0 && car < stopLine && carFront < stopLine && carFront >= stopLine - 100) {
   carspeed = 0;
  } else if (light == 2 && approachingStopLine) {
-  // Remt rustig af wanneer het stoplicht oranje is.
   carspeed = max(0, carspeed - 0.1);
  } else {
   carspeed = min(5, carspeed + 0.1);
