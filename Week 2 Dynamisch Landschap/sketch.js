@@ -36,7 +36,6 @@ function draw() {
   stroke(0, 0 ,0)
   fill(255, 196, 0);
   ellipse(sun, 70, 100, 100);
- //circleZon = circleZon + 2;
 
  sun = sun + sunspeed;
 
