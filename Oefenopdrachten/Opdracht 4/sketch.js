@@ -2,6 +2,9 @@
  let teller = 0 
 
  let light = 0;
+ let Xball = 0
+ let Yball = 0
+
 function keyPressed() { 
   if (keyCode == ENTER) {
     light = light + 1;
@@ -59,13 +62,45 @@ fill(1, 14, 20)
    rect(360, 320, 20, 120);
 
 //eightball
-
+textSize(50)
+fill(0)
 val = "rgb(243, 247, 248)";
 fill(0, 8, 9)
-circle(490,130, 200,200, )
+circle(Xball, Yball, 120); 
+  
+  //490,130, 200,200, )
 
 val = "rgb(0, 8, 9)";
 fill(243, 247, 248)
-circle(490,130, 140,140, )
-text()
+circle(Xball, Yball, -5, 90);
+
+// 490,130, 140,140, )
+fill(0)
+text('8', Xball - 13, Yball + 5)
+
+if(keyIsDown(UP_ARROW) || keyIsDown(87)) {
+  Yball = Yball - 1
+}
+if(keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+  Yball =  Yball + 1 
+}
+if(keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+  Xball = Xball - 1
+}
+if(keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+  Xball = Xball + 1
+}
+if(Xball>= 850) {
+  Xball = -50
+}
+if(Xball<= -50) {
+  Xball = 850
+}
+if(Yballball>= 470) {
+  Yball = -50
+}
+if(Yball <= -50) {
+  Yball = 470
+}
+
 }
