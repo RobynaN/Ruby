@@ -82,6 +82,7 @@ function draw() {
  //triangle(x1, y1, x2, y2, x3, y3);
  triangle(700, 400, 450, 400, 580, 130)
  triangle(0, 400, 400, 400, 200, 130)
+ fill(70, 70, 70)
  triangle(300, 400, 490, 400, 400, 90)
 
  /*grass*/ 
@@ -167,7 +168,7 @@ stroke(1)
  val = "rgb(22, 183, 36)";
  fill(22, 183, 36)
   ellipse(390 + wind, 270, 90, 90);
-   
+
   //de bladeren/leaves bewegen.
 
    /* stoplicht */
@@ -216,4 +217,17 @@ stroke(1)
   car = -55; 
 
 
+   // voorgrondboom: wordt na de auto getekend en staat daardoor dichterbij
+   //de boom staat hier want anders ging de auto er overheen. 
+ stroke(1);
+ fill(77, 51, 22);
+ rect(40, 300, 55, 300);
+
+ noStroke();
+ fill(42, 121, 0);
+ ellipse(25 + wind, 255, 180, 170);
+ ellipse(115 + wind, 270, 190, 180);
+ fill(22, 183, 36);
+ ellipse(70 + wind, 210, 180, 170);
+ ellipse(150 + wind, 230, 160, 150);
 }
