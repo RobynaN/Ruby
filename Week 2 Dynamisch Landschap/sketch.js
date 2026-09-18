@@ -48,7 +48,6 @@ function draw() {
   noStroke()
   fill(255,255,255)
   ellipse(cloud1X, 200, 90, 70);
- //cloud1X(160, 60, 60)
 
  ellipse(cloud1X + 55, 200, 90, 90);
  ellipse(cloud1X + 90, 200, 80, 70);
@@ -105,7 +104,7 @@ function draw() {
  rect(0, 510, 800, 20);
 
 
- /*tree's*/
+ /*trees*/
  val = "rgb(77, 51, 22)";
  stroke(1)
  fill(77, 51, 22)
@@ -195,7 +194,6 @@ stroke(1)
   fill(229, 67, 231)
   rect(car, 440, 180, 110);
   rect(car + 150, 480,70, 70);
-  // triangle(car, 620, 400, 400,450, 560, 360)
   val = "rgb(113, 117, 113)";
   fill(113, 117,113)
  ellipse(car + 50, 560,50, 50);
@@ -214,12 +212,12 @@ stroke(1)
  
  car = car + carspeed; 
  if(car>=855)
-  car = -55; 
+  car = -255; 
 
 
 
    // voorgrondboom: wordt na de auto getekend en staat daardoor dichterbij
-   //de boom staat hier want anders ging de auto er overheen. 
+
  stroke(1);
  fill(77, 51, 22);
  rect(40, 300, 55, 300);
