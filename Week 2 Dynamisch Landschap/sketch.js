@@ -216,7 +216,7 @@ stroke(1)
 
 
 
-   // voorgrondboom: wordt na de auto getekend en staat daardoor dichterbij
+   // voorgrondboom: staat na de auto want anders ging de auto eroverheen.
 
  stroke(1);
  fill(77, 51, 22);
