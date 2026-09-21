@@ -25,7 +25,7 @@ function draw() {
 
     noStroke();
     fill(80);
-    rect(105 + kolom * 100, 55 + rij * 100, 90, 90);
+    rect(100 + kolom * 100, 50 + rij * 0, 90, 90);
   }
   
 
