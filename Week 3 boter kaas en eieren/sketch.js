@@ -7,16 +7,22 @@ function draw() {
 
   // speelveld base
   stroke(0);
-  strokeWeight(16);
-  fill(128);
-  rect(100, 50, 300, 300, 20);
+  strokeWeight(24);
+  fill(0);
+  rect(100, 50, 300, 300,10);
   
   stroke(0);
-  strokeWeight(8);
-  rect(196, 50, 8, 300, 40);
-  rect(296, 50, 8, 300, 40);
-  rect(100, 146, 300, 8, 40);
-  rect(100, 246, 300, 8, 40);
+  strokeWeight(10);
+  fill(128);
+  rect(100, 50, 90, 90,10);
+  rect(205, 50, 90, 90,10);
+  rect(310, 50, 90, 90,10);
+  rect(100, 155, 90, 90,10);
+  rect(205, 155, 90, 90,10);
+  rect(310, 155, 90, 90,10);
+  rect(100, 260, 90, 90,10);
+  rect(205, 260, 90, 90,10);
+  rect(310, 260, 90, 90,10);
 
   //de speelvakjes. 
   if (mouseX >= 100 && mouseX < 400 && mouseY >= 50 && mouseY < 350) {
@@ -25,9 +31,9 @@ function draw() {
 
     noStroke();
     fill(80);
-    rect(100 + kolom * 100, 50 + rij * 0, 90, 90);
+    rect(100 + kolom * 100 + 5, 50 + rij * 100 + 5, 90, 90,10);
   }
-  
+//de x en o's
 
 
 }
