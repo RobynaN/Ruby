@@ -55,15 +55,15 @@ function draw() {
   //tekst 
  val = "rgb(105, 159, 204)"; 
 fill(105, 159, 204);
-stroke(1)
+strokeWeight(1)
 textAlign(CENTER, CENTER);
-textStyle(BOLD);
+//textStyle(BOLD);
 textSize(19)
 if(afgelopen) {
-  text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : 'speler' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 420);
+  text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : ' speler ' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 420);
 
 } else{
-  text('speler' + speler + 'aan de beurt' + ( speler === 1 ? 'blauw' : 'rood') +')', 250, 420);
+  text(' speler ' + speler + ' aan de beurt ' + ( speler === 1 ? 'blauw' : 'rood') +')', 250, 420);
    }
 }
 function mousePressed() {
