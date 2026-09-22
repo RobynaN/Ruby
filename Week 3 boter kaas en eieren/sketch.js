@@ -32,7 +32,7 @@ function draw() {
   rect(205, 260, 90, 90,10);
   rect(310, 260, 90, 90,10);
 
-  //de mouse
+  //de mouse hover 
   if (mouseX >= 100 && mouseX < 400 && mouseY >= 50 && mouseY < 350) {
     let kolom = floor((mouseX - 100) / 100);
     let rij = floor((mouseY - 50) / 100);
@@ -53,14 +53,17 @@ function draw() {
   }
 
   //tekst 
-fill(0);
+ val = "rgb(105, 159, 204)"; 
+fill(105, 159, 204);
+stroke(1)
 textAlign(CENTER, CENTER);
-textSize(14);
+textStyle(BOLD);
+textSize(19)
 if(afgelopen) {
   text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : 'speler' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 250);
 
 } else{
-  text('speler' + speler + 'aan de beurt' + ( speler === 1 ? 'blauw' : 'rood') +')', 250, 380);
+  text('speler' + speler + 'aan de beurt' + ( speler === 1 ? 'blauw' : 'rood') +')', 250, 420);
    }
 }
 function mousePressed() {
