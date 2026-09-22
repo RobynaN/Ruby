@@ -60,7 +60,7 @@ textAlign(CENTER, CENTER);
 textStyle(BOLD);
 textSize(19)
 if(afgelopen) {
-  text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : 'speler' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 250);
+  text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : 'speler' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 420);
 
 } else{
   text('speler' + speler + 'aan de beurt' + ( speler === 1 ? 'blauw' : 'rood') +')', 250, 420);
