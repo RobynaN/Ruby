@@ -1,7 +1,7 @@
-// let bord;
-// let speler = 1;
-// let afgelopen = false;
-// let winnaar = 0;
+let bord;
+let speler = 1;
+let afgelopen = false;
+let winnaar = 0;
 
 // let winRij = -1;
 // let winKolom = -1;
@@ -10,6 +10,7 @@
 
 function setup() {
   createCanvas(500, 400);
+  bord = Array.from({lenght: 3 }, () => Array(3).fill(0));
 }
 
 function draw() {
@@ -43,6 +44,17 @@ function draw() {
     fill(80);
     rect(100 + kolom * 100 + 5, 50 + rij * 100 + 5, 90, 90,10);
   }
+  //vakjes kleuren
+
+  for(let rij = 0: rij < 3; rij++) {
+    for(let kolom = 0; kolom < 3; kolom++) {
+      if(bord[rij][kolom]!== 0) {
+        fill(bord[rij][kolom] === 1 ? 'blauw' : 'rood');
+        noStroke();
+        rect(100+ kolom * 100 + 5, 50 + rij * 100 + 5, 90, 90, 10);
+      }
+    }
+  }
 
 //  //winnende streep
 //  if(afgelopen && winnaar != 0) {
@@ -71,6 +83,52 @@ function draw() {
 //  }
 //  }
   //tekst 
+fill(0);
+textAlign(CENTER, CENTER);
+textSize(14);
+if(afgelopen) {
+  text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : 'speler' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 250);
 
+} else{
+  text('speler' + speler + 'aan de beurt'(' + ( speler === 1 ? 'blauw' : 'rood) +')', 250, 380);
+   }
+}
+function mousePressed() {
+  if(afgelopen) {
+    bord = Array.from({lenght : 3}, () => Array(3).fill(0));
+    speler = 1;
+    winnaar = 0;
+    afgelopen = false; 
+    return;
+  }
 
+  if (mouseX < 100 || mouseX >= 400 || mouseY <50 || mouseY >= 350) {
+    return;
+  }
+
+  let kolom = floor((mouseX - 100) / 100);
+  let rij = floor((mouseY - 50) / 100); 
+  if(bord[rij][kolom] !== 0) return;
+
+  bord[rij][kolom] = speler; 
+
+  if(heeftGewonnen(speler)) {
+    winnaar = speler;
+    afgelopen = true;
+  } else if(bord.every(rij => rij.every(vakje => vakje !== 0))) {
+    afgelopen = true; 
+  } else {
+    speler = speler ==1 ? 2 : 1;
+
+  }
+}
+
+function heeftGewonnen(speler) {
+  for(let i = o ; i < 3; i++) { 
+    if(bord[i][0] === speler && bord[i][1] === speler && bord[i][2] === speler) return true; 
+    if(bord[0][i] === speler && bord[1][i] === speler && bord[2][i]=== speler) return true;
+  
+  }
+  return(bord[0][0] === speler && bord[1][1] === speler && bord[2][2] === speler) || 
+   (bord[0][2] === speler && bord[1][1] === speler && bord[2][0] ===speler);
 }
