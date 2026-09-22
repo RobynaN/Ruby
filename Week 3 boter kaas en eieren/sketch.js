@@ -47,7 +47,7 @@ function draw() {
       if (bord[rij][kolom] !== 0) {
         fill(bord[rij][kolom] === 1 ? 'blue' : 'red');
         noStroke();
-        rect(100+ kolom * 100 + 5, 50 + rij * 100 + 5, 90, 90, 10);
+        rect(100+ kolom * 100 + 5, 45 + rij * 105 + 5, 90, 90, 10);
       }
     }
   }
