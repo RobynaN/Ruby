@@ -13,6 +13,10 @@ function setup() {
 function draw() {
   background(220);
 
+//achtergrond veranderd. 
+  background(speler === 1 ? 'blue' : 'red');
+
+
   // speelveld base
   stroke(0);
   strokeWeight(24);
@@ -65,6 +69,8 @@ if(afgelopen) {
   text(' speler ' + speler + ' aan de beurt ' + ( speler === 1 ? ' blauw ' : ' rood ' ) +')', 250, 420);
    }
 }
+
+//vakjes etc.
 function mousePressed() {
   if(afgelopen) {
     bord = Array.from({length : 3}, () => Array(3).fill(0));
@@ -95,12 +101,14 @@ function mousePressed() {
   }
 }
 
+//controleert of een hele rij van dezelfde speler is 
 function heeftGewonnen(speler) {
   for(let i = 0; i < 3; i++) { 
     if(bord[i][0] === speler && bord[i][1] === speler && bord[i][2] === speler) return true; 
     if(bord[0][i] === speler && bord[1][i] === speler && bord[2][i]=== speler) return true;
   
   }
+  //de twee diagonalen worden gecontroleerd.
   return(bord[0][0] === speler && bord[1][1] === speler && bord[2][2] === speler) || 
    (bord[0][2] === speler && bord[1][1] === speler && bord[2][0] ===speler);
 }
