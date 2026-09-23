@@ -76,8 +76,8 @@ function draw() {
   }
 
   //tekst 
-  val = "rgb(105, 159, 204)";
-  fill(105, 159, 204);
+  val = "rgb(247, 249, 250)";
+  fill(247, 249, 250);
   strokeWeight(0)
   textAlign(CENTER, CENTER);
   textSize(20)
