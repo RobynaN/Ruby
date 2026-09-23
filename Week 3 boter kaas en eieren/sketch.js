@@ -12,7 +12,7 @@ let checkWin = 1;
 
 function setup() {
   createCanvas(850, 600);
- //maakt een 3x3 bord. 
+ //Array.from maakt een 3x3 bord. 
   bord = Array.from({ length: 3 }, () => Array(3).fill(0));
 }
 
