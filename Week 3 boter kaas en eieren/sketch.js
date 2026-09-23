@@ -3,7 +3,10 @@ let speler = 1;
 let afgelopen = false;
 let winnaar = 0;
 
-
+let turn = 0;
+let turns = 0;
+let winningB = false;
+let winningR = false;
 
 function setup() {
   createCanvas(550, 500);
@@ -14,9 +17,25 @@ function draw() {
   background(220);
 
   // Achtergrond verandert per speler.
-  background(speler === 1 ? 'blue' : 'red');
+  turns = speler - 1;
+  winningB = afgelopen && winnaar === 1;
+  winningR = afgelopen && winnaar === 2;
 
+  if (turns == 0) {
+    background("blue");
+  }
+  else if (turns == 1) {
+    background("red");
+  }
 
+  // achtergrond veranderd als iemand wint
+  if (winningB === true) {
+    background("blue")
+  }
+  if (winningR === true) {
+    background("red")
+  }
+  
   // speelveld base
   stroke(0);
   strokeWeight(24);
