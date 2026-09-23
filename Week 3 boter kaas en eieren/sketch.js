@@ -5,8 +5,8 @@ let winnaar = 0;
 
 let turn = 0;
 let turns = 0;
+let winningA = false;
 let winningB = false;
-let winningR = false;
 
 function setup() {
   createCanvas(550, 500);
@@ -18,8 +18,8 @@ function draw() {
 
   // Achtergrond verandert per speler.
   turns = speler - 1;
-  winningB = afgelopen && winnaar === 1;
-  winningR = afgelopen && winnaar === 2;
+  winningA = afgelopen && winnaar === 1;
+  winningB = afgelopen && winnaar === 2;
 
   if (turns == 0) {
     background("blue");
@@ -29,10 +29,10 @@ function draw() {
   }
 
   // achtergrond veranderd als iemand wint
-  if (winningB === true) {
+  if (winningA === true) {
     background("blue")
   }
-  if (winningR === true) {
+  if (winningB === true) {
     background("red")
   }
   
