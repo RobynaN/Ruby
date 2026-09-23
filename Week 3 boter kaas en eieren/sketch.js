@@ -45,7 +45,7 @@ function draw() {
   for(let rij = 0; rij < 3; rij++) {
     for(let kolom = 0; kolom < 3; kolom++) {
       if (bord[rij][kolom] !== 0) {
-        fill(bord[rij][kolom] === 1 ? 'blue' : 'red');
+        fill(bord[rij][kolom] === 1 ? ' blue ' : ' red ');
         noStroke();
         rect(100+ kolom * 100 + 5, 45 + rij * 105 + 5, 90, 90, 10);
       }
@@ -55,15 +55,14 @@ function draw() {
   //tekst 
  val = "rgb(105, 159, 204)"; 
 fill(105, 159, 204);
-strokeWeight(1)
+strokeWeight(0)
 textAlign(CENTER, CENTER);
-//textStyle(BOLD);
-textSize(19)
+textSize(20)
 if(afgelopen) {
   text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : ' speler ' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 420);
 
 } else{
-  text(' speler ' + speler + ' aan de beurt ' + ( speler === 1 ? 'blauw' : 'rood') +')', 250, 420);
+  text(' speler ' + speler + ' aan de beurt ' + ( speler === 1 ? ' blauw ' : ' rood ' ) +')', 250, 420);
    }
 }
 function mousePressed() {
@@ -91,7 +90,7 @@ function mousePressed() {
   } else if(bord.every(rij => rij.every(vakje => vakje !== 0))) {
     afgelopen = true; 
   } else {
-    speler = speler ==1 ? 2 : 1;
+    speler = speler == 1 ? 2 : 1;
 
   }
 }
