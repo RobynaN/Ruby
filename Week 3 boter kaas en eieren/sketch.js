@@ -8,8 +8,11 @@ let turns = 0;
 let winningA = false;
 let winningB = false;
 
+let checkWin = 1; 
+
 function setup() {
-  createCanvas(550, 500);
+  createCanvas(850, 600);
+ //maakt een 3x3 bord. 
   bord = Array.from({ length: 3 }, () => Array(3).fill(0));
 }
 
@@ -35,42 +38,47 @@ function draw() {
   if (winningB === true) {
     background("red")
   }
-  
+
   // speelveld base
   stroke(0);
   strokeWeight(24);
   fill(0);
-  rect(100, 50, 300, 300, 10);
+  rect(275, 150, 300, 300, 10);
 
   stroke(0);
   strokeWeight(10);
   fill(128);
-  rect(100, 50, 90, 90, 10);
-  rect(205, 50, 90, 90, 10);
-  rect(310, 50, 90, 90, 10);
-  rect(100, 155, 90, 90, 10);
-  rect(205, 155, 90, 90, 10);
-  rect(310, 155, 90, 90, 10);
-  rect(100, 260, 90, 90, 10);
-  rect(205, 260, 90, 90, 10);
-  rect(310, 260, 90, 90, 10);
+  rect(275, 150, 90, 90, 10);
+  rect(380, 150, 90, 90, 10);
+  rect(485, 150, 90, 90, 10);
+  rect(275, 255, 90, 90, 10);
+  rect(380, 255, 90, 90, 10);
+  rect(485, 255, 90, 90, 10);
+  rect(275, 360, 90, 90, 10);
+  rect(380, 360, 90, 90, 10);
+  rect(485, 360, 90, 90, 10);
 
   //de mouse hover 
-  if (mouseX >= 100 && mouseX < 400 && mouseY >= 50 && mouseY < 350) {
-    let kolom = floor((mouseX - 100) / 100);
-    let rij = floor((mouseY - 50) / 100);
+  //controleert of de muis boven het bord staat.
+  if (mouseX >= 275 && mouseX < 575 && mouseY >= 150 && mouseY < 450) {
 
+  //welk vakje wijst de muis aan. 
+    let kolom = floor((mouseX - 275) / 100);
+    let rij = floor((mouseY - 150) / 100);
+
+    //het vakje waar mijn muis overhangt wordt een andere kleur (blauw of rood)
     noStroke();
     fill(80);
-    rect(100 + kolom * 100 + 5, 50 + rij * 100 + 5, 90, 90, 10);
+    rect(275 + kolom * 100 + 5, 150 + rij * 100 + 5, 90, 90, 10);
   }
+
   //vakjes kleuren
   for (let rij = 0; rij < 3; rij++) {
     for (let kolom = 0; kolom < 3; kolom++) {
-      if (bord[rij][kolom] !== 0) {
+      if (bord[rij][kolom] !== 0) {    //zit er een speler in dit vakje? 
         fill(bord[rij][kolom] === 1 ? ' blue ' : ' red ');
         noStroke();
-        rect(100 + kolom * 100 + 5, 45 + rij * 105 + 5, 90, 90, 10);
+        rect(275 + kolom * 100 + 5, 145 + rij * 105 + 5, 90, 90, 10);
       }
     }
   }
@@ -80,16 +88,17 @@ function draw() {
   fill(247, 249, 250);
   strokeWeight(0)
   textAlign(CENTER, CENTER);
-  textSize(20)
+  textSize(30)
   if (afgelopen) {
-    text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : ' speler ' + winnaar + 'winnaar! klik om opnieuw te beginnen', 250, 420);
+    text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : ' speler ' + winnaar + 'winnaar! klik om opnieuw te beginnen', 420, 80 );
 
   } else {
-    text(' speler ' + speler + ' aan de beurt ' + (speler === 1 ? ' blauw ' : ' rood ') + ')', 250, 420);
+    text(' speler ' + speler + ' aan de beurt ' + (speler === 1 ? ' blauw ' : ' rood '), 420, 80);
   }
 }
 
-//vakjes etc.
+//vakjes, draw, win. 
+//het spel reset als het afgelopen is. 
 function mousePressed() {
   if (afgelopen) {
     bord = Array.from({ length: 3 }, () => Array(3).fill(0));
@@ -98,13 +107,14 @@ function mousePressed() {
     afgelopen = false;
     return;
   }
-
-  if (mouseX < 100 || mouseX >= 400 || mouseY < 50 || mouseY >= 350) {
+ //zorgt ervoor dat er niks gebeurt als ik buiten het veld klik. 
+  if (mouseX < 275 || mouseX >= 575 || mouseY < 150 || mouseY >= 450) {
     return;
   }
 
-  let kolom = floor((mouseX - 100) / 100);
-  let rij = floor((mouseY - 50) / 100);
+  let kolom = floor((mouseX - 275) / 100);
+  let rij = floor((mouseY - 150) / 100);
+  //zorgt ervoor dat je niet op een vakje kan klikken die al gekozen was. 
   if (bord[rij][kolom] !== 0) return;
 
   bord[rij][kolom] = speler;
@@ -112,6 +122,9 @@ function mousePressed() {
   if (heeftGewonnen(speler)) {
     winnaar = speler;
     afgelopen = true;
+    //true weergeeft of jij of hij heeft gewonnen ja of nee. 
+
+    //draw
   } else if (bord.every(rij => rij.every(vakje => vakje !== 0))) {
     afgelopen = true;
   } else {
