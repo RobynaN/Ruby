@@ -8,7 +8,7 @@ let turns = 0;
 let winningA = false;
 let winningB = false;
 
-let checkWin = 1; 
+let checkWin = 1;
 let spookyFont;
 
 function preload() {
@@ -17,8 +17,8 @@ function preload() {
 
 function setup() {
   createCanvas(850, 600);
- //Array.from maakt een 3x3 bord. 
-  bord = Array.from({ length: 3 }, () => Array(3).fill(0)); 
+  //Array.from maakt een 3x3 bord. 
+  bord = Array.from({ length: 3 }, () => Array(3).fill(0));
 }
 
 function draw() {
@@ -67,7 +67,7 @@ function draw() {
   //controleert of de muis boven het bord staat.
   if (mouseX >= 275 && mouseX < 575 && mouseY >= 150 && mouseY < 450) {
 
-  //welk vakje wijst de muis aan. 
+    //welk vakje wijst de muis aan. 
     let kolom = floor((mouseX - 275) / 100);
     let rij = floor((mouseY - 150) / 100);
 
@@ -96,8 +96,8 @@ function draw() {
   textFont(spookyFont);
   textSize(35)
   if (afgelopen) {
-    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 420, 80);  
-      text('klik om opnieuw te beginnen', 425, 110); 
+    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 420, 80);
+    text('klik om opnieuw te beginnen', 425, 110);
 
   } else {
     text(' speler ' + speler + ' aan de beurt ', 425, 80);
@@ -115,7 +115,7 @@ function mousePressed() {
     afgelopen = false;
     return;
   }
- //zorgt ervoor dat er niks gebeurt als ik buiten het veld klik. 
+  //zorgt ervoor dat er niks gebeurt als ik buiten het veld klik. 
   if (mouseX < 275 || mouseX >= 575 || mouseY < 150 || mouseY >= 450) {
     return;
   }
