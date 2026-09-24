@@ -9,11 +9,16 @@ let winningA = false;
 let winningB = false;
 
 let checkWin = 1; 
+let spookyFont;
+
+function preload() {
+  spookyFont = loadFont("Spooky Monster.otf");
+}
 
 function setup() {
   createCanvas(850, 600);
  //Array.from maakt een 3x3 bord. 
-  bord = Array.from({ length: 3 }, () => Array(3).fill(0)); Window.alert()
+  bord = Array.from({ length: 3 }, () => Array(3).fill(0)); 
 }
 
 function draw() {
@@ -88,12 +93,15 @@ function draw() {
   fill(247, 249, 250);
   strokeWeight(0)
   textAlign(CENTER, CENTER);
+  textFont(spookyFont);
   textSize(30)
   if (afgelopen) {
-    text(winnaar === 0 ? 'Gelijkspel! klik om opnieuw te beginnen' : ' speler ' + winnaar + 'winnaar! klik om opnieuw te beginnen', 420, 80 );
+    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 420, 60);  
+      text('klik om opnieuw te beginnen', 420, 100); 
 
   } else {
-    text(' speler ' + speler + ' aan de beurt ' + (speler === 1 ? ' blauw ' : ' rood '), 420, 80);
+    text(' speler ' + speler + ' aan de beurt ', 425, 60);
+    text(speler === 1 ? 'blauw' : 'rood', 425, 90);
   }
 }
 
