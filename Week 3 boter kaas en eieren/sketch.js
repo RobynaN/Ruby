@@ -94,14 +94,14 @@ function draw() {
   strokeWeight(0)
   textAlign(CENTER, CENTER);
   textFont(spookyFont);
-  textSize(30)
+  textSize(35)
   if (afgelopen) {
-    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 420, 60);  
-      text('klik om opnieuw te beginnen', 420, 100); 
+    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 420, 80);  
+      text('klik om opnieuw te beginnen', 425, 110); 
 
   } else {
-    text(' speler ' + speler + ' aan de beurt ', 425, 60);
-    text(speler === 1 ? 'blauw' : 'rood', 425, 90);
+    text(' speler ' + speler + ' aan de beurt ', 425, 80);
+    text(speler === 1 ? 'blauw' : 'rood', 425, 110);
   }
 }
 
