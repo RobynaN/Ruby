@@ -154,6 +154,7 @@ function mousePressed() {
     //true weergeeft of jij of hij heeft gewonnen ja of nee. 
 
     //draw
+    //checkt of het gelijkspel is of de beurt naar een andere speler veder gaat
   } else if (bord.every(rij => rij.every(vakje => vakje !== 0))) {
     afgelopen = true;
   } else {
