@@ -118,7 +118,6 @@ function mouseClicked() {
   clickSound.play();
 }
 
-
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
     console.log("Linker pijltjestoets ingedrukt");
