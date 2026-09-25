@@ -115,11 +115,11 @@ function draw() {
 //mouse clicking sound. 
 function mouseClicked() {
   console.log("Muis geklikt op positie:", mouseX, mouseY);
- clickSound.play();
+  clickSound.play();
 }
 
 $('.mouse-click').click(function () {
-    MouseSound();
+  MouseSound();
 });
 
 function keyPressed() {
