@@ -126,7 +126,6 @@ function keyPressed() {
   }
 }
 
-
 //vakjes, draw, win. 
 //het spel reset als het afgelopen is. 
 function mousePressed() {
