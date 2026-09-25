@@ -94,16 +94,33 @@ function draw() {
   strokeWeight(0)
   textAlign(CENTER, CENTER);
   textFont(spookyFont);
-  textSize(35)
+  textSize(60)
   if (afgelopen) {
-    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 420, 80);
+    text(winnaar === 0 ? 'Gelijkspel!' : 'winnaar: speler ' + winnaar, 430, 300);
+    textSize(35)
     text('klik om opnieuw te beginnen', 425, 110);
 
   } else {
+
+    textSize(35)
     text(' speler ' + speler + ' aan de beurt ', 425, 80);
     text(speler === 1 ? 'blauw' : 'rood', 425, 110);
   }
 }
+
+//mouse clicking sound. 
+function mouseClicked() {
+  console.log("Muis geklikt op positie:", mouseX, mouseY);
+}
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    console.log("Linker pijltjestoets ingedrukt");
+  } else if (key === 'A' || key === 'a') {
+    console.log("De letter A is ingedrukt");
+  }
+}
+
 
 //vakjes, draw, win. 
 //het spel reset als het afgelopen is. 
