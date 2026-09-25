@@ -11,8 +11,12 @@ let winningB = false;
 let checkWin = 1;
 let spookyFont;
 
+let clickSound;
+
 function preload() {
   spookyFont = loadFont("Spooky Monster.otf");
+  clickSound = loadSound('clicksound.mp3');
+  clicksound.play
 }
 
 function setup() {
@@ -111,7 +115,12 @@ function draw() {
 //mouse clicking sound. 
 function mouseClicked() {
   console.log("Muis geklikt op positie:", mouseX, mouseY);
+ clickSound.play();
 }
+
+$('.mouse-click').click(function () {
+    MouseSound();
+});
 
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
