@@ -16,7 +16,7 @@ let clickSound;
 function preload() {
   spookyFont = loadFont("Spooky Monster.otf");
   clickSound = loadSound('clicksound.mp3');
-  clicksound.play
+  clickSound.play
 }
 
 function setup() {
@@ -118,9 +118,6 @@ function mouseClicked() {
   clickSound.play();
 }
 
-$('.mouse-click').click(function () {
-  MouseSound();
-});
 
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
