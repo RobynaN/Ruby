@@ -35,8 +35,8 @@ function draw() {
  //4
   let breedte = 0; 
   for (let i = 0; i < 4; i++) {
-     val = "rgb(0, 221, 255)";
-    fill(0, 221,255, blue);
+     val = "rgb(0, 4, 255)";
+    fill(0, 4,255 / i);
     rect(100 + i * 40 + breedte, 250, 40 + i * 25, 30 + i * 25);
     breedte = breedte + i * 25;
   }
