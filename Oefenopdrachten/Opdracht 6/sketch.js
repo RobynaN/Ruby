@@ -37,12 +37,12 @@ function draw() {
   }
 
   //4.
-  fill(0)
+  fill(0);
   let numbers = [400, 240, 10, 490, 30, 60, 244, 500, 301, 300];
-  let y = 30;
+  let y = 265;
   for (let i = 0; i < numbers.length; i++) {
     if (numbers[i] < 300) {
-      text(numbers[i], 120, y);
+      text(numbers[i], 20, y);
       y += 10;
     }
   }
