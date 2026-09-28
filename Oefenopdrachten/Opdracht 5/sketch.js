@@ -14,7 +14,7 @@ function draw() {
 
   //10 op een rij
   for (let i = 1; i < 10; i++) {
-    fill("blauw")
+    fill(i === 7 ? "blue" : "blauw")
     rect(i * 50, 10, 40, 40);
   }
 //5 op een rij onder elkaar. 
