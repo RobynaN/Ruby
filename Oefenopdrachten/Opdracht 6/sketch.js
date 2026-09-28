@@ -35,5 +35,16 @@ function draw() {
     fill(colors[i]);
     text(colors[i], 20, 215 + i * 10);
   }
+
+  //4.
+  fill(0)
+  let numbers = [400, 240, 10, 490, 30, 60, 244, 500, 301, 300];
+  let y = 30;
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] < 300) {
+      text(numbers[i], 120, y);
+      y += 10;
+    }
+  }
 }
 
