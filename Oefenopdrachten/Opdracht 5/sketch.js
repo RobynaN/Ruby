@@ -63,7 +63,7 @@ function draw() {
 // i <= 10 word de rechterhoek steeds breder. 
 //(i - 10) word steeds smaller na 11. 
     fill(whiteGrey ? "white" : "grey" );
-    let breedte2 = i <= 10 ? 10 + i * 3 : 40 - (i - 10) * 3;
+    let breedte2 = i <= 10 ? 10 + i * 10 : 110 - (i - 10) * 10;
     rect(670, 140 + i * 10, breedte2, 10);
     whiteGrey = !whiteGrey;
   }
