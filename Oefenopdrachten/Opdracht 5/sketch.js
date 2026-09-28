@@ -42,8 +42,8 @@ function draw() {
   }
 //5
   for (let i = 0; i < 6; i++) {
-     val = "rgb(204, 138, 255)";
-     fill(204, 138, 255)
+     val = "rgb(248, 248, 248)";
+     fill(248, 248, 248)
     strokeWeight(i + 1);
     ellipse(470 + i * 50, 40, 40, 40);
   }
