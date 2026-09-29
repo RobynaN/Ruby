@@ -132,6 +132,7 @@ function keyPressed() {
 
 //vakjes, draw, win. 
 //het spel reset als het afgelopen is. 
+//array.from is een manier om een nieuwe array te maken. 
 function mousePressed() {
   if (afgelopen) {
     bord = Array.from({ length: 3 }, () => Array(3).fill(0));
