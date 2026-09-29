@@ -54,7 +54,7 @@ function draw() {
     rotate(figuren.rotation + frameCount * figuren.speed); //Omdat frameCount steeds groter wordt,
     // verandert de rotatie steeds.
 
-   /tekening figuren. 
+   //tekening figuren. 
     fill(figuren.color[0], figuren.color[1], figuren.color[2], 220);
     if (figuren.shape === "circle") {
       ellipse(0, 0, size, size);
