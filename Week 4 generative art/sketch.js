@@ -7,12 +7,13 @@ function generateArt() {
     [110, 120, 255], [245, 235, 210], [185, 85, 210]
   ];
   const count = floor(random(35, 81));
-
   for (let i = 0; i < count; i++) {
+    const baseSize = random(14, 100);
+    
     art.push({
       x: random(-width / 2, width / 2),
       y: random(-height / 2, height / 2),
-      size: random(14, 100),
+      size: baseSize,
       shape: random(["circle", "square", "triangle"]),
       color: random(palette),
       speed: random(-0.025, 0.025),
