@@ -82,6 +82,10 @@ function draw() {
   }
 
   //vakjes kleuren
+  //beide for loops = de twee lussen werken samen en ze gaan langs alle 9 vakjes:
+  //if (bord[rij][kolom] !== 0) = Hier kijk je naar het huidige vakje.
+  //bord[rij][kolom] = pak een vakje van deze rij 
+  //bord[rij][kolom] === 1 = Is de speler in dit vakje speler 1? blauw is ja rood is nee.
   for (let rij = 0; rij < 3; rij++) {
     for (let kolom = 0; kolom < 3; kolom++) {
       if (bord[rij][kolom] !== 0) {    //zit er een speler in dit vakje? 
@@ -155,6 +159,7 @@ function mousePressed() {
 
     //draw
     //checkt of het gelijkspel is of de beurt naar een andere speler veder gaat
+    // => betekent 'doe dit.' 
   } else if (bord.every(rij => rij.every(vakje => vakje !== 0))) {
     afgelopen = true;
   } else {
