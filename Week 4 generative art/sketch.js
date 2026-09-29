@@ -6,18 +6,18 @@ function generateArt() {
     [255, 75, 90], [255, 190, 65], [65, 210, 190],
     [110, 120, 255], [245, 235, 210], [185, 85, 210]
   ];
-  const count = floor(random(35, 81));
+  const count = floor(random(35, 81)); //floor rondt het getal naar beneden af. 
   for (let i = 0; i < count; i++) {
-    const baseSize = random(14, 100);
-    
-    art.push({
-      x: random(-width / 2, width / 2),
+    const baseSize = random(14, 100); //kiest de groote tussen 14 en 100.
+
+    art.push({ //art.push() is dat ik iets toevoeg aan het einde van de array. 
+      x: random(-width / 2, width / 2), //random() kiest een willekeurig getal. 
       y: random(-height / 2, height / 2),
-      size: baseSize,
+      size: baseSize, 
       shape: random(["circle", "square", "triangle"]),
       color: random(palette),
-      speed: random(-0.025, 0.025),
-      phase: random(TWO_PI),
+      speed: random(-0.025, 0.025), //hier krijgt een figuur een snelheid. het kan negatief en positief zijn.
+      phase: random(TWO_PI), //two.pi betekent dat het een startfase aan een object geef voor de beweging.
       rotation: random(360)
     });
   }
@@ -53,6 +53,8 @@ function draw() {
     //rotate(figuren.rotation + frameCount * figuren.speed); = hier laat ik de figuren draaien. 
     rotate(figuren.rotation + frameCount * figuren.speed); //Omdat frameCount steeds groter wordt,
     // verandert de rotatie steeds.
+
+   /tekening figuren. 
     fill(figuren.color[0], figuren.color[1], figuren.color[2], 220);
     if (figuren.shape === "circle") {
       ellipse(0, 0, size, size);
