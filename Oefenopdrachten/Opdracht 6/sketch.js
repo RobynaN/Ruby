@@ -24,7 +24,7 @@ function draw() {
   text("6.", 120, 100);
   text("7.", 120, 190);
   text("8.", 120, 280);
-  text("9.", 240, 15);
+  text("9.", 200, 15);
 
   //1. 
   //alle kleuren van de array's worden onder elkaar gezet. 
@@ -114,6 +114,17 @@ function draw() {
   }
 
   //9
-
+  fill(0)
+  let randomNumbers = [];
+  let randomTotal = 0;
+  for (let i = 0; i < 12; i++) {
+    randomNumbers.push(round(random(100)));
+  }
+  for (let i = 0; i < randomNumbers.length; i++) {
+    text(randomNumbers[i], 200, 30 + i * 15);
+    randomTotal += randomNumbers[i];
+  }
+  text("Totaal: " + randomTotal, 200, 225);
+  text("Gemiddelde: " + (randomTotal / randomNumbers.length), 200, 245);
 }
 
