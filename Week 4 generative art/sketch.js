@@ -9,11 +9,12 @@ function generateArt() {
   const count = floor(random(35, 81)); //floor rondt het getal naar beneden af. 
   for (let i = 0; i < count; i++) {
     const baseSize = random(14, 100); //kiest de groote tussen 14 en 100.
-
+    
+    //constructor. 
     art.push({ //art.push() is dat ik iets toevoeg aan het einde van de array. 
       x: random(-width / 2, width / 2), //random() kiest een willekeurig getal. 
       y: random(-height / 2, height / 2),
-      size: baseSize, 
+      size: baseSize,
       shape: i < 4 ? "square" : random(["circle", "square", "triangle"]),
       color: random(palette),
       speed: random(-0.025, 0.040), //hier krijgt een figuur een snelheid. het kan negatief en positief zijn.
@@ -55,7 +56,7 @@ function draw() {
     //rotate(figuren.rotation + frameCount * figuren.speed); = hier laat ik de figuren draaien. 
     rotate(figuren.rotation + frameCount * (figuren.spinSpeed ?? figuren.speed));
 
-   //tekening figuren. 
+    //tekening figuren. 
     fill(figuren.color[0], figuren.color[1], figuren.color[2], 220);
     if (figuren.shape === "circle") {
       ellipse(0, 0, size, size);
