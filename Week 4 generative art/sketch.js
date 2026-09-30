@@ -14,9 +14,10 @@ function generateArt() {
       x: random(-width / 2, width / 2), //random() kiest een willekeurig getal. 
       y: random(-height / 2, height / 2),
       size: baseSize, 
-      shape: random(["circle", "square", "triangle"]),
+      shape: i < 4 ? "square" : random(["circle", "square", "triangle"]),
       color: random(palette),
-      speed: random(-0.025, 0.025), //hier krijgt een figuur een snelheid. het kan negatief en positief zijn.
+      speed: random(-0.025, 0.040), //hier krijgt een figuur een snelheid. het kan negatief en positief zijn.
+      spinSpeed: i < 8 ? random(2, 5) : null,
       phase: random(TWO_PI), //two.pi betekent dat het een startfase aan een object geef voor de beweging.
       rotation: random(360)
     });
@@ -30,7 +31,8 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  val = "rgb(31, 111, 120)";
+  background(31, 111, 120);
   translate(width / 2, height / 2);
   stroke(200);
 
@@ -51,8 +53,7 @@ function draw() {
       figuren.y + cos(drift + figuren.phase) * 18
     );
     //rotate(figuren.rotation + frameCount * figuren.speed); = hier laat ik de figuren draaien. 
-    rotate(figuren.rotation + frameCount * figuren.speed); //Omdat frameCount steeds groter wordt,
-    // verandert de rotatie steeds.
+    rotate(figuren.rotation + frameCount * (figuren.spinSpeed ?? figuren.speed));
 
    //tekening figuren. 
     fill(figuren.color[0], figuren.color[1], figuren.color[2], 220);

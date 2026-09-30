@@ -13,6 +13,7 @@ function setup() {
 
 function draw() {
   background(220);
+  frameRate(1); // laat de animatie langzamer gaan
   fill(0)
   let colors = ["red", "green", "blue", "purple", "yellow"];
 
@@ -66,6 +67,7 @@ function draw() {
       y += 10;
     }
   }
+  
 
   //5.
   //let total 0 = een variable waarbij total bij 0 begint.
@@ -127,4 +129,3 @@ function draw() {
   text("Totaal: " + randomTotal, 200, 225);
   text("Gemiddelde: " + (randomTotal / randomNumbers.length), 200, 245);
 }
-
