@@ -3,8 +3,8 @@ let art = [];
 function generateArt() {
   art = [];
   const palette = [
-    [255, 75, 90], [255, 190, 65], [65, 210, 190],
-    [110, 120, 255], [245, 235, 210], [185, 85, 210]
+    [173, 216, 230], [255, 182, 193], [255, 150, 150],
+    [25, 55, 120], [255, 240, 170]
   ];
   const count = floor(random(35, 81)); //floor rondt het getal naar beneden af. 
   for (let i = 0; i < count; i++) {
@@ -32,8 +32,8 @@ function setup() {
 }
 
 function draw() {
-  val = "rgb(31, 111, 120)";
-  background(31, 111, 120);
+  val = "rgb(91, 135, 186)";
+  background(91, 135, 180);
   translate(width / 2, height / 2);
   stroke(200);
 
