@@ -116,7 +116,14 @@ function draw() {
   }
 
   //9
-  fill(0)
+
+  //let randomNumbers = []; = hier maak ik een lege array aan.
+  //randomNumbers.push(round(random(100))); = hier kiest die een random getal tussen 0 en 100. 
+  //(round)= rond het getal af naar een heel getal.
+  //for (let i = 0; i < randomNumbers.length; i++) { = loopt door alle getallen van de array heen.
+  //randomTotal += randomNumbers[i]; = telt alle getallen bij elkaar op.
+  //text("Gemiddelde: " + (randomTotal / randomNumbers.length), 200, 245); = hier berekent die het gemiddelde.
+ fill(0)
   let randomNumbers = [];
   let randomTotal = 0;
   for (let i = 0; i < 12; i++) {
