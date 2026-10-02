@@ -1,9 +1,9 @@
 let art = [];
-val = "rgb(255, 130, 12)";
+val = "rgb(255, 196, 0)";
 const palette = [
   [173, 216, 230], [255, 182, 193], [255, 150, 150],
   [25, 55, 120], [255, 240, 170], [146, 0, 0], [153, 98, 184],
-  [255, 130, 12]
+  [255, 196,0]
 ];
 
 function generateArt() {
@@ -91,6 +91,8 @@ function keyPressed() {
         kleur.some((waarde, index) => waarde !== figuren.color[index])
       );
       figuren.color = random(andereKleuren);
+      figuren.x = random(-width / 2, width / 2);
+      figuren.y = random(-height / 2, height / 2);
     }
     return false;
   }
