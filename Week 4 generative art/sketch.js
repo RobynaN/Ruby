@@ -2,7 +2,7 @@ let art = [];
 val = "rgb(255, 130, 12)";
 const palette = [
   [173, 216, 230], [255, 182, 193], [255, 150, 150],
-  [25, 55, 120], [255, 240, 170], [146, 0 , 0], [153, 98, 184],
+  [25, 55, 120], [255, 240, 170], [146, 0, 0], [153, 98, 184],
   [255, 130, 12]
 ];
 
@@ -11,13 +11,13 @@ function generateArt() {
   const count = floor(random(35, 81)); //floor rondt het getal naar beneden af. 
   for (let i = 0; i < count; i++) {
     const baseSize = random(14, 100); //kiest de groote tussen 14 en 100.
-    
+
     //constructor. 
     art.push({ //art.push() is dat ik iets toevoeg aan het einde van de array. 
       x: random(-width / 2, width / 2), //random() kiest een willekeurig getal. 
       y: random(-height / 2, height / 2),
       size: baseSize,
-      shape: i < 4 ? "square" : random(["circle", "square", "triangle"]),
+      shape: i < 4 ? "square" : random(["circle", "square", "triangle", "hexagon"]),
       color: random(palette),
       speed: random(-0.025, 0.040), //hier krijgt een figuur een snelheid. het kan negatief en positief zijn.
       spinSpeed: i < 8 ? random(2, 5) : null,
@@ -64,6 +64,15 @@ function draw() {
       ellipse(0, 0, size, size);
     } else if (figuren.shape === "triangle") {
       triangle(-size / 2, size / 2, 0, -size / 2, size / 2, size / 2);
+    } else if (figuren.shape === "hexagon") {
+
+      const radius = size / 2;
+      beginShape();
+      for (let j = 0; j < 6; j++) {
+        const angle = (360 / 6) * j - 90;
+        vertex(radius * cos(angle), radius * sin(angle));
+      }
+      endShape(CLOSE);
     } else {
       rectMode(CENTER);
       rect(0, 0, size, size);
