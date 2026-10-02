@@ -1,11 +1,13 @@
 let art = [];
+val = "rgb(255, 130, 12)";
+const palette = [
+  [173, 216, 230], [255, 182, 193], [255, 150, 150],
+  [25, 55, 120], [255, 240, 170], [146, 0 , 0], [153, 98, 184],
+  [255, 130, 12]
+];
 
 function generateArt() {
   art = [];
-  const palette = [
-    [173, 216, 230], [255, 182, 193], [255, 150, 150],
-    [25, 55, 120], [255, 240, 170]
-  ];
   const count = floor(random(35, 81)); //floor rondt het getal naar beneden af. 
   for (let i = 0; i < count; i++) {
     const baseSize = random(14, 100); //kiest de groote tussen 14 en 100.
@@ -32,8 +34,8 @@ function setup() {
 }
 
 function draw() {
-  val = "rgb(91, 135, 186)";
-  background(91, 135, 180);
+  val = "rgb(0, 0, 0)";
+  background(0);
   translate(width / 2, height / 2);
   stroke(200);
 
@@ -70,10 +72,17 @@ function draw() {
   }
 }
 
-//als ik hier op enter druk veranderdt het scherm. 
+//als ik op enter druk dan veranderen de kleuren van de figuren. 
+//kleur.some((waarde, index) => waarde !== figuren.color[index]) = Deze kleur is anders,
+// dus deze kleur mag in andereKleuren.
 function keyPressed() {
   if (keyCode === ENTER) {
-    generateArt();
+    for (const figuren of art) {
+      const andereKleuren = palette.filter((kleur) => //filter() kijkt naar alle kleuren in palette
+        kleur.some((waarde, index) => waarde !== figuren.color[index])
+      );
+      figuren.color = random(andereKleuren);
+    }
     return false;
   }
 }
