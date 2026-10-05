@@ -1,14 +1,9 @@
-let image1;
-let image2;
-let image3;
-let image4;
-let image5;
-let image6;
+let quizImages = [];
 let currentQuestion = 0;
 let gameState = "start";
 let score = 0;
 
-const questions = [
+let questions = [
   {
     question: "In which series did Starscream ride a scooter?",
     answers: ["Transformers: Prime", "Transformers: Cyberverse", "Transformers: Robots in Disguise", "Transformers: Animated"],
@@ -17,27 +12,27 @@ const questions = [
   {
     question: "In which universe is Bumblebee capable of reattaching his body parts?",
     answers: ["Transformers Animated", "Bayverse", "Knightverse", "None of the above"],
-    correctAnswer: 1
+    correctAnswer: 2
   },
   {
     question: "Which Autobot transforms into a red and blue emergency vehicle and serves as the team's medic in G1?",
     answers: ["Ironhide", "Bumblebee", "Ratchet", "Jazz"],
-    correctAnswer: 2
+    correctAnswer: 3
   },
   {
     question: "What is Soundwave's position in the Decepticons? ",
     answers: ["3rd in command", "Spymaster", "Communications Officer", "All of the above"],
-    correctAnswer: 1
+    correctAnswer: 4
   },
   {
     question: "What was Optimus Prime's name before he became a Prime?",
     answers: ["B-127", "Orion Pax", "Vos", "D-16"],
-    correctAnswer: 1
+    correctAnswer: 2
   },
   {
     question: "What did Bumblebee lose at the beginning of the series Transformers Cyberverse?",
     answers: ["His voice", "His wings", "his memory", "his T-cog"],
-    correctAnswer: 2
+    correctAnswer: 3
   },
   {
     question: "What did Soundwave do before he became a gladiator in Transformers Prime?",
@@ -52,7 +47,7 @@ const questions = [
   {
     question: "What is Optimus Prime's faction?",
     answers: ["Decepticon", "Autobot", "Predacon", "Maximal"],
-    correctAnswer: 1
+    correctAnswer: 2
   },
   {
     question: "Who is the main human protagonist in the first Transformers movie (2007)?",
@@ -62,17 +57,16 @@ const questions = [
   {
     question: "What type of vehicle does Bumblebee transform into in the 2018 movie Bumblebee?",
     answers: ["1977 Chevrolet Camaro", "1967 Volkswagen Beetle", "1987 Ford Mustang", "1970 Dodge Charger"],
-    correctAnswer: 3
+    correctAnswer: 2
   }
 ];
 
 function preload() {
-  image1 = loadImage("starscream.jpg");
-  image2 = loadImage("bumblebee.jpg");
-  image3 = loadImage("ratchet.jpg");
-  image4 = loadImage("soundwave.jpg");
-  image5 = loadImage("optimus.jpg");
-  image6 = loadImage("bumblebee2.jpg");
+  let imageFiles = ["starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg", 
+  "optimus.jpg", "bumblebee2.jpg"];
+  for (let i = 0; i < imageFiles.length; i++) {
+    quizImages.push(loadImage(imageFiles[i]));
+  }
 }
 
 function setup() {
@@ -87,7 +81,12 @@ function draw() {
     return;
   }
 
-  const currentImage = getCurrentImage();
+  if (currentQuestion >= questions.length) {
+    drawEndScreen();
+    return;
+  }
+
+  let currentImage = getCurrentImage();
   if (currentImage) {
     image(currentImage, 100, 50, 600, 400);
   }
@@ -99,21 +98,18 @@ function draw() {
 }
 
 function mouseHover() {
-  circle(mouseX, mouseY, 50);
+  // Hover feedback is handled by the button and answer cards.
 }
 //image volgorde.
 function getCurrentImage() {
-  if (currentQuestion === 1 && image2) return image2;
-  if (currentQuestion === 2 && image3) return image3;
-  if (currentQuestion === 3 && image4) return image4;
-  if (currentQuestion === 4 && image5) return image5;
-  if (currentQuestion === 5 && image6) return image6;
-  return image1;
+  let imageIndex = currentQuestion;
+  if (imageIndex >= quizImages.length) imageIndex = 0;
+  return quizImages[imageIndex];
 }
 
 function drawStartScreen() {
-  if (image1) {
-    image(image1, 100, 50, 600, 400);
+  if (quizImages[0]) {
+    image(quizImages[0], 100, 50, 600, 400);
   }
 
   fill(255, 255, 255, 220);
@@ -128,29 +124,53 @@ function drawStartScreen() {
   textSize(18);
   text("Klik op Start om te beginnen.", width / 2, 290);
 
-  const buttonX = width / 2 - 110;
-  const buttonY = 330;
-  const buttonW = 220;
-  const buttonH = 60;
-  const hovering = mouseX >= buttonX && mouseX <= buttonX + buttonW &&
-    mouseY >= buttonY && mouseY <= buttonY + buttonH;
+  let button = startButtonBounds();
+  let hovering = isInside(mouseX, mouseY, button);
 
   fill(hovering ? 210 : 255);
   stroke(40, 90, 160);
   strokeWeight(2);
-  rect(buttonX, buttonY, buttonW, buttonH, 12);
+  rect(button.x, button.y, button.width, button.height, 12);
   noStroke();
   fill(0);
   textSize(26);
-  text("Start", width / 2, 370);
+  text("Start", width / 2, button.y + 38);
+  cursor(hovering ? HAND : ARROW);
+
+  textAlign(LEFT);
+}
+
+function drawEndScreen() {
+  fill(255, 255, 255, 220);
+  rect(120, 120, 560, 320, 20);
+
+  fill(0);
+  textAlign(CENTER);
+  textSize(36);
+  text("Quiz afgerond!", width / 2, 190);
+  textSize(26);
+  text(`Je score: ${score} / ${questions.length}`, width / 2, 245);
+  textSize(18);
+  text("Klik hieronder om opnieuw te beginnen.", width / 2, 285);
+
+  let button = endButtonBounds();
+  let hovering = isInside(mouseX, mouseY, button);
+
+  fill(hovering ? 210 : 255);
+  stroke(40, 90, 160);
+  strokeWeight(2);
+  rect(button.x, button.y, button.width, button.height, 12);
+  noStroke();
+  fill(0);
+  textSize(24);
+  text("Herstart", width / 2, button.y + 36);
   cursor(hovering ? HAND : ARROW);
 
   textAlign(LEFT);
 }
 
 function vragenbalk() {
-  const val = "rgb(247, 249, 250)";
-  fill(val);
+  fill("rgb(247, 249, 250)");
   rect(0, 0, width, 72);
   fill(0);
   textSize(16);
@@ -170,77 +190,52 @@ function answers() {
     return;
   }
 
-  const answerText = questions[currentQuestion].answers;
-
-  const cardWidth = (width - 28) / 2;
-  const cardHeight = 70;
-  const gap = 10;
-  const startY = height - 8 - cardHeight * 2 - gap;
+  let answerText = questions[currentQuestion].answers;
 
   textAlign(LEFT, TOP);
   textLeading(18);
 
   for (let i = 0; i < answerText.length; i++) {
-    const column = i % 2;
-    const row = Math.floor(i / 2);
-    const answerX = 8 + column * (cardWidth + gap);
-    const answerY = startY + row * (cardHeight + gap);
-    const hovering = mouseX >= answerX && mouseX <= answerX + cardWidth &&
-      mouseY >= answerY && mouseY <= answerY + cardHeight;
+    let card = answerBounds(i);
+    let hovering = isInside(mouseX, mouseY, card);
 
     fill(hovering ? 210 : 255);
     stroke(190);
     strokeWeight(1);
-    rect(answerX, answerY, cardWidth, cardHeight, 10);
+    rect(card.x, card.y, card.width, card.height, 10);
     noStroke();
     fill(0);
     textSize(17);
-    text(`${String.fromCharCode(65 + i)}. ${answerText[i]}`, answerX + 10, answerY + 10, cardWidth - 18, cardHeight - 18);
+    text(`${String.fromCharCode(65 + i)}. ${answerText[i]}`, card.x + 10, card.y + 10, card.width - 18, card.height - 18);
   }
 
   textAlign(LEFT, BASELINE);
 
-  const hoveringAnswer = answerText.some((_, i) => {
-    const column = i % 2;
-    const row = Math.floor(i / 2);
-    const answerX = 8 + column * (cardWidth + gap);
-    const answerY = startY + row * (cardHeight + gap);
-    return mouseX >= answerX && mouseX <= answerX + cardWidth &&
-      mouseY >= answerY && mouseY <= answerY + cardHeight;
-  });
+  let hoveringAnswer = false;
+  for (let i = 0; i < answerText.length; i++) {
+    if (isInside(mouseX, mouseY, answerBounds(i))) hoveringAnswer = true;
+  }
   cursor(hoveringAnswer ? HAND : ARROW);
 }
 
 function mousePressed() {
   if (gameState === "start") {
-    const buttonX = width / 2 - 110;
-    const buttonY = 330;
-    const buttonW = 220;
-    const buttonH = 60;
-
-    if (mouseX >= buttonX && mouseX <= buttonX + buttonW &&
-        mouseY >= buttonY && mouseY <= buttonY + buttonH) {
+    if (isInside(mouseX, mouseY, startButtonBounds())) {
       gameState = "quiz";
       cursor(ARROW);
     }
     return;
   }
 
-  if (currentQuestion >= questions.length) return;
+  if (currentQuestion >= questions.length) {
+    if (isInside(mouseX, mouseY, endButtonBounds())) {
+      restartGame();
+    }
+    return;
+  }
 
-  const cardWidth = (width - 28) / 2;
-  const cardHeight = 78;
-  const gap = 12;
-  const startY = height - 8 - cardHeight * 2 - gap;
-
-  for (let i = 0; i < 4; i++) {
-    const column = i % 2;
-    const row = Math.floor(i / 2);
-    const answerX = 8 + column * (cardWidth + gap);
-    const answerY = startY + row * (cardHeight + gap);
-
-    if (mouseX >= answerX && mouseX <= answerX + cardWidth &&
-        mouseY >= answerY && mouseY <= answerY + cardHeight) {
+  for (let i = 0; i < questions[currentQuestion].answers.length; i++) {
+    if (isInside(mouseX, mouseY, answerBounds(i))) {
       handleAnswerSelection(i);
       break;
     }
@@ -255,6 +250,13 @@ function handleAnswerSelection(selectedIndex) {
   currentQuestion++;
 }
 
+function restartGame() {
+  currentQuestion = 0;
+  score = 0;
+  gameState = "quiz";
+  cursor(ARROW);
+}
+
 function layout() {
   //question and each answer as separate quiz cards.
   noFill();
@@ -262,4 +264,31 @@ function layout() {
   strokeWeight(3);
   rect(4, 4, width - 8, 42, 8);
   noStroke();
+}
+
+function startButtonBounds() {
+  return { x: width / 2 - 110, y: 330, width: 220, height: 60 };
+}
+
+function endButtonBounds() {
+  return { x: width / 2 - 110, y: 320, width: 220, height: 60 };
+}
+
+function answerBounds(index) {
+  let cardWidth = (width - 28) / 2;
+  let cardHeight = 70;
+  let gap = 10;
+  let column = index % 2;
+  let row = Math.floor(index / 2);
+  return {
+    x: 8 + column * (cardWidth + gap),
+    y: height - 8 - cardHeight * 2 - gap + row * (cardHeight + gap),
+    width: cardWidth,
+    height: cardHeight
+  };
+}
+
+function isInside(x, y, bounds) {
+  return x >= bounds.x && x <= bounds.x + bounds.width &&
+    y >= bounds.y && y <= bounds.y + bounds.height;
 }
