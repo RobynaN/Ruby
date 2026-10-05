@@ -6,55 +6,57 @@ let score = 0;
 let questions = [
   {
     question: "In which series did Starscream ride a scooter?",
-    answers: ["Bayverse", "Knightverse", "Transformers Prime"],
-    correctAnswer: 2
+    answers: ["Transformers: Prime", "Transformers: Cyberverse", "Transformers: Robots in Disguise", "Transformers: Animated"],
+    correctAnswer: 1
   },
   {
     question: "In which universe is Bumblebee capable of reattaching his body parts?",
-    answers: ["Transformers Animated", "Bayverse", "G1"],
-    correctAnswer: 1
-  },
-  {
-    question: "What is Soundwave's position in the Decepticons?",
-    answers: ["3rd in command", "Spymaster and Communications Officer", "Both"],
+    answers: ["Transformers Animated", "Bayverse", "Knightverse", "None of the above"],
     correctAnswer: 2
   },
   {
+    question: "Which Autobot transforms into a red and blue emergency vehicle and serves as the team's medic in G1?",
+    answers: ["Ironhide", "Bumblebee", "Ratchet", "Jazz"],
+    correctAnswer: 3
+  },
+  {
+    question: "What is Soundwave's position in the Decepticons? ",
+    answers: ["3rd in command", "Spymaster", "Communications Officer", "All of the above"],
+    correctAnswer: 4
+  },
+  {
     question: "What was Optimus Prime's name before he became a Prime?",
-    answers: ["B-127", "Orion Pax"],
-    correctAnswer: 1
+    answers: ["B-127", "Orion Pax", "Vos", "D-16"],
+    correctAnswer: 2
+  },
+  {
+    question: "What did Bumblebee lose at the beginning of the series Transformers Cyberverse?",
+    answers: ["His voice", "His wings", "his memory", "his T-cog"],
+    correctAnswer: 3
   },
   {
     question: "What did Soundwave do before he became a gladiator in Transformers Prime?",
     answers: [
       "He was a regular patron at Maccadam's Old Oil House",
-      "Served as a member of the Cybertronian High Council and the Senate"
+      "Served as a member of the Cybertronian High Council and the Senate",
+      "He was a spy for the Decepticons",
+      "He was a warrior for the Autobots"
     ],
     correctAnswer: 1
   },
   {
-    question: "What is Wheeljack's position in the Autobots? (TFE)",
-    answers: ["A wrecker", "Chief scientist, engineer, and inventor"],
-    correctAnswer: 1
+    question: "What is Optimus Prime's faction?",
+    answers: ["Decepticon", "Autobot", "Predacon", "Maximal"],
+    correctAnswer: 2
   },
   {
     question: "Who is the main human protagonist in the first Transformers movie (2007)?",
     answers: ["Sam Witwicky", "Cade Yeager", "William Lennox", "Joshua Joyce"],
-    correctAnswer: 0
+    correctAnswer: 1
   },
   {
     question: "What type of vehicle does Bumblebee transform into in the 2018 movie Bumblebee?",
     answers: ["1977 Chevrolet Camaro", "1967 Volkswagen Beetle", "1987 Ford Mustang", "1970 Dodge Charger"],
-    correctAnswer: 1
-  },
-  {
-    question: "What does Bumblebee lose at the beginning of the series Transformers Cyberverse?",
-    answers: ["His weapons", "His memories", "His ability to transform"],
-    correctAnswer: 1
-  },
-  {
-    question: "Which Autobot transforms into a red and blue emergency vehicle and serves as the team's medic in G1?",
-    answers: ["Ironhide", "Jazz", "Ratchet"],
     correctAnswer: 2
   }
 ];
@@ -141,7 +143,7 @@ function drawStartScreen() {
 function drawEndScreen() {
   fill(255, 255, 255, 220);
   rect(120, 120, 560, 320, 20);
-
+ //$ is gewoon een variabele ${} de waarde van naam in de tekst bv. 
   fill(0);
   textAlign(CENTER);
   textSize(36);
@@ -204,8 +206,8 @@ function answers() {
     rect(card.x, card.y, card.width, card.height, 10);
     noStroke();
     fill(0);
-    textSize(17);
-    text(`${String.fromCharCode(65 + i)}. ${answerText[i]}`, card.x + 10, card.y + 10, card.width - 18, card.height - 18);
+    textSize(16);
+    text(answerText[i], card.x + 10, card.y + 10, card.width - 18, card.height - 18);
   }
 
   textAlign(LEFT, BASELINE);
