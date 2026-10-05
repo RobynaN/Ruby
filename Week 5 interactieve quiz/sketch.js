@@ -44,6 +44,15 @@ function answers() {
   const gap = 12;
   const startY = height - 8 - cardHeight * 2 - gap;
 
+  const hoveringAnswer = answerText.some((_, i) => {
+    const column = i % 2;
+    const row = Math.floor(i / 2);
+    const answerX = 8 + column * (cardWidth + gap);
+    const answerY = startY + row * (cardHeight + gap);
+    return mouseX >= answerX && mouseX <= answerX + cardWidth &&
+      mouseY >= answerY && mouseY <= answerY + cardHeight;
+  });
+
   for (let i = 0; i < answerText.length; i++) {
     const column = i % 2;
     const row = Math.floor(i / 2);
@@ -62,14 +71,6 @@ function answers() {
     text(answerText[i], answerX + 12, answerY + 32);
   }
 
-  const hoveringAnswer = answerText.some((_, i) => {
-    const column = i % 2;
-    const row = Math.floor(i / 2);
-    const answerX = 8 + column * (cardWidth + gap);
-    const answerY = startY + row * (cardHeight + gap);
-    return mouseX >= answerX && mouseX <= answerX + cardWidth &&
-      mouseY >= answerY && mouseY <= answerY + cardHeight;
-  });
   cursor(hoveringAnswer ? HAND : ARROW);
 }
 
