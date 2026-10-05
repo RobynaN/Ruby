@@ -6,57 +6,55 @@ let score = 0;
 let questions = [
   {
     question: "In which series did Starscream ride a scooter?",
-    answers: ["Transformers: Prime", "Transformers: Cyberverse", "Transformers: Robots in Disguise", "Transformers: Animated"],
-    correctAnswer: 1
+    answers: ["Bayverse", "Knightverse", "Transformers Prime"],
+    correctAnswer: 2
   },
   {
     question: "In which universe is Bumblebee capable of reattaching his body parts?",
-    answers: ["Transformers Animated", "Bayverse", "Knightverse", "None of the above"],
+    answers: ["Transformers Animated", "Bayverse", "G1"],
+    correctAnswer: 1
+  },
+  {
+    question: "What is Soundwave's position in the Decepticons?",
+    answers: ["3rd in command", "Spymaster and Communications Officer", "Both"],
     correctAnswer: 2
-  },
-  {
-    question: "Which Autobot transforms into a red and blue emergency vehicle and serves as the team's medic in G1?",
-    answers: ["Ironhide", "Bumblebee", "Ratchet", "Jazz"],
-    correctAnswer: 3
-  },
-  {
-    question: "What is Soundwave's position in the Decepticons? ",
-    answers: ["3rd in command", "Spymaster", "Communications Officer", "All of the above"],
-    correctAnswer: 4
   },
   {
     question: "What was Optimus Prime's name before he became a Prime?",
-    answers: ["B-127", "Orion Pax", "Vos", "D-16"],
-    correctAnswer: 2
-  },
-  {
-    question: "What did Bumblebee lose at the beginning of the series Transformers Cyberverse?",
-    answers: ["His voice", "His wings", "his memory", "his T-cog"],
-    correctAnswer: 3
+    answers: ["B-127", "Orion Pax"],
+    correctAnswer: 1
   },
   {
     question: "What did Soundwave do before he became a gladiator in Transformers Prime?",
     answers: [
       "He was a regular patron at Maccadam's Old Oil House",
-      "Served as a member of the Cybertronian High Council and the Senate",
-      "He was a spy for the Decepticons",
-      "He was a warrior for the Autobots"
+      "Served as a member of the Cybertronian High Council and the Senate"
     ],
     correctAnswer: 1
   },
   {
-    question: "What is Optimus Prime's faction?",
-    answers: ["Decepticon", "Autobot", "Predacon", "Maximal"],
-    correctAnswer: 2
+    question: "What is Wheeljack's position in the Autobots? (TFE)",
+    answers: ["A wrecker", "Chief scientist, engineer, and inventor"],
+    correctAnswer: 1
   },
   {
     question: "Who is the main human protagonist in the first Transformers movie (2007)?",
     answers: ["Sam Witwicky", "Cade Yeager", "William Lennox", "Joshua Joyce"],
-    correctAnswer: 1
+    correctAnswer: 0
   },
   {
     question: "What type of vehicle does Bumblebee transform into in the 2018 movie Bumblebee?",
     answers: ["1977 Chevrolet Camaro", "1967 Volkswagen Beetle", "1987 Ford Mustang", "1970 Dodge Charger"],
+    correctAnswer: 1
+  },
+  {
+    question: "What does Bumblebee lose at the beginning of the series Transformers Cyberverse?",
+    answers: ["His weapons", "His memories", "His ability to transform"],
+    correctAnswer: 1
+  },
+  {
+    question: "Which Autobot transforms into a red and blue emergency vehicle and serves as the team's medic in G1?",
+    answers: ["Ironhide", "Jazz", "Ratchet"],
     correctAnswer: 2
   }
 ];
@@ -120,7 +118,7 @@ function drawStartScreen() {
   textSize(42);
   text("Transformers Quiz", width / 2, 190);
   textSize(22);
-  text("Test je kennis over de Transformers-universum!", width / 2, 250);
+  text("Test je kennis over de Transformer AU's!", width / 2, 250);
   textSize(18);
   text("Klik op Start om te beginnen.", width / 2, 290);
 
