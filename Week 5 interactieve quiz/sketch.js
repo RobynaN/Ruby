@@ -177,7 +177,8 @@ function vragenbalk() {
   textLeading(18);
   textAlign(LEFT, TOP);
   if (currentQuestion < questions.length) {
-    text(`Vraag ${currentQuestion + 1} van ${questions.length}: ${questions[currentQuestion].question}`, 10, 12, width - 20, 52);
+    text(`Vraag ${currentQuestion + 1} van ${questions.length}: ${questions[currentQuestion].question}`, 
+    10, 12, width - 20, 52);
   } else {
     text("Quiz klaar! Bedankt voor het spelen.", 10, 12, width - 20, 52);
   }
