@@ -84,12 +84,13 @@ function draw() {
 
   if (currentQuestion >= questions.length) {
     drawEndScreen();
-    return;
+    return; //Als alle vragen zijn beantwoord, laat je het eindscherm zien.
   }
 
-  let currentImage = getCurrentImage();
+  let currentImage = getCurrentImage(); //koppelt iedere vraag aan een afbeelding.
   if (currentImage) {
-    image(currentImage, 100, 50, 600, 400);
+    image(currentImage, 100, 50, 600, 400); //Als je nog bezig bent met de quiz,
+    // wordt de huidige afbeelding getoond:
   }
 
   vragenbalk();
@@ -104,15 +105,16 @@ function mouseHover() {
 //image volgorde.
 function getCurrentImage() {
   let imageIndex = currentQuestion + 1;
-  if (imageIndex >= quizImages.length) imageIndex = 1;
-  return quizImages[imageIndex];
+  if (imageIndex >= quizImages.length) imageIndex = 1; //Als de index buiten de afbeeldingen valt,
+  // begin je weer bij afbeelding 1.
+  return quizImages[imageIndex]; //Je geeft de gekozen afbeelding terug.
 }
 
 function drawStartScreen() {
   if (quizImages[0]) {
     image(quizImages[0], 100, 50, 600, 400);
   }
-
+//text/allignment. 
   fill(255, 255, 255, 220);
   rect(120, 120, 560, 320, 20);
 
@@ -125,10 +127,10 @@ function drawStartScreen() {
   textSize(18);
   text("Klik op Start om te beginnen.", width / 2, 290);
 
-  let button = startButtonBounds();
-  let hovering = isInside(mouseX, mouseY, button);
+  let button = startButtonBounds(); //of de muis boven de knop staat.
+  let hovering = isInside(mouseX, mouseY, button); 
 
-  fill(hovering ? 210 : 255);
+  fill(hovering ? 210 : 255); //wordt de knop een andere kleur.
   stroke(40, 90, 160);
   strokeWeight(2);
   rect(button.x, button.y, button.width, button.height, 12);
@@ -136,7 +138,8 @@ function drawStartScreen() {
   fill(0);
   textSize(26);
   text("Start", width / 2, button.y + 38);
-  cursor(hovering ? HAND : ARROW);
+  cursor(hovering ? HAND : ARROW); //zorgt ervoor dat de muiscursor verandert
+  // in een handje als je over de knop gaat.
 
   textAlign(LEFT);
 }
@@ -150,7 +153,7 @@ function drawEndScreen() {
   textSize(36);
   text("Quiz afgerond!", width / 2, 190);
   textSize(26);
-  text(`Je score: ${correctAnswers} / ${questions.length}`, width / 2, 245);
+  text("Je score: " + correctAnswers + " / " + questions.length, width / 2, 245); //score word weergeven.
   textSize(18);
   text("Klik hieronder om opnieuw te beginnen.", width / 2, 285);
 
@@ -172,13 +175,13 @@ function drawEndScreen() {
 
 function vragenbalk() {
   fill("rgb(247, 249, 250)");
-  rect(0, 0, width, 72);
+  rect(0, 0, width, 72); //de balk bovenaan
   fill(0);
   textSize(16);
   textLeading(18);
   textAlign(LEFT, TOP);
-  if (currentQuestion < questions.length) {
-    text(`Vraag ${currentQuestion + 1} van ${questions.length}: ${questions[currentQuestion].question}`, 
+  if (currentQuestion < questions.length) { //bepaalt welke vraag je op dat moment laat zien.
+    text("Vraag " + (currentQuestion + 1) + " van " + questions.length + ": " + questions[currentQuestion].question,
     10, 12, width - 20, 52);
   } else {
     text("Quiz klaar! Bedankt voor het spelen.", 10, 12, width - 20, 52);
@@ -198,8 +201,8 @@ function answers() {
   textLeading(18);
 
   for (let i = 0; i < answerText.length; i++) {
-    let card = answerBounds(i);
-    let hovering = isInside(mouseX, mouseY, card);
+    let card = answerBounds(i); //bepaalt waar het kaartje op het scherm moet komen.
+    let hovering = isInside(mouseX, mouseY, card); 
 
     fill(hovering ? 210 : 255);
     stroke(190);
@@ -213,16 +216,17 @@ function answers() {
 
   textAlign(LEFT, BASELINE);
 
-  let hoveringAnswer = false;
+  let hoveringAnswer = false; //bijv, "de muis hangt niet boven het antwoord."
   for (let i = 0; i < answerText.length; i++) {
-    if (isInside(mouseX, mouseY, answerBounds(i))) hoveringAnswer = true;
+    if (isInside(mouseX, mouseY, answerBounds(i))) hoveringAnswer = true; //controleert het antwoord. 
   }
-  cursor(hoveringAnswer ? HAND : ARROW);
+  //cursor() om te bepalen welk symbool je muisaanwijzer laat zien.
+  cursor(hoveringAnswer ? HAND : ARROW); //pijl of handje?? 
 }
 
 function mousePressed() {
-  if (gameState === "start") {
-    if (isInside(mouseX, mouseY, startButtonBounds())) {
+  if (gameState === "start") { //gaat het spel van het startscherm naar de quiz.
+    if (isInside(mouseX, mouseY, startButtonBounds())) { //Heeft de speler op antwoord 1, 2, 3 of 4 geklikt?"
       gameState = "quiz";
       cursor(ARROW);
     }
@@ -231,27 +235,27 @@ function mousePressed() {
 
   if (currentQuestion >= questions.length) {
     if (isInside(mouseX, mouseY, endButtonBounds())) {
-      restartGame();
+      restartGame(); //wordt het spel opnieuw gestart.
     }
     return;
   }
 
-  for (let i = 0; i < questions[currentQuestion].answers.length; i++) {
-    if (isInside(mouseX, mouseY, answerBounds(i))) {
-      handleAnswerSelection(i);
-      break;
+  for (let i = 0; i < questions[currentQuestion].answers.length; i++) { //antwoorden gaan een voor 1
+    if (isInside(mouseX, mouseY, answerBounds(i))) { //bevindt de muis zich boven het vakje?
+      handleAnswerSelection(i); //bijv, "speler heeft antwoord 2 gekozen."
+      break; //stopt met de for loop. 
     }
   }
 }
 
 function handleAnswerSelection(selectedIndex) {
-  const current = questions[currentQuestion];
-  if (selectedIndex === current.correctAnswer) {
-    correctAnswers++;
+  const current = questions[currentQuestion]; 
+  if (selectedIndex === current.correctAnswer) {//Als het antwoord goed is, gaat de score één omhoog
+    correctAnswers++;//ga je automatisch naar de volgende vraag.
   }
   currentQuestion++;
 }
-
+//hier wordt alles terug naar de beginwaarden gezet.:
 function restartGame() {
   currentQuestion = 0;
   correctAnswers = 0;
@@ -273,24 +277,26 @@ function startButtonBounds() {
 }
 
 function endButtonBounds() {
-  return { x: width / 2 - 110, y: 320, width: 220, height: 60 };
+  return { x: width / 2 - 110, y: 320, width: 220, height: 60 }; // waar staat de knop/hoe groot is die.
 }
 
 function answerBounds(index) {
   let cardWidth = (width - 28) / 2;
   let cardHeight = 70;
   let gap = 10;
-  let column = index % 2;
-  let row = Math.floor(index / 2);
-  return {
-    x: 8 + column * (cardWidth + gap),
-    y: height - 8 - cardHeight * 2 - gap + row * (cardHeight + gap),
-    width: cardWidth,
-    height: cardHeight
+  let column = index % 2; //bepaalt of een antwoord links of rechts staat.
+  let row = Math.floor(index / 2); //bepaalt of op welke rij het antwoord staat.
+  return { //geeft alle info terug naar answerBounds. (waar ik het neergezet heb.)
+    x: 8 + column * (cardWidth + gap), //bepaalt de horizontale positiie.
+    y: height - 8 - cardHeight * 2 - gap + row * (cardHeight + gap), //bepaalt de verticale positie. 
+    width: cardWidth, //de breedte. 
+    height: cardHeight //hoe hoog. 
   };
 }
 
 function isInside(x, y, bounds) {
   return x >= bounds.x && x <= bounds.x + bounds.width &&
-    y >= bounds.y && y <= bounds.y + bounds.height;
+    y >= bounds.y && y <= bounds.y + bounds.height; //checkt of het binnen een bepaald,
+    // rechthoekig gebied vallen.
+
 }
