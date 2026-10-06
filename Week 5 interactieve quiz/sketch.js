@@ -3,7 +3,7 @@ let currentQuestion = 0;
 let gameState = "start";
 let score = 0;
 let correctAnswers = 0;
-
+//de vragen/keuzes. 
 let questions = [
   {
     question: "In which series did Starscream ride a scooter?",
@@ -61,7 +61,7 @@ let questions = [
     correctAnswer: 2
   }
 ];
-
+//images.
 function preload() {
   let imageFiles = ["banner.jpg", "starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg", 
   "optimus.jpg", "bumblebee2.jpg", "soundwave2.jpg", "optimus2.jpg", "tfhumans.jpg", "bumblebee3.jpg"];
@@ -76,29 +76,29 @@ function setup() {
 
 function draw() {
   background(136, 215, 255);
-
+//startscreen
   if (gameState === "start") {
     drawStartScreen();
     return;
   }
-
+//endscreen. 
   if (currentQuestion >= questions.length) {
     drawEndScreen();
     return; //Als alle vragen zijn beantwoord, laat je het eindscherm zien.
   }
-
+//images
   let currentImage = getCurrentImage(); //koppelt iedere vraag aan een afbeelding.
   if (currentImage) {
     image(currentImage, 100, 50, 600, 400); //Als je nog bezig bent met de quiz,
     // wordt de huidige afbeelding getoond:
   }
-
+//functions
   vragenbalk();
   answers();
   layout();
   mouseHover();
 }
-
+//click function/mouse hover.
 function mouseHover() {
   // Hover feedback is handled by the button and answer cards.
 }
@@ -181,7 +181,8 @@ function vragenbalk() {
   textLeading(18);
   textAlign(LEFT, TOP);
   if (currentQuestion < questions.length) { //bepaalt welke vraag je op dat moment laat zien.
-    text("Vraag " + (currentQuestion + 1) + " van " + questions.length + ": " + questions[currentQuestion].question,
+    text("Vraag " + (currentQuestion + 1) + " van " + questions.length + ": " 
+    + questions[currentQuestion].question,
     10, 12, width - 20, 52);
   } else {
     text("Quiz klaar! Bedankt voor het spelen.", 10, 12, width - 20, 52);
