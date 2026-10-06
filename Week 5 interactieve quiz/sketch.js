@@ -2,6 +2,7 @@ let quizImages = [];
 let currentQuestion = 0;
 let gameState = "start";
 let score = 0;
+let correctAnswers = 0;
 
 let questions = [
   {
@@ -62,8 +63,8 @@ let questions = [
 ];
 
 function preload() {
-  let imageFiles = ["starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg", 
-  "optimus.jpg", "bumblebee2.jpg"];
+  let imageFiles = ["banner.jpg", "starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg", 
+  "optimus.jpg", "bumblebee2.jpg", "soundwave2.jpg", "optimus2.jpg", "tfhumans.jpg", "bumblebee3.jpg"];
   for (let i = 0; i < imageFiles.length; i++) {
     quizImages.push(loadImage(imageFiles[i]));
   }
@@ -102,8 +103,8 @@ function mouseHover() {
 }
 //image volgorde.
 function getCurrentImage() {
-  let imageIndex = currentQuestion;
-  if (imageIndex >= quizImages.length) imageIndex = 0;
+  let imageIndex = currentQuestion + 1;
+  if (imageIndex >= quizImages.length) imageIndex = 1;
   return quizImages[imageIndex];
 }
 
@@ -149,7 +150,7 @@ function drawEndScreen() {
   textSize(36);
   text("Quiz afgerond!", width / 2, 190);
   textSize(26);
-  text(`Je score: ${score} / ${questions.length}`, width / 2, 245);
+  text(`Je score: ${correctAnswers} / ${questions.length}`, width / 2, 245);
   textSize(18);
   text("Klik hieronder om opnieuw te beginnen.", width / 2, 285);
 
@@ -246,14 +247,14 @@ function mousePressed() {
 function handleAnswerSelection(selectedIndex) {
   const current = questions[currentQuestion];
   if (selectedIndex === current.correctAnswer) {
-    score++;
+    correctAnswers++;
   }
   currentQuestion++;
 }
 
 function restartGame() {
   currentQuestion = 0;
-  score = 0;
+  correctAnswers = 0;
   gameState = "quiz";
   cursor(ARROW);
 }
