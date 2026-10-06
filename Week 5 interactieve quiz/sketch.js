@@ -109,10 +109,10 @@ function getCurrentImage() {
   // begin je weer bij afbeelding 1.
   return quizImages[imageIndex]; //Je geeft de gekozen afbeelding terug.
 }
-
+//tekent het begin scherm. 
 function drawStartScreen() {
   if (quizImages[0]) {
-    image(quizImages[0], 100, 50, 600, 400);
+    image(quizImages[0], 100, 50, 600, 400); // de images. 
   }
 //text/allignment. 
   fill(255, 255, 255, 220);
@@ -127,9 +127,10 @@ function drawStartScreen() {
   textSize(18);
   text("Klik op Start om te beginnen.", width / 2, 290);
 
+//mousehover. 
   let button = startButtonBounds(); //of de muis boven de knop staat.
   let hovering = isInside(mouseX, mouseY, button); 
-
+//text
   fill(hovering ? 210 : 255); //wordt de knop een andere kleur.
   stroke(40, 90, 160);
   strokeWeight(2);
@@ -143,7 +144,7 @@ function drawStartScreen() {
 
   textAlign(LEFT);
 }
-
+//text questions
 function drawEndScreen() {
   fill(255, 255, 255, 220);
   rect(120, 120, 560, 320, 20);
@@ -156,7 +157,7 @@ function drawEndScreen() {
   text("Je score: " + correctAnswers + " / " + questions.length, width / 2, 245); //score word weergeven.
   textSize(18);
   text("Klik hieronder om opnieuw te beginnen.", width / 2, 285);
-
+//mouse hover. 
   let button = endButtonBounds();
   let hovering = isInside(mouseX, mouseY, button);
 
@@ -172,7 +173,7 @@ function drawEndScreen() {
 
   textAlign(LEFT);
 }
-
+//questions. 
 function vragenbalk() {
   fill("rgb(247, 249, 250)");
   rect(0, 0, width, 72); //de balk bovenaan
@@ -272,15 +273,15 @@ function layout() {
   rect(4, 4, width - 8, 42, 8);
   noStroke();
 }
-
+//start button
 function startButtonBounds() {
   return { x: width / 2 - 110, y: 330, width: 220, height: 60 };
 }
-
+//end button. 
 function endButtonBounds() {
   return { x: width / 2 - 110, y: 320, width: 220, height: 60 }; // waar staat de knop/hoe groot is die.
 }
-
+//cards. 
 function answerBounds(index) {
   let cardWidth = (width - 28) / 2;
   let cardHeight = 70;
@@ -294,7 +295,7 @@ function answerBounds(index) {
     height: cardHeight //hoe hoog. 
   };
 }
-
+//is it inside the question balks. 
 function isInside(x, y, bounds) {
   return x >= bounds.x && x <= bounds.x + bounds.width &&
     y >= bounds.y && y <= bounds.y + bounds.height; //checkt of het binnen een bepaald,
