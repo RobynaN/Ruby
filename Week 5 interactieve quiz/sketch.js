@@ -309,5 +309,8 @@ function isInside(x, y, bounds) {
   return x >= bounds.x && x <= bounds.x + bounds.width &&
     y >= bounds.y && y <= bounds.y + bounds.height; //checkt of het binnen een bepaald,
     // rechthoekig gebied vallen.
-
+    // => schrijf je hetzelfde zoals: const optellen = (a, b) => { return a + b; }
+    // dus bijv (a,b => iets) betekent een functie die a en b krijggt en iets teruggeeft
+    //Dus => kun je in het begin gewoon zien als "hier komt de functie die uitgevoerd moet worden".
+    //oh en <= betekent kleiner dan of gelijk aan.
 }
