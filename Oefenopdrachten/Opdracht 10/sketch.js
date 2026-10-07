@@ -1,4 +1,4 @@
-let colors = ["red", "purple", "blue", "green", "yellow", "orange"];
+let colors = ["red", "purple", "blue", "green", "yellow", "orange", "pink"];
 let achtergrondkleur = 220;
 let knop = [];
 let afbeeldingen = [];
@@ -52,7 +52,7 @@ function draw() {
   background(achtergrondkleur);
 
   if (actieveAfbeelding !== -1 && afbeeldingen[actieveAfbeelding]) { //is de afbeelding gekozen?
-    image(afbeeldingen[actieveAfbeelding], 250, 150, 300, 220); //met image teken je de afbeelding op het 
+    image(afbeeldingen[actieveAfbeelding], 250, 150, 230, 220); //met image teken je de afbeelding op het 
     //bord.
   }
 
