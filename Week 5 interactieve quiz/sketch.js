@@ -114,7 +114,7 @@ function getCurrentImage() {
   let imageIndex = currentQuestion + 1;
   if (imageIndex >= quizImages.length) imageIndex = 1; //Als de index buiten de afbeeldingen valt,
   // begin je weer bij afbeelding 1.
-  return quizImages[imageIndex]; //Je geeft de gekozen afbeelding terug.
+  return quizImages[imageIndex]; 
 }
 //tekent het begin scherm. 
 function drawStartScreen() {
