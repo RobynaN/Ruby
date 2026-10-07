@@ -1,3 +1,11 @@
+const soundwaveDark = '#0b1020';
+const soundwavePanel = '#1a2242';
+const soundwavePanelAlt = '#2a335c';
+const soundwaveBlue = '#5f7cff';
+const soundwaveCyan = '#8fe7ff';
+const soundwaveSilver = '#dfe6f7';
+const soundwaveSteel = '#8a95b6';
+
 let quizImages = [];
 let currentQuestion = 0;
 let gameState = "start";
@@ -63,7 +71,7 @@ let questions = [
 ];
 //images.
 function preload() {
-  let imageFiles = ["banner.jpg", "starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg", 
+  let imageFiles = ["rise.jpg", "starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg", 
   "optimus.jpg", "bumblebee2.jpg", "soundwave2.jpg", "optimus2.jpg", "tfhumans.jpg", "bumblebee3.jpg"];
   for (let i = 0; i < imageFiles.length; i++) {
     quizImages.push(loadImage(imageFiles[i]));
@@ -75,7 +83,7 @@ function setup() {
 }
 
 function draw() {
-  background(136, 215, 255);
+  background(soundwaveDark);
 //startscreen
   if (gameState === "start") {
     drawStartScreen();
@@ -98,9 +106,8 @@ function draw() {
   layout();
   mouseHover();
 }
-//click function/mouse hover.
+// Click function/mouse hover.
 function mouseHover() {
-  // Hover feedback is handled by the button and answer cards.
 }
 //image volgorde.
 function getCurrentImage() {
@@ -112,13 +119,13 @@ function getCurrentImage() {
 //tekent het begin scherm. 
 function drawStartScreen() {
   if (quizImages[0]) {
-    image(quizImages[0], 100, 50, 600, 400); // de images. 
+    image(quizImages[0], 0, 0, width, height); // Fill the entire start screen with the image.
   }
 //text/allignment. 
-  fill(255, 255, 255, 220);
+  fill(11, 16, 32, 180);
   rect(120, 120, 560, 320, 20);
 
-  fill(0);
+  fill(soundwaveSilver);
   textAlign(CENTER);
   textSize(42);
   text("Transformers Quiz", width / 2, 190);
@@ -131,12 +138,12 @@ function drawStartScreen() {
   let button = startButtonBounds(); //of de muis boven de knop staat.
   let hovering = isInside(mouseX, mouseY, button); 
 //text
-  fill(hovering ? 210 : 255); //wordt de knop een andere kleur.
-  stroke(40, 90, 160);
+  fill(hovering ? soundwaveBlue : soundwaveSilver); //wordt de knop een andere kleur.
+  stroke(hovering ? soundwaveCyan : soundwaveSteel);
   strokeWeight(2);
   rect(button.x, button.y, button.width, button.height, 12);
   noStroke();
-  fill(0);
+  fill(hovering ? soundwaveSilver : soundwaveDark);
   textSize(26);
   text("Start", width / 2, button.y + 38);
   cursor(hovering ? HAND : ARROW); //zorgt ervoor dat de muiscursor verandert
@@ -146,10 +153,12 @@ function drawStartScreen() {
 }
 //text questions
 function drawEndScreen() {
-  fill(255, 255, 255, 220);
+  if (quizImages[0]) {
+    image(quizImages[0], 0, 0, width, height);
+  }
+  fill(11, 16, 32, 180);
   rect(120, 120, 560, 320, 20);
- //$ is gewoon een variabele ${} de waarde van naam in de tekst bv. 
-  fill(0);
+  fill(soundwaveSilver);
   textAlign(CENTER);
   textSize(36);
   text("Quiz afgerond!", width / 2, 190);
@@ -161,12 +170,12 @@ function drawEndScreen() {
   let button = endButtonBounds();
   let hovering = isInside(mouseX, mouseY, button);
 
-  fill(hovering ? 210 : 255);
-  stroke(40, 90, 160);
+  fill(hovering ? soundwaveBlue : soundwaveSilver);
+  stroke(hovering ? soundwaveCyan : soundwaveSteel);
   strokeWeight(2);
   rect(button.x, button.y, button.width, button.height, 12);
   noStroke();
-  fill(0);
+  fill(hovering ? soundwaveSilver : soundwaveDark);
   textSize(24);
   text("Herstart", width / 2, button.y + 36);
   cursor(hovering ? HAND : ARROW);
@@ -175,9 +184,9 @@ function drawEndScreen() {
 }
 //questions. 
 function vragenbalk() {
-  fill("rgb(247, 249, 250)");
+  fill(soundwavePanel);
   rect(0, 0, width, 72); //de balk bovenaan
-  fill(0);
+  fill(soundwaveSilver);
   textSize(16);
   textLeading(18);
   textAlign(LEFT, TOP);
@@ -206,12 +215,12 @@ function answers() {
     let card = answerBounds(i); //bepaalt waar het kaartje op het scherm moet komen.
     let hovering = isInside(mouseX, mouseY, card); 
 
-    fill(hovering ? 210 : 255);
-    stroke(190);
-    strokeWeight(1);
+    fill(hovering ? soundwaveBlue : soundwaveSilver);
+    stroke(hovering ? soundwaveCyan : soundwaveSteel);
+    strokeWeight(1.5);
     rect(card.x, card.y, card.width, card.height, 10);
     noStroke();
-    fill(0);
+    fill(hovering ? soundwaveSilver : soundwaveDark);
     textSize(16);
     text(answerText[i], card.x + 10, card.y + 10, card.width - 18, card.height - 18);
   }
@@ -268,8 +277,8 @@ function restartGame() {
 function layout() {
   //question and each answer as separate quiz cards.
   noFill();
-  stroke(40, 90, 160);
-  strokeWeight(3);
+  stroke(soundwaveCyan);
+  strokeWeight(2.5);
   rect(4, 4, width - 8, 42, 8);
   noStroke();
 }
