@@ -99,7 +99,6 @@ function setup() {
  
   // Als je met de muis over de knop gaat
 
-
 function styleButton(tostyle){
   tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
   tostyle.style("cursor", "pointer");
@@ -408,4 +407,6 @@ function isInside(x, y, bounds) {
   // dus bijv (a,b => iets) betekent een functie die a en b krijggt en iets teruggeeft
   //Dus => kun je in het begin gewoon zien als "hier komt de functie die uitgevoerd moet worden".
   //oh en <= betekent kleiner dan of gelijk aan.
+
+  
 }
