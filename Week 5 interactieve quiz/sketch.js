@@ -14,6 +14,7 @@ let score = 0;
 let correctAnswers = 0;
 let startButton;
 let restartButton;
+let imageDecoration = 1;
 
 //quizz questions. 
 let questions = [
@@ -74,6 +75,8 @@ let questions = [
 ];
 //images.
 function preload() {
+   imageDecoration = loadImage("sounds2.png")
+
   let imageFiles = ["rise.jpg", "starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg",
     "optimus.jpg", "bumblebee2.jpg", "soundwave2.jpg", "optimus2.jpg", "tfhumans.jpg", "bumblebee3.jpg"];
   for (let i = 0; i < imageFiles.length; i++) {
@@ -95,6 +98,21 @@ function setup() {
   startButton.style("cursor", "pointer");
   startButton.mousePressed(startQuiz);
   startButton.hide();
+ 
+  // Als je met de muis over de knop gaat
+startButton.mouseOver(() =>  {
+  startButton.style("background-color", soundwaveBlue);
+  startButton.style("color", soundwaveSilver);
+});
+
+// Als je met de muis van de knop af gaat
+startButton.mouseOut(() => {
+  startButton.style("background-color", soundwaveSilver);
+  startButton.style("color", soundwaveDark);
+});
+
+startButton.mousePressed(startQuiz);
+startButton.hide();
 
   restartButton = createButton("Herstart");
   restartButton.position(width / 2 - 110, 320);
@@ -107,6 +125,17 @@ function setup() {
   restartButton.style("cursor", "pointer");
   restartButton.mousePressed(restartGame);
   restartButton.hide();
+
+ restartButton.mouseOver(() => {
+  restartButton.style("background-color", soundwaveBlue);
+  restartButton.style("color", soundwaveDark);
+});
+
+restartButton.mouseOut(() => {
+  restartButton.style("background-color", soundwaveSilver);
+  restartButton.style("color", soundwaveDark);
+});
+
 }
 
 function startQuiz() {
@@ -119,6 +148,7 @@ function startQuiz() {
 //main draw. 
 function draw() {
   background(soundwaveDark);
+  drawSlideDecoration();
 
   //startscreen
 
@@ -142,7 +172,6 @@ function draw() {
   restartButton.hide();
 
   // current images
-
   let currentImage = getCurrentImage(); //koppelt iedere vraag aan een afbeelding.
   if (currentImage) {
     image(currentImage, 250, 50, 400, 400);
@@ -167,6 +196,17 @@ function getCurrentImage() {
   if (imageIndex >= quizImages.length) imageIndex = 1; //Als de index buiten de afbeeldingen valt,
   // begin je weer bij afbeelding 1.
   return quizImages[imageIndex];
+}
+
+function drawSlideDecoration() {
+  if (!imageDecoration) return;
+
+  push();
+  imageMode(CORNER);
+  tint(255, 130);
+  image(imageDecoration, width - 210, height - 150, 180, 120);
+  noTint();
+  pop();
 }
 
 //Start screen.
