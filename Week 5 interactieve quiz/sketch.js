@@ -204,7 +204,7 @@ function drawSlideDecoration() {
   push();
   imageMode(CORNER);
   tint(255, 130);
-  image(imageDecoration, width - 210, height - 150, 180, 120);
+  image(imageDecoration, width - 210, height - 500, 180, 120);
   noTint();
   pop();
 }
