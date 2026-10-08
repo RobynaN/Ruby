@@ -88,53 +88,50 @@ function setup() {
   createCanvas(1000, 600);
 
   startButton = createButton("Start");
+  styleButton(startButton);
   startButton.position(width / 2 - 110, 330);
-  startButton.size(220, 60);
   startButton.style("font-size", "24px");
   startButton.style("background-color", soundwaveSilver);
   startButton.style("color", soundwaveDark);
   startButton.style("border", "2px solid " + soundwaveSteel);
-  startButton.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
-  startButton.style("cursor", "pointer");
   startButton.mousePressed(startQuiz);
   startButton.hide();
  
   // Als je met de muis over de knop gaat
-startButton.mouseOver(() =>  {
-  startButton.style("background-color", soundwaveBlue);
-  startButton.style("color", soundwaveSilver);
+
+
+function styleButton(tostyle){
+  tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
+  tostyle.style("cursor", "pointer");
+  tostyle.size(220, 60);
+tostyle.mouseOver(() => {
+  tostyle.style("background-color", soundwaveBlue);
+  tostyle.style("color", soundwaveDark);
 });
 
-// Als je met de muis van de knop af gaat
-startButton.mouseOut(() => {
-  startButton.style("background-color", soundwaveSilver);
-  startButton.style("color", soundwaveDark);
+tostyle.mouseOut(() => {
+  tostyle.style("background-color", soundwaveSilver);
+  tostyle.style("color", soundwaveDark);
 });
+  
+}
+// Als je met de muis van de knop af gaat
+
 
 startButton.mousePressed(startQuiz);
 startButton.hide();
 
-  restartButton = createButton("Herstart");
+  restartButton = createButton("Herstart"); 
+  styleButton(restartButton);
   restartButton.position(width / 2 - 110, 320);
-  restartButton.size(220, 60);
   restartButton.style("font-size", "24px");
   restartButton.style("background-color", soundwaveSilver);
   restartButton.style("color", soundwaveDark);
   restartButton.style("border", "2px solid " + soundwaveSteel);
-  restartButton.style("border-radius", "12px");
-  restartButton.style("cursor", "pointer");
   restartButton.mousePressed(restartGame);
   restartButton.hide();
 
- restartButton.mouseOver(() => {
-  restartButton.style("background-color", soundwaveBlue);
-  restartButton.style("color", soundwaveDark);
-});
-
-restartButton.mouseOut(() => {
-  restartButton.style("background-color", soundwaveSilver);
-  restartButton.style("color", soundwaveDark);
-});
+ 
 
 }
 
@@ -198,6 +195,7 @@ function getCurrentImage() {
   return quizImages[imageIndex];
 }
 
+//de soundwave die in de corner zit cuz why not?
 function drawSlideDecoration() {
   if (!imageDecoration) return;
 
