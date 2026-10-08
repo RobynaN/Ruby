@@ -1,6 +1,6 @@
 //colors
-const soundwaveDark = '#0b1020';
-const soundwavePanel = '#1a2242';
+const soundwaveDark = '#0b1020'; //const is een vaste variabele. 
+const soundwavePanel = '#1a2242'; //#1a2242 is een Hex decimale kleurcode
 const soundwavePanelAlt = '#2a335c';
 const soundwaveBlue = '#5f7cff';
 const soundwaveCyan = '#8fe7ff';
@@ -137,7 +137,7 @@ function drawStartScreen() { ////tekent het begin scherm.
   }
 
   //background panel.
-  fill(11, 16, 32, 180); //the invisible rect part btw.
+  fill(11, 16, 32, 180); //the invisible rect part btw. 180 maakt t doorzichtig. 
   rect(220, 120, 560, 320, 20);
 
   //Text. 
