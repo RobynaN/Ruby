@@ -12,6 +12,8 @@ let currentQuestion = 0;
 let gameState = "start";
 let score = 0;
 let correctAnswers = 0;
+let startButton;
+let restartButton;
 
 //quizz questions. 
 let questions = [
@@ -81,6 +83,37 @@ function preload() {
 
 function setup() {
   createCanvas(1000, 600);
+
+  startButton = createButton("Start");
+  startButton.position(width / 2 - 110, 330);
+  startButton.size(220, 60);
+  startButton.style("font-size", "24px");
+  startButton.style("background-color", soundwaveSilver);
+  startButton.style("color", soundwaveDark);
+  startButton.style("border", "2px solid " + soundwaveSteel);
+  startButton.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
+  startButton.style("cursor", "pointer");
+  startButton.mousePressed(startQuiz);
+  startButton.hide();
+
+  restartButton = createButton("Herstart");
+  restartButton.position(width / 2 - 110, 320);
+  restartButton.size(220, 60);
+  restartButton.style("font-size", "24px");
+  restartButton.style("background-color", soundwaveSilver);
+  restartButton.style("color", soundwaveDark);
+  restartButton.style("border", "2px solid " + soundwaveSteel);
+  restartButton.style("border-radius", "12px");
+  restartButton.style("cursor", "pointer");
+  restartButton.mousePressed(restartGame);
+  restartButton.hide();
+}
+
+function startQuiz() {
+  gameState = "quiz";
+  cursor(ARROW);
+  startButton.hide();
+  restartButton.hide();
 }
 
 //main draw. 
@@ -90,6 +123,8 @@ function draw() {
   //startscreen
 
   if (gameState === "start") {
+    startButton.show();
+    restartButton.hide();
     drawStartScreen();
     return;
   }
@@ -97,9 +132,14 @@ function draw() {
   //endscreen.
 
   if (currentQuestion >= questions.length) {
+    startButton.hide();
+    restartButton.show();
     drawEndScreen();
     return; //Als alle vragen zijn beantwoord, laat je het eindscherm zien.
   }
+
+  startButton.hide();
+  restartButton.hide();
 
   // current images
 
@@ -150,22 +190,7 @@ function drawStartScreen() { ////tekent het begin scherm.
   textSize(18);
   text("Klik op Start om te beginnen.", width / 2, 290);
 
-  //start button. 
-  let button = startButtonBounds(); //of de muis boven de knop staat.
-  let hovering = isInside(mouseX, mouseY, button);
-
-  //Button appearance. 
-  fill(hovering ? soundwaveBlue : soundwaveSilver); //wordt de knop een andere kleur.
-  stroke(hovering ? soundwaveCyan : soundwaveSteel);
-  strokeWeight(2);
-  rect(button.x, button.y, button.width, button.height, 12);
-  noStroke();
-  fill(hovering ? soundwaveSilver : soundwaveDark);
-  textSize(26);
-  text("Start", width / 2, button.y + 38);
-  cursor(hovering ? HAND : ARROW); //zorgt ervoor dat de muiscursor verandert
-  // in een handje als je over de knop gaat.
-
+  cursor(ARROW);
   textAlign(LEFT);
 }
 
@@ -189,23 +214,7 @@ function drawEndScreen() {
   textSize(18);
   text("Klik hieronder om opnieuw te beginnen.", width / 2, 285);
 
-  //restart button
-  let button = endButtonBounds();
-  let hovering = isInside(mouseX, mouseY, button);
-
-  //Button appearance. 
-  fill(hovering ? soundwaveBlue : soundwaveSilver);
-  stroke(hovering ? soundwaveCyan : soundwaveSteel);
-  strokeWeight(2);
-  rect(button.x, button.y, button.width, button.height, 12);
-  noStroke();
-  fill(hovering ? soundwaveSilver : soundwaveDark);
-  textSize(24);
-  text("Herstart", width / 2, button.y + 36);
-
-  //Change Cursor. 
-  cursor(hovering ? HAND : ARROW);
-
+  cursor(ARROW);
   textAlign(LEFT);
 }
 
