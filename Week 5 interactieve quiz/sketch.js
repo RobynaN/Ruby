@@ -77,7 +77,7 @@ let questions = [
 ];
 //images.
 function preload() {
-   imageDecoration = loadImage("sounds2.png")
+  imageDecoration = loadImage("sounds2.png")
 
   let imageFiles = ["rise.jpg", "starscream.jpg", "bumblebee.jpg", "ratchet.jpg", "soundwave.jpg",
     "optimus.jpg", "bumblebee2.jpg", "soundwave2.jpg", "optimus2.jpg", "tfhumans.jpg", "bumblebee3.jpg"];
@@ -98,32 +98,27 @@ function setup() {
   startButton.style("border", "2px solid " + soundwaveSteel);
   startButton.mousePressed(startQuiz);
   startButton.hide();
- 
-  // Als je met de muis over de knop gaat
 
-function styleButton(tostyle){
-  tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
-  tostyle.style("cursor", "pointer");
-  tostyle.size(220, 60);
-  tostyle.mouseOver(() => {
-  tostyle.style("background-color", soundwaveBlue);
-  tostyle.style("color", soundwaveDark);
-});
+  function styleButton(tostyle) {
+    tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
+    tostyle.style("cursor", "pointer");
+    tostyle.size(220, 60);
+    tostyle.mouseOver(() => {
+      tostyle.style("background-color", soundwaveBlue);
+      tostyle.style("color", soundwaveDark);
+    });
 
-//=> als dan, bijv (x) => x * 2 betekent neem input x en geef x*2 terug 
-tostyle.mouseOut(() => {
-  tostyle.style("background-color", soundwaveSilver);
-  tostyle.style("color", soundwaveDark);
-});
-  
-}
-// Als je met de muis van de knop af gaat
+    //=> als dan, bijv (x) => x * 2 betekent neem input x en geef x*2 terug 
+    tostyle.mouseOut(() => {
+      tostyle.style("background-color", soundwaveSilver);
+      tostyle.style("color", soundwaveDark);
+    });
 
+  }
+  startButton.mousePressed(startQuiz);
+  startButton.hide();
 
-startButton.mousePressed(startQuiz);
-startButton.hide();
-
-  restartButton = createButton("Herstart"); 
+  restartButton = createButton("Herstart");
   styleButton(restartButton);
   restartButton.position(width / 2 - 110, 320);
   restartButton.style("font-size", "24px");
@@ -133,7 +128,7 @@ startButton.hide();
   restartButton.mousePressed(restartGame);
   restartButton.hide();
 
- 
+
 
 }
 
@@ -411,5 +406,5 @@ function isInside(x, y, bounds) {
   //Dus => kun je in het begin gewoon zien als "hier komt de functie die uitgevoerd moet worden".
   //oh en <= betekent kleiner dan of gelijk aan.
 
-  
+
 }
