@@ -87,7 +87,7 @@ function preload() {
     quizImages.push(loadImage(imageFiles[i]));
   }
   soundFormats('mp3');
-  backgroundMusic = loadSound('wait.mp3');
+  backgroundMusic = loadSound('doubt.mp3');
 }
 
 function startBackgroundMusic() {
