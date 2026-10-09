@@ -17,6 +17,8 @@ let correctAnswers = 0;
 let startButton;
 let restartButton;
 let imageDecoration = 1;
+let backgroundMusic;
+
 
 //quizz questions. 
 let questions = [
@@ -84,7 +86,17 @@ function preload() {
   for (let i = 0; i < imageFiles.length; i++) {
     quizImages.push(loadImage(imageFiles[i]));
   }
+  soundFormats('mp3');
+  backgroundMusic = loadSound('doubt.mp3');
 }
+
+function startBackgroundMusic() {
+  if (!backgroundMusic.isPlaying()) {
+    backgroundMusic.setVolume(0.3);
+    backgroundMusic.loop();
+  }
+}
+
 
 function setup() {
   createCanvas(1000, 600);
@@ -98,7 +110,7 @@ function setup() {
   startButton.style("border", "2px solid " + soundwaveSteel);
   startButton.mousePressed(startQuiz);
   startButton.hide();
-
+  startBackgroundMusic();
   function styleButton(tostyle) {
     tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
     tostyle.style("cursor", "pointer");
@@ -135,6 +147,7 @@ function setup() {
 function startQuiz() {
   gameState = "quiz";
   cursor(ARROW);
+  startBackgroundMusic();
   startButton.hide();
   restartButton.hide();
 }
