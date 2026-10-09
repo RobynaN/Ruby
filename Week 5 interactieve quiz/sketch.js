@@ -1,4 +1,6 @@
 //colors
+//const moet je altijd meteen een waarde geven als je hem aanmaakt. Je kunt hem niet leeg declareren.
+//de const declaratie lijkt heel erg op de 'let' variable. 
 const soundwaveDark = '#0b1020'; //const is een vaste variabele. 
 const soundwavePanel = '#1a2242'; //#1a2242 is een Hex decimale kleurcode
 const soundwavePanelAlt = '#2a335c';
@@ -103,11 +105,12 @@ function styleButton(tostyle){
   tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
   tostyle.style("cursor", "pointer");
   tostyle.size(220, 60);
-tostyle.mouseOver(() => {
+  tostyle.mouseOver(() => {
   tostyle.style("background-color", soundwaveBlue);
   tostyle.style("color", soundwaveDark);
 });
 
+//=> als dan, bijv (x) => x * 2 betekent neem input x en geef x*2 terug 
 tostyle.mouseOut(() => {
   tostyle.style("background-color", soundwaveSilver);
   tostyle.style("color", soundwaveDark);
