@@ -87,11 +87,11 @@ function preload() {
     quizImages.push(loadImage(imageFiles[i]));
   }
   soundFormats('mp3');
-  backgroundMusic = loadSound('doubt.mp3');
+  backgroundMusic = loadSound('wait.mp3');
 }
 
 function startBackgroundMusic() {
-  if (!backgroundMusic.isPlaying()) {
+  if (backgroundMusic && !backgroundMusic.isPlaying()) {
     backgroundMusic.setVolume(0.3);
     backgroundMusic.loop();
   }
@@ -110,7 +110,6 @@ function setup() {
   startButton.style("border", "2px solid " + soundwaveSteel);
   startButton.mousePressed(startQuiz);
   startButton.hide();
-  startBackgroundMusic();
   function styleButton(tostyle) {
     tostyle.style("border-radius", "12px"); //12px is dat het in zoveel pixels word afgerond. 
     tostyle.style("cursor", "pointer");
