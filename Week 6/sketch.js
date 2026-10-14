@@ -7,6 +7,7 @@ let missionImg;
 let missionBackImg;
 let bathScreenImg;
 let foodImg;
+let cafeteriaImg;
 let showDormScreen = false;
 let showGuestRoomScreen = false;
 let showMissionScreen = false;
@@ -25,6 +26,7 @@ function preload() {
   missionBackImg = loadImage('missionback.webp');
   bathScreenImg = loadImage('bath.jpg');
   foodImg = loadImage('food.png');
+  cafeteriaImg = loadImage('cafetaria.jpg');
   
 }
 
@@ -33,6 +35,21 @@ function setup() {
 }
 
 function draw() {
+  if (showCafeteriaScreen) {
+    if (cafeteriaImg) {
+      image(cafeteriaImg, 0, 0, width, height);
+    }
+    fill(0, 180);
+    noStroke();
+    rect(0, 0, width, 80);
+    fill(255);
+    textStyle(BOLD);
+    textSize(28);
+    text('CAFETERIA', 40, 52);
+    text('RETURN', 1050, 48);
+    return;
+  }
+
   if (showBathScreen) {
     if (bathScreenImg) {
       image(bathScreenImg, 0, 0, width, height);
@@ -144,15 +161,14 @@ function draw() {
 }
 
 function mousePressed() {
-  if (showBathScreen) {
-    if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
-      showBathScreen = false;
-    }
-     if (showCafeteriaScreen) {
+  if (showCafeteriaScreen) {
     if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
       showCafeteriaScreen = false;
     }
-  }
+  } else if (showBathScreen) {
+    if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
+      showBathScreen = false;
+    }
   } else if (showMissionScreen) {
     if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
       showMissionScreen = false;
@@ -173,7 +189,7 @@ function mousePressed() {
   } else if (mouseX >= 668 && mouseX <= 758 && mouseY >= 278 && mouseY <= 388) {
     showDormScreen = true;
   }
-  else if (mouseX >= 668 && mouseX <= 758 && mouseY >= 278 && mouseY <= 388) {
+  else if (mouseX >= 915 && mouseX <= 1000 && mouseY >= 180 && mouseY <= 245) {
     showCafeteriaScreen = true;
   }
    
