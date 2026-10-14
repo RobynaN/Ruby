@@ -2,19 +2,30 @@ let homescreen;
 let grimGif;
 let dormImg;
 let roomImg;
+let bathImg;
 let missionImg;
 let missionBackImg;
+let bathScreenImg;
+let foodImg;
 let showDormScreen = false;
 let showGuestRoomScreen = false;
 let showMissionScreen = false;
+let showBathScreen = false;
+let bath;
+let showCafeteriaScreen = false;
+let cafeteria;
 
 function preload() {
   homescreen = loadImage('start5.png');
   grimGif = loadImage('Grim.gif');
   roomImg = loadImage('guest room.png');
   dormImg = loadImage('dorm.png');
+  bathImg = loadImage('bathimg.png');
   missionImg = loadImage('mission.png');
   missionBackImg = loadImage('missionback.webp');
+  bathScreenImg = loadImage('bath.jpg');
+  foodImg = loadImage('food.png');
+  
 }
 
 function setup() {
@@ -22,6 +33,21 @@ function setup() {
 }
 
 function draw() {
+  if (showBathScreen) {
+    if (bathScreenImg) {
+      image(bathScreenImg, 0, 0, width, height);
+    }
+    fill(0, 180);
+    noStroke();
+    rect(0, 0, width, 80);
+    fill(255);
+    textStyle(BOLD);
+    textSize(28);
+    text('BATHROOM', 40, 52);
+    text('RETURN', 1050, 48);
+    return;
+  }
+
   if (showMissionScreen) {
     if (missionBackImg) {
       image(missionBackImg, 0, 0, width, height);
@@ -84,8 +110,16 @@ function draw() {
     image(grimGif, 200, 120, 400, 500);
   }
 
+  if (bathImg) {
+    image(bathImg, 800, 335, 55, 70);
+  }
+
   if (missionImg) {
-    image(missionImg, 740, 120, 100, 80);
+    image(missionImg, 745, 120, 90, 80);
+  }
+
+  if (foodImg) {
+    image(foodImg, 915, 180, 85, 65);
   }
 
   push();
@@ -95,20 +129,31 @@ function draw() {
   pop();
   
  //text. 
+ 
   push();
   noStroke();
   textStyle(BOLD);
   fill(255);
   textSize(18);
   text("MISSION", 755, 125);
-  text("MUSIC", 930, 178);
-  text("BATHE", 800, 360);
+ text("BATHE", 800, 360);
+ textSize(14)
+  text("CAFETERIA", 918, 180);
   pop();
 
 }
 
 function mousePressed() {
-  if (showMissionScreen) {
+  if (showBathScreen) {
+    if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
+      showBathScreen = false;
+    }
+     if (showCafeteriaScreen) {
+    if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
+      showCafeteriaScreen = false;
+    }
+  }
+  } else if (showMissionScreen) {
     if (mouseX >= 1040 && mouseX <= 1190 && mouseY >= 0 && mouseY <= 80) {
       showMissionScreen = false;
     }
@@ -123,7 +168,13 @@ function mousePressed() {
     }
   } else if (mouseX >= 740 && mouseX <= 840 && mouseY >= 120 && mouseY <= 200) {
     showMissionScreen = true;
+  } else if (mouseX >= 800 && mouseX <= 855 && mouseY >= 335 && mouseY <= 405) {
+    showBathScreen = true;
   } else if (mouseX >= 668 && mouseX <= 758 && mouseY >= 278 && mouseY <= 388) {
     showDormScreen = true;
   }
+  else if (mouseX >= 668 && mouseX <= 758 && mouseY >= 278 && mouseY <= 388) {
+    showCafeteriaScreen = true;
+  }
+   
 }
