@@ -96,15 +96,12 @@ function draw() {
   
  //text. 
   push();
-  fill(0,180);
   noStroke();
   textStyle(BOLD);
   fill(255);
   textSize(18);
   text("MISSION", 755, 125);
-  textSize(18);
   text("MUSIC", 930, 178);
-  textSize(18);
   text("BATHE", 800, 360);
   pop();
 
