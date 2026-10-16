@@ -8,6 +8,13 @@ let bathScreenImg;
 let foodImg;
 let cafeteriaImg;
 let grimShockedImg;
+let imgLight;
+let liveImg;
+let food1Img;
+let boredImg;
+let countdownStartTime;
+let liveRemaining = 180;
+let liveLastUpdateTime = 0;
 let showDormScreen = false;
 let showGuestRoomScreen = false;
 let showMissionScreen = false;
@@ -15,6 +22,9 @@ let showBathScreen = false;
 let bath;
 let showCafeteriaScreen = false;
 let cafeteria;
+let energy = 100;
+let isSleeping = false;
+let sleepStartTime = 0;
 
 function preload() {
   homescreen = loadImage('start5.png');
@@ -27,11 +37,58 @@ function preload() {
   foodImg = loadImage('food.png');
   cafeteriaImg = loadImage('cafetaria.jpg');
   grimShockedImg = loadImage('grim shocked.png');
+  imgLight = loadImage('light.png');
+  liveImg = loadImage('live.png');
+  food1Img = loadImage('food1.png');
+  boredImg = loadImage('bored.png');
   
 }
 
 function setup() {
   createCanvas(1200, 600);
+  countdownStartTime = millis();
+  liveLastUpdateTime = countdownStartTime;
+}
+
+function drawCountdownBars() {
+  let icons = [imgLight, liveImg, food1Img, boredImg];
+  let labels = ['ENERGY', 'LIVE', 'FOOD', 'BORED'];
+  // Each stat drains at its own rate; shorter durations drain faster.
+  // Drain each stat over 2–5 minutes.
+  let durations = [120, 180, 240, 300];
+  let elapsed = (millis() - countdownStartTime) / 1000;
+  let now = millis();
+  let caringForGrim = showCafeteriaScreen || showBathScreen || showMissionScreen || showDormScreen || showGuestRoomScreen;
+  if (!caringForGrim) {
+    liveRemaining = max(0, liveRemaining - (now - liveLastUpdateTime) / 1000);
+  }
+  liveLastUpdateTime = now;
+
+  for (let i = 0; i < icons.length; i++) {
+    let x = 24;
+    let y = height - 18 - (icons.length - 1 - i) * 30;
+    let duration = durations[i];
+    let remaining = i === 0
+      ? constrain(energy / 100, 0, 1)
+      : i === 1
+        ? constrain(liveRemaining / duration, 0, 1)
+        : max(0, 1 - elapsed / duration);
+    if (icons[i]) image(icons[i], x, y - 19, 28, 28);
+    noStroke();
+    fill(0, 180);
+    rect(x + 34, y - 18, 220, 24, 10);
+    fill(80, 220, 120);
+    rect(x + 34, y - 18, 220 * remaining, 24, 10);
+    fill(255);
+    textStyle(BOLD);
+    textSize(12);
+    let value = i === 0
+      ? round(energy) + '%'
+      : i === 1
+        ? ceil(liveRemaining) + 's'
+        : ceil(remaining * duration) + 's';
+    text(labels[i] + ' ' + value, x + 40, y - 2);
+  }
 }
 
 function draw() {
@@ -48,6 +105,7 @@ function draw() {
     textSize(28);
     text('CAFETERIA', 40, 52);
     text('RETURN', 1050, 48);
+    drawCountdownBars();
     return;
   }
 
@@ -64,6 +122,7 @@ function draw() {
     textSize(28);
     text('BATHROOM', 40, 52);
     text('RETURN', 1050, 48);
+    drawCountdownBars();
     return;
   }
 
@@ -82,6 +141,7 @@ function draw() {
     fill(255);
     textStyle(BOLD);
     text('RETURN', 1050, 48);
+    drawCountdownBars();
     return;
   }
 
@@ -99,6 +159,7 @@ function draw() {
     textSize(32);
     text('GUEST ROOM', 40, 52);
     text('RETURN', 1040, 48);
+    drawCountdownBars();
     return;
   }
 
@@ -117,6 +178,8 @@ function draw() {
     text('GUEST ROOM', 30, 50);
     textSize(18);
     text('RETURN', 1080, 48);
+    image(roomImg, 666, 230, 80, 100);
+    drawCountdownBars();
     return;
   }
 
@@ -162,6 +225,8 @@ function draw() {
  textSize(14)
   text("CAFETERIA", 918, 180);
   pop();
+
+  drawCountdownBars();
 
 }
 
