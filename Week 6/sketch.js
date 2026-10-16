@@ -1,5 +1,4 @@
 let homescreen;
-let grimGif;
 let dormImg;
 let roomImg;
 let bathImg;
@@ -8,6 +7,7 @@ let missionBackImg;
 let bathScreenImg;
 let foodImg;
 let cafeteriaImg;
+let grimShockedImg;
 let showDormScreen = false;
 let showGuestRoomScreen = false;
 let showMissionScreen = false;
@@ -18,7 +18,6 @@ let cafeteria;
 
 function preload() {
   homescreen = loadImage('start5.png');
-  grimGif = loadImage('Grim.gif');
   roomImg = loadImage('guest room.png');
   dormImg = loadImage('dorm.png');
   bathImg = loadImage('bathimg.png');
@@ -27,6 +26,7 @@ function preload() {
   bathScreenImg = loadImage('bath.jpg');
   foodImg = loadImage('food.png');
   cafeteriaImg = loadImage('cafetaria.jpg');
+  grimShockedImg = loadImage('grim shocked.png');
   
 }
 
@@ -39,6 +39,7 @@ function draw() {
     if (cafeteriaImg) {
       image(cafeteriaImg, 0, 0, width, height);
     }
+    if (grimShockedImg) image(grimShockedImg, 460, 220, 260, 340);
     fill(0, 180);
     noStroke();
     rect(0, 0, width, 80);
@@ -54,6 +55,7 @@ function draw() {
     if (bathScreenImg) {
       image(bathScreenImg, 0, 0, width, height);
     }
+    if (grimShockedImg) image(grimShockedImg, 460, 220, 260, 340);
     fill(0, 180);
     noStroke();
     rect(0, 0, width, 80);
@@ -69,6 +71,7 @@ function draw() {
     if (missionBackImg) {
       image(missionBackImg, 0, 0, width, height);
     }
+    if (grimShockedImg) image(grimShockedImg, 420, 220, 260, 340);
     fill(0, 180);
     noStroke();
     rect(0, 0, width, 80);
@@ -87,6 +90,7 @@ function draw() {
     if (dormImg) {
       image(dormImg, 0, 0, width, height);
     }
+    if (grimShockedImg) image(grimShockedImg, 270, 220, 260, 340);
     fill(0, 180);
     noStroke();
     rect(0, 0, width, 80);
@@ -103,6 +107,7 @@ function draw() {
     if (roomImg) {
       image(roomImg, 666, 230, 80, 100);
     }
+    if (grimShockedImg) image(grimShockedImg, 270, 220, 260, 340);
     fill(0, 180);
     noStroke();
     rect(0, 0, width, 80);
@@ -119,12 +124,12 @@ function draw() {
     image(homescreen, 0, 0, width, height);
   }
 
-  if (roomImg) {
-    image(roomImg, 668, 278, 90, 110);
+  if (grimShockedImg) {
+    image(grimShockedImg, 270, 220, 260, 340);
   }
 
-  if (grimGif) {
-    image(grimGif, 200, 120, 400, 500);
+  if (roomImg) {
+    image(roomImg, 668, 278, 90, 110);
   }
 
   if (bathImg) {
