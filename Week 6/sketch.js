@@ -14,7 +14,7 @@ let grimDisImg;
 let grimHappyImg;
 let grimCheerImg;
 
-let imgLight;
+let Light;
 let liveImg;
 let food1Img;
 let boredImg;
@@ -75,7 +75,7 @@ function updatePetStats() {
   // Convert frame time to seconds.
   // This keeps the stats consistent at different frame rates.
   let elapsed = min(deltaTime / 1000, 0.1);
-if (isSleeping) {
+  if (isSleeping) {
     // Sleeping restores energy and health.
     energy = min(100, energy + elapsed * 8);
     health = min(100, health + elapsed * 1.5);
@@ -85,9 +85,9 @@ if (isSleeping) {
   } else {
 
     // Normal time passing.
-energy = max(0, energy - elapsed * 0.12);
-hunger = min(100, hunger + elapsed * 0.1);
-happiness = max(0, happiness - elapsed * 0.06);
+    energy = max(0, energy - elapsed * 0.12);
+    hunger = min(100, hunger + elapsed * 0.1);
+    happiness = max(0, happiness - elapsed * 0.06);
     // Hunger can damage health.
     let healthLoss = hunger > 70 ? 0.08 : 0.015;
 
@@ -107,7 +107,7 @@ function drawPet(x, y, w, h) {
   if (health < 30) {
     petImage = grimDisImg;
   }
-// Very hungry pet
+  // Very hungry pet
   else if (hunger > 70) {
     petImage = grimMadImg;
   }
@@ -160,9 +160,9 @@ function drawCareButton(label) {
 }
 // STATISTICS BARS
 function drawCountdownBars() {
-// Four statistics and their icons.
-let icons = [food1Img, imgLight, boredImg, liveImg];
-let labels = [
+  // Four statistics and their icons.
+  let icons = [food1Img, imgLight, boredImg, liveImg];
+  let labels = [
     "HUNGER", "ENERGY", "HAPPINESS", "HEALTH"];
 
   // A full hunger bar means the pet is well fed.
@@ -177,11 +177,11 @@ let labels = [
   let barHeight = 22;
   let spacing = 30;
 
-for (let i = 0; i < values.length; i++) {
-let x = startX;
-let y = startY - (values.length - 1 - i) * spacing;
-let value = constrain(values[i], 0, 100);
-let barLength = barWidth * value / 100;
+  for (let i = 0; i < values.length; i++) {
+    let x = startX;
+    let y = startY - (values.length - 1 - i) * spacing;
+    let value = constrain(values[i], 0, 100);
+    let barLength = barWidth * value / 100;
 
     // Draw the icon.
     if (icons[i]) {
@@ -218,7 +218,7 @@ let barLength = barWidth * value / 100;
     textStyle(BOLD);
     textSize(11);
     textAlign(LEFT, CENTER);
-    text(labels[i] + " " + round(value) + "%",x + 42, y - 7);
+    text(labels[i] + " " + round(value) + "%", x + 42, y - 7);
   }
 
   // Restore text settings.
@@ -247,7 +247,7 @@ function drawHeader(title) {
 }
 // MAIN DRAW FUNCTION
 function draw() {
-// Update statistics ONCE per frame.
+  // Update statistics ONCE per frame.
   // This works on every screen.
   updatePetStats();
   // CAFETERIA SCREEN
@@ -388,8 +388,7 @@ function mousePressed() {
 
     // FEED button
     if (
-      mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) 
-      {
+      mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
 
       // Feeding when hunger is already low
       // counts as overfeeding.
@@ -412,7 +411,7 @@ function mousePressed() {
   }
   // BATHROOM ACTIONS
   else if (showBathScreen) {
-// CLEAN button
+    // CLEAN button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
 
       // Cleaning improves health.
