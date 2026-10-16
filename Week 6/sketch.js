@@ -68,13 +68,15 @@ function drawCountdownBars() {
     let x = 24;
     let y = height - 18 - (icons.length - 1 - i) * 30;
     let duration = durations[i];
+
+    //tijd of energie berekenen. 
     let remaining = i === 0
-      ? constrain(energy / 100, 0, 1)
+      ? constrain(energy / 100, 0, 1) //75 energie wordt 0.75. Dat betekent dat 75% van de balk gevuld is.
       : i === 1
-        ? constrain(liveRemaining / duration, 0, 1)
-        : max(0, 1 - elapsed / duration);
+        ? constrain(liveRemaining / duration, 0, 1) //deel je de resterende tijd door de totale duur.
+        : max(0, 1 - elapsed / duration); //hoeveel tijd er nog over is op basis van de verstreken tijd.
     if (icons[i]) image(icons[i], x, y - 19, 28, 28);
-    noStroke();
+    noStroke(); //Dit tekent de donkere achtergrond van je balk.
     fill(0, 180);
     rect(x + 34, y - 18, 220, 24, 10);
     fill(80, 220, 120);
@@ -83,7 +85,7 @@ function drawCountdownBars() {
     textStyle(BOLD);
     textSize(12);
     let value = i === 0
-      ? round(energy) + '%'
+      ? round(energy)
       : i === 1
         ? ceil(liveRemaining) + 's'
         : ceil(remaining * duration) + 's';
