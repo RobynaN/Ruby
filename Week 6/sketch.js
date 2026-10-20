@@ -7,6 +7,7 @@ let missionBackImg;
 let bathScreenImg;
 let foodImg;
 let cafeteriaImg;
+let bannerImg;
 
 let grimShockedImg;
 let grimMadImg;
@@ -14,10 +15,16 @@ let grimDisImg;
 let grimHappyImg;
 let grimCheerImg;
 
-let Light;
+let imgLight;
 let liveImg;
 let food1Img;
 let boredImg;
+let pomefioreImg;
+let lifeBannerImg;
+let lifeEmptyImg;
+
+let lives = 5;
+let nextLifeLossAt = null;
 
 // Screens
 let showDormScreen = false;
@@ -40,6 +47,8 @@ let isSleeping = false;
 
 // Feeding counter
 let feedingCount = 0;
+
+
 // PRELOAD IMAGES
 function preload() {
   homescreen = loadImage("start5.png");
@@ -53,6 +62,7 @@ function preload() {
 
   foodImg = loadImage("food.png");
   cafeteriaImg = loadImage("cafetaria.jpg");
+  bannerImg = loadImage("banner.jpeg");
 
   grimShockedImg = loadImage("grim shocked.png");
   grimMadImg = loadImage("grim mad.png");
@@ -62,90 +72,127 @@ function preload() {
 
   imgLight = loadImage("light.png");
   liveImg = loadImage("live.png");
+  lifeBannerImg = loadImage("5de.png");
+  lifeEmptyImg = loadImage("4de.png");
+
   food1Img = loadImage("food1.png");
   boredImg = loadImage("bored.png");
+
+  // Pomefiore image for happiness
+  pomefioreImg = loadImage("pomefoire.png");
 }
+
+
 function setup() {
   createCanvas(1200, 600);
   imageMode(CORNER);
   textFont("Arial");
 }
+
+
 // UPDATE PET STATISTICS
 function updatePetStats() {
-  // Convert frame time to seconds.
-  // This keeps the stats consistent at different frame rates.
   let elapsed = min(deltaTime / 1000, 0.1);
+
   if (isSleeping) {
     // Sleeping restores energy and health.
     energy = min(100, energy + elapsed * 8);
     health = min(100, health + elapsed * 1.5);
-    // Hunger does not increase while sleeping.
-    // Happiness does not decrease while sleeping.
 
+    // Hunger and happiness do not change while sleeping.
   } else {
-
     // Normal time passing.
     energy = max(0, energy - elapsed * 0.12);
     hunger = min(100, hunger + elapsed * 0.1);
     happiness = max(0, happiness - elapsed * 0.06);
+
     // Hunger can damage health.
     let healthLoss = hunger > 70 ? 0.08 : 0.015;
-
     health = max(0, health - elapsed * healthLoss);
   }
 
-  // Keep all statistics inside the 0-100 range.
+  // Keep all statistics between 0 and 100.
   energy = constrain(energy, 0, 100);
   hunger = constrain(hunger, 0, 100);
   happiness = constrain(happiness, 0, 100);
   health = constrain(health, 0, 100);
+
+  // Calculate how many lives health should have.
+  let healthLives = health <= 0 ? 0 : ceil(health / 20);
+
+  // Restore lives if health recovers.
+  if (healthLives > lives) {
+    lives = healthLives;
+    nextLifeLossAt = null;
+  } else if (healthLives < lives) {
+    // Delay each life loss slightly.
+    if (nextLifeLossAt === null) {
+      nextLifeLossAt = millis() + 1000;
+    }
+
+    if (millis() >= nextLifeLossAt) {
+      lives--;
+
+      nextLifeLossAt =
+        lives > healthLives ? millis() + 700 : null;
+    }
+  } else {
+    nextLifeLossAt = null;
+  }
 }
+
+
 // DRAW PET
 function drawPet(x, y, w, h) {
   let petImage = grimHappyImg;
+
   // Unwell pet
   if (health < 30) {
     petImage = grimDisImg;
   }
+
   // Very hungry pet
   else if (hunger > 70) {
     petImage = grimMadImg;
   }
+
   // Exhausted pet
   else if (energy < 20) {
     petImage = grimDisImg;
   }
+
   // Very happy pet
   else if (happiness > 80) {
     petImage = grimCheerImg;
   }
+
   // Unhappy pet
   else if (happiness < 30) {
     petImage = grimDisImg;
   }
+
   // Moderately happy pet
-  else if (happiness > 50) {
+  else if (happiness > 60) {
     petImage = grimHappyImg;
   }
+
   // Default expression
-  else {
+  else if (happiness > 50) {
     petImage = grimShockedImg;
   }
+
   if (petImage) {
     image(petImage, x, y, w, h);
   }
 }
+
+
 // CARE BUTTON
 function drawCareButton(label) {
-  rectMode(CENTER);
+  if (bannerImg) {
+    image(bannerImg, 25, 97, 150, 46);
+  }
 
-  stroke(255);
-  strokeWeight(2);
-  fill(45, 130, 75);
-
-  rect(100, 120, 150, 46, 10);
-
-  noStroke();
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(20);
@@ -153,24 +200,22 @@ function drawCareButton(label) {
 
   text(label, 100, 120);
 
-  // Restore drawing settings.
-  rectMode(CORNER);
   textAlign(LEFT, BASELINE);
   textStyle(NORMAL);
 }
+
+
 // STATISTICS BARS
 function drawCountdownBars() {
-  // Four statistics and their icons.
-  let icons = [food1Img, imgLight, boredImg, liveImg];
-  let labels = [
-    "HUNGER", "ENERGY", "HAPPINESS", "HEALTH"];
+  // Icon for each statistic.
+  let icons = [food1Img, imgLight, pomefioreImg, liveImg];
 
-  // A full hunger bar means the pet is well fed.
-  let values = [
-    100 - hunger, energy, happiness, health];
+  let labels = [ "HUNGER", "ENERGY", "HAPPINESS", "HEALTH"];
 
-  // Position the bars in the bottom-left corner.
-  // They stay clear of the pet at x = 270.
+  // Hunger is reversed:
+  // less hunger means more filled slots.
+  let values = [100 - hunger,energy,happiness,health];
+
   let startX = 24;
   let startY = height - 18;
   let barWidth = 190;
@@ -180,51 +225,73 @@ function drawCountdownBars() {
   for (let i = 0; i < values.length; i++) {
     let x = startX;
     let y = startY - (values.length - 1 - i) * spacing;
-    let value = constrain(values[i], 0, 100);
-    let barLength = barWidth * value / 100;
 
-    // Draw the icon.
+    let value = constrain(values[i], 0, 100);
+
+    // Each stat has five slots.
+    // Each slot represents 20%.
+    let imagesRemaining = ceil(value / 20);
+
+    // Draw the icon on the left.
     if (icons[i]) {
       image(icons[i], x, y - 19, 26, 26);
     }
 
-    // Dark bar background.
-    noStroke();
-    fill(15, 18, 35, 230);
-    rect(x + 34, y - 18, barWidth, barHeight, 7);
+    // Draw five image slots.
+    for (let j = 0; j < 5; j++) {
+      let slotX = x + 39 + j * 35;
+      let slotY = y - 16;
 
-    // Choose a colour based on the value.
-    if (value > 60) {
-      fill(65, 200, 115);       // Green
-    } else if (value > 30) {
-      fill(255, 175, 55);       // Orange
-    } else {
-      fill(235, 75, 80);        // Red
+      let isFilled = j < imagesRemaining;
+      let statImage = icons[i];
+
+      // HAPPINESS uses the Pomefiore image.
+      if (i === 2) {
+        statImage = pomefioreImg;
+      }
+
+      // HEALTH uses 5de.png when filled
+      // and 4de.png when empty.
+      if (i === 3) {
+        statImage = isFilled ? lifeBannerImg : lifeEmptyImg;
+        }
+
+      if (statImage) {
+        push();
+
+        // Fade empty slots for hunger, energy,
+        // and happiness.
+        if (!isFilled && i !== 3) {
+          tint(255, 65);
+        }
+
+        image(
+          statImage,  slotX - (i >= 2 ? 4 : 0), slotY - (i >= 2 ? 4 : 0),
+           i >= 2 ? 25 : 17, i >= 2 ? 26 : 18);
+
+        pop();
+      }
     }
 
-    // Draw the filled part.
-    if (barLength > 0) {
-      rect(
-        x + 34,
-        y - 18,
-        barLength,
-        barHeight,
-        7
-      );
-    }
+    // Draw labels only for hunger and energy.
+    if (i < 2) {
+      fill(255);
+      textStyle(BOLD);
+      textSize(11);
+      textAlign(LEFT, CENTER);
 
-    // Draw the statistic and percentage.
-    fill(255);
-    textStyle(BOLD);
-    textSize(11);
-    textAlign(LEFT, CENTER);
-    text(labels[i] + " " + round(value) + "%", x + 42, y - 7);
+      text(
+        labels[i] + " " + round(value) + "%", x + 42, y - 7);
+    }
   }
 
-  // Restore text settings.
+  // Restore drawing settings.
+  noTint();
   textAlign(LEFT, BASELINE);
   textStyle(NORMAL);
 }
+
+
 // HEADER
 function drawHeader(title) {
   noStroke();
@@ -245,59 +312,57 @@ function drawHeader(title) {
   textAlign(LEFT, BASELINE);
   textStyle(NORMAL);
 }
+
+
 // MAIN DRAW FUNCTION
 function draw() {
-  // Update statistics ONCE per frame.
-  // This works on every screen.
+  // Update statistics once per frame.
   updatePetStats();
+
   // CAFETERIA SCREEN
   if (showCafeteriaScreen) {
-
     if (cafeteriaImg) {
       image(cafeteriaImg, 0, 0, width, height);
     }
 
     drawPet(460, 220, 260, 340);
-
     drawHeader("CAFETERIA");
     drawCareButton("FEED");
     drawCountdownBars();
 
     return;
   }
+
   // BATHROOM SCREEN
   if (showBathScreen) {
-
     if (bathScreenImg) {
       image(bathScreenImg, 0, 0, width, height);
     }
 
     drawPet(460, 220, 260, 340);
-
     drawHeader("BATHROOM");
     drawCareButton("BATHE");
     drawCountdownBars();
 
     return;
   }
+
   // MISSION SCREEN
   if (showMissionScreen) {
-
     if (missionBackImg) {
       image(missionBackImg, 0, 0, width, height);
     }
 
     drawPet(420, 220, 260, 340);
-
     drawHeader("MISSION");
     drawCareButton("PLAY");
     drawCountdownBars();
 
     return;
   }
+
   // DORM SCREEN
   if (showDormScreen) {
-
     background(30, 24, 45);
 
     if (dormImg) {
@@ -305,7 +370,6 @@ function draw() {
     }
 
     drawPet(270, 220, 260, 340);
-
     drawHeader("GUEST ROOM");
 
     drawCareButton(isSleeping ? "WAKE UP" : "SLEEP");
@@ -314,9 +378,9 @@ function draw() {
 
     return;
   }
+
   // GUEST ROOM SCREEN
   if (showGuestRoomScreen) {
-
     background(30, 24, 45);
 
     if (roomImg) {
@@ -324,12 +388,12 @@ function draw() {
     }
 
     drawPet(270, 220, 260, 340);
-
     drawHeader("GUEST ROOM");
     drawCountdownBars();
 
     return;
   }
+
   // HOME SCREEN
   if (homescreen) {
     image(homescreen, 0, 0, width, height);
@@ -338,7 +402,6 @@ function draw() {
   }
 
   drawPet(270, 220, 260, 340);
-
 
   // Dorm entrance
   if (roomImg) {
@@ -360,7 +423,6 @@ function draw() {
     image(foodImg, 915, 180, 85, 65);
   }
 
-
   // Home screen labels
   push();
 
@@ -377,47 +439,17 @@ function draw() {
 
   pop();
 
-
-  // Draw statistics on top of the background.
+  // Draw statistics on the home screen.
   drawCountdownBars();
 }
-// MOUSE PRESSED
+
 function mousePressed() {
-  // CAFETERIA ACTIONS
-  if (showCafeteriaScreen) {
-
-    // FEED button
-    if (
-      mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
-
-      // Feeding when hunger is already low
-      // counts as overfeeding.
-      if (hunger < 20) {
-        health = max(0, health - 10);
-        feedingCount++;
-      }
-
-      // Reduce hunger and restore energy.
-      hunger = max(0, hunger - 35);
-      energy = min(100, energy + 10);
-      return;
-    }
-
-    // RETURN button
-    if (mouseX >= 1040 && mouseY <= 80) {
-      showCafeteriaScreen = false;
-      return;
-    }
-  }
   // BATHROOM ACTIONS
-  else if (showBathScreen) {
-    // CLEAN button
+  if (showBathScreen) {
+    // BATHE button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
-
-      // Cleaning improves health.
       cleanliness = min(100, cleanliness + 40);
       health = min(100, health + 20);
-
       return;
     }
 
@@ -427,16 +459,13 @@ function mousePressed() {
       return;
     }
   }
+
   // MISSION ACTIONS
   else if (showMissionScreen) {
-
     // PLAY button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
-
-      // Playing improves happiness but costs energy.
       happiness = min(100, happiness + 35);
       energy = max(0, energy - 10);
-
       return;
     }
 
@@ -446,14 +475,12 @@ function mousePressed() {
       return;
     }
   }
+
   // DORM ACTIONS
   else if (showDormScreen) {
-
     // SLEEP / WAKE button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
-
       isSleeping = !isSleeping;
-
       return;
     }
 
@@ -471,19 +498,18 @@ function mousePressed() {
       return;
     }
   }
+
   // GUEST ROOM ACTIONS
   else if (showGuestRoomScreen) {
-
-    // RETURN to the dorm.
     if (mouseX >= 1040 && mouseY <= 80) {
       showGuestRoomScreen = false;
       showDormScreen = true;
       return;
     }
   }
+
   // HOME SCREEN ACTIONS
   else {
-
     // Mission entrance
     if (mouseX >= 740 && mouseX <= 840 && mouseY >= 120 && mouseY <= 200) {
       showMissionScreen = true;
