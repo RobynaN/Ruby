@@ -266,8 +266,7 @@ function drawCountdownBars() {
         }
 
         image(
-          statImage,  slotX - (i >= 2 ? 4 : 0), slotY - (i >= 2 ? 4 : 0),
-           i >= 2 ? 25 : 17, i >= 2 ? 26 : 18);
+          statImage,  slotX - (i >= 2 ? 4 : 0), slotY - (i >= 2 ? 4 : 0), i >= 2 ? 25 : 17, i >= 2 ? 26 : 18);
 
         pop();
       }
@@ -444,6 +443,23 @@ function draw() {
 }
 
 function mousePressed() {
+  // CAFETERIA ACTIONS
+  if (showCafeteriaScreen) {
+    // FEED button
+    if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
+      hunger = max(0, hunger - 25);
+      happiness = min(100, happiness + 5);
+      feedingCount++;
+      return;
+    }
+
+    // RETURN button
+    if (mouseX >= 1040 && mouseY <= 80) {
+      showCafeteriaScreen = false;
+      return;
+    }
+  }
+
   // BATHROOM ACTIONS
   if (showBathScreen) {
     // BATHE button
