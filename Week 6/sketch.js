@@ -8,6 +8,7 @@ let bathScreenImg;
 let foodImg;
 let cafeteriaImg;
 let bannerImg;
+let deadImg;
 
 let grimShockedImg;
 let grimMadImg;
@@ -45,6 +46,7 @@ let isSleeping = false;
 
 // Feeding counter
 let feedingCount = 0;
+let isGameOver = false;
 
 
 // PRELOAD IMAGES
@@ -61,6 +63,7 @@ function preload() {
   foodImg = loadImage("food.png");
   cafeteriaImg = loadImage("cafetaria.jpg");
   bannerImg = loadImage("banner.jpeg");
+  deadImg = loadImage("dead.png");
 
   grimShockedImg = loadImage("grim shocked.png");
   grimMadImg = loadImage("grim mad.png");
@@ -82,6 +85,8 @@ function setup() {
   createCanvas(1200, 600);
   imageMode(CORNER);
   textFont("Arial");
+
+  loadGame();
 }
 
 
@@ -112,6 +117,11 @@ function updatePetStats() {
   hunger = constrain(hunger, 0, 100);
   happiness = constrain(happiness, 0, 100);
   health = constrain(health, 0, 100);
+
+  // The hunger bar is reversed, so it is empty when hunger reaches 100.
+  if (hunger >= 100 && energy <= 0 && happiness <= 0 && health <= 0) {
+    isGameOver = true;
+  }
 
   // Calculate how many lives health should have.
   let healthLives = health <= 0 ? 0 : ceil(health / 20);
@@ -183,7 +193,7 @@ function drawPet(x, y, w, h) {
   }
 
   if (petImage) {
-    image(petImage, x, y, w, h);
+    image(petImage, x, y, w, 400);
   }
 }
 
@@ -218,7 +228,7 @@ function drawCountdownBars() {
   let values = [100 - hunger,energy,happiness,health];
 
   let startX = 12;
-  let startY = height - 18;
+  let startY = height - 24;
   let barWidth = 190;
   let barHeight = 22;
   let spacing = 30;
@@ -231,15 +241,10 @@ function drawCountdownBars() {
 
     // Each stat has five slots.
     // Each slot represents 20%.
-    let imagesRemaining = ceil(value / 20);
-
-    // Draw the icon on the left.
-    if (icons[i] && i !== 1 && i !== 0 && i !== 2) {
-      image(icons[i], x, y - 19, 26, 26);
-    }
+    let imagesRemaining = i === 3 ? constrain(lives, 0, 5) : ceil(value / 20);
 
     // Draw five image slots.
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 5; j++) { //let j is een tijdelijke loop
       let slotX = x + 39 + j * 35;
       let slotY = y - 16;
 //haalt de hele tijd een img weg als die 20% lager is
@@ -327,8 +332,27 @@ function drawHeader(title) {
 
 // MAIN DRAW FUNCTION
 function draw() {
+  if (isGameOver) {
+    if (deadImg) {
+      image(deadImg, 0, 0, width, height);
+    }
+    return;
+  }
+
   // Update statistics once per frame.
   updatePetStats();
+
+  if (isGameOver) {
+    if (deadImg) {
+      image(deadImg, 0, 0, width, height);
+    }
+    return;
+  }
+
+  // Save progress periodically so changes survive a page reload.
+  if (millis() - lastSaveTime >= 1000) {
+    saveGame();
+  }
 
   // CAFETERIA SCREEN
   if (showCafeteriaScreen) {
@@ -455,6 +479,56 @@ function draw() {
 
   // Draw statistics on the home screen.
   drawCountdownBars();
+}
+
+// DATA OPSLAG
+let lastSaveTime = 0;
+
+function saveGame() {
+  let gameData = {
+    energy: energy,
+    hunger: hunger,
+    happiness: happiness,
+    health: health,
+    cleanliness: cleanliness,
+    lives: lives,
+    isSleeping: isSleeping,
+    feedingCount: feedingCount
+  };
+
+  try {
+    localStorage.setItem("grimTamagotchi", JSON.stringify(gameData));
+    lastSaveTime = millis();
+  } catch (error) {
+    console.warn("Could not save game data:", error);
+  }
+}
+
+function loadGame() {
+  try {
+    let savedData = localStorage.getItem("grimTamagotchi");
+    if (savedData === null) return;
+
+    let gameData = JSON.parse(savedData);
+    if (!gameData || typeof gameData !== "object") return;
+
+    // Validate saved values and retain defaults for missing or invalid fields.
+    if (Number.isFinite(gameData.energy)) energy = constrain(gameData.energy, 0, 100);
+    if (Number.isFinite(gameData.hunger)) hunger = constrain(gameData.hunger, 0, 100);
+    if (Number.isFinite(gameData.happiness)) happiness = constrain(gameData.happiness, 0, 100);
+    if (Number.isFinite(gameData.health)) health = constrain(gameData.health, 0, 100);
+    if (Number.isFinite(gameData.cleanliness)) cleanliness = constrain(gameData.cleanliness, 0, 100);
+    if (Number.isFinite(gameData.lives)) lives = constrain(Math.floor(gameData.lives), 0, 5);
+    if (typeof gameData.isSleeping === "boolean") isSleeping = gameData.isSleeping;
+    if (Number.isFinite(gameData.feedingCount)) {
+      feedingCount = Math.max(0, Math.floor(gameData.feedingCount));
+    }
+
+    // Reset the timer for losing lives after loading.
+    nextLifeLossAt = null;
+  } catch (error) {
+    console.warn("Could not load saved game data:", error);
+  }
 }
 
 function mousePressed() {
