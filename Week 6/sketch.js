@@ -15,10 +15,8 @@ let grimDisImg;
 let grimHappyImg;
 let grimCheerImg;
 
-let imgLight;
-let liveImg;
+let energyImg;
 let food1Img;
-let boredImg;
 let pomefioreImg;
 let lifeBannerImg;
 let lifeEmptyImg;
@@ -70,16 +68,13 @@ function preload() {
   grimHappyImg = loadImage("grim happy.png");
   grimCheerImg = loadImage("grim cheer.png");
 
-  imgLight = loadImage("light.png");
-  liveImg = loadImage("live.png");
-  lifeBannerImg = loadImage("5de.png");
-  lifeEmptyImg = loadImage("4de.png");
+  energyImg = loadImage("energy.png");
+  lifeBannerImg = loadImage("health.png");
 
-  food1Img = loadImage("food1.png");
-  boredImg = loadImage("bored.png");
+  food1Img = loadImage("hunger.png");
 
-  // Pomefiore image for happiness
-  pomefioreImg = loadImage("pomefoire.png");
+  // Health image used for happiness
+  pomefioreImg = loadImage("bathe.png");
 }
 
 
@@ -102,12 +97,12 @@ function updatePetStats() {
     // Hunger and happiness do not change while sleeping.
   } else {
     // Normal time passing.
-    energy = max(0, energy - elapsed * 0.12);
-    hunger = min(100, hunger + elapsed * 0.1);
-    happiness = max(0, happiness - elapsed * 0.06);
+    energy = max(0, energy - elapsed * 0.3);
+    hunger = min(100, hunger + elapsed * 0.25);
+    happiness = max(0, happiness - elapsed * 0.15);
 
     // Hunger can damage health.
-    let healthLoss = hunger > 70 ? 0.08 : 0.015;
+    let healthLoss = hunger > 70 ? 0.16 : 0.03;
     health = max(0, health - elapsed * healthLoss);
   }
 
@@ -208,7 +203,7 @@ function drawCareButton(label) {
 // STATISTICS BARS
 function drawCountdownBars() {
   // Icon for each statistic.
-  let icons = [food1Img, imgLight, pomefioreImg, liveImg];
+  let icons = [food1Img, energyImg, pomefioreImg, null];
 
   let labels = [ "HUNGER", "ENERGY", "HAPPINESS", "HEALTH"];
 
@@ -216,7 +211,7 @@ function drawCountdownBars() {
   // less hunger means more filled slots.
   let values = [100 - hunger,energy,happiness,health];
 
-  let startX = 24;
+  let startX = 12;
   let startY = height - 18;
   let barWidth = 190;
   let barHeight = 22;
@@ -233,7 +228,7 @@ function drawCountdownBars() {
     let imagesRemaining = ceil(value / 20);
 
     // Draw the icon on the left.
-    if (icons[i]) {
+    if (icons[i] && i !== 1 && i !== 0 && i !== 2) {
       image(icons[i], x, y - 19, 26, 26);
     }
 
@@ -245,16 +240,35 @@ function drawCountdownBars() {
       let isFilled = j < imagesRemaining;
       let statImage = icons[i];
 
+      // Energy uses only filled icons; each disappears as energy drops.
+      if (i === 1 && !isFilled) {
+        continue;
+      }
+
+      // Happiness uses the same disappearing-slot behavior as energy.
+      if (i === 2 && !isFilled) {
+        continue;
+      }
+
+      // Hunger uses five icons that disappear as hunger decreases.
+      if (i === 0 && !isFilled) {
+        continue;
+      }
+
+      // Health loses one 5de.png icon for each 20% lost.
+      if (i === 3 && !isFilled) {
+        continue;
+      }
+
       // HAPPINESS uses the Pomefiore image.
       if (i === 2) {
         statImage = pomefioreImg;
       }
 
-      // HEALTH uses 5de.png when filled
-      // and 4de.png when empty.
+      // Health displays only the remaining filled icons.
       if (i === 3) {
-        statImage = isFilled ? lifeBannerImg : lifeEmptyImg;
-        }
+        statImage = lifeBannerImg;
+      }
 
       if (statImage) {
         push();
@@ -264,9 +278,11 @@ function drawCountdownBars() {
         if (!isFilled && i !== 3) {
           tint(255, 65);
         }
-
-        image(
-          statImage,  slotX - (i >= 2 ? 4 : 0), slotY - (i >= 2 ? 4 : 0), i >= 2 ? 25 : 17, i >= 2 ? 26 : 18);
+         //pomefoire.png stats. 
+        image(statImage, slotX - (i === 2 ? 2 : i >= 1 ? 5 : 0),
+          slotY - (i === 0 || i >= 1 ? (i === 2 ? 2 : 5) : 0),
+          i === 2 ? 25 : i === 0 || i === 1 ? 31 : 28,
+          i === 2 ? 26 : i === 1 ? 32 : i === 0 ? 31 : 28);
 
         pop();
       }
@@ -400,6 +416,9 @@ function draw() {
     background(30, 24, 45);
   }
 
+  fill(0,180)
+  rect(20, 460, 220, 130,10);
+
   drawPet(270, 220, 260, 340);
 
   // Dorm entrance
@@ -449,6 +468,7 @@ function mousePressed() {
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
       hunger = max(0, hunger - 25);
       happiness = min(100, happiness + 5);
+      health = min(100, health + 20);
       feedingCount++;
       return;
     }
