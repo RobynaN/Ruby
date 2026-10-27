@@ -124,7 +124,8 @@ function updatePetStats() {
     if (nextLifeLossAt === null) {
       nextLifeLossAt = millis() + 1000;
     }
-
+    //millis() geeft aan hoeveel milliseconden er sinds het starten van de game zijn verstreken.
+    //lives-- verlaagt het aantal levens met één.
     if (millis() >= nextLifeLossAt) {
       lives--;
 
@@ -152,7 +153,7 @@ function drawPet(x, y, w, h) {
   }
 
   // Exhausted pet
-  else if (energy < 20) {
+  else if (energy < 50) {
     petImage = grimDisImg;
   }
 
@@ -167,12 +168,12 @@ function drawPet(x, y, w, h) {
   }
 
   // Moderately happy pet
-  else if (happiness > 60) {
+  else if (happiness > 90) {
     petImage = grimHappyImg;
   }
 
   // Default expression
-  else if (happiness > 50) {
+  else if (happiness > 80) {
     petImage = grimShockedImg;
   }
 
@@ -203,7 +204,7 @@ function drawCareButton(label) {
 // STATISTICS BARS
 function drawCountdownBars() {
   // Icon for each statistic.
-  let icons = [food1Img, energyImg, pomefioreImg, null];
+  let icons = [food1Img, energyImg, pomefioreImg, lifeBannerImg];
 
   let labels = [ "HUNGER", "ENERGY", "HAPPINESS", "HEALTH"];
 
@@ -258,16 +259,6 @@ function drawCountdownBars() {
       // Health loses one 5de.png icon for each 20% lost.
       if (i === 3 && !isFilled) {
         continue;
-      }
-
-      // HAPPINESS uses the Pomefiore image.
-      if (i === 2) {
-        statImage = pomefioreImg;
-      }
-
-      // Health displays only the remaining filled icons.
-      if (i === 3) {
-        statImage = lifeBannerImg;
       }
 
       if (statImage) {
