@@ -107,6 +107,7 @@ function updatePetStats() {
   }
 
   // Keep all statistics between 0 and 100.
+  //constrain betekent het binnen bepaalde grenzen houden van een waarde
   energy = constrain(energy, 0, 100);
   hunger = constrain(hunger, 0, 100);
   happiness = constrain(happiness, 0, 100);
@@ -153,8 +154,12 @@ function drawPet(x, y, w, h) {
   }
 
   // Exhausted pet
-  else if (energy < 50) {
+  else if (energy < 30) {
     petImage = grimDisImg;
+  }
+
+  else if(energy > 60) {
+    petImage = grimHappyImg;
   }
 
   // Very happy pet
@@ -237,7 +242,7 @@ function drawCountdownBars() {
     for (let j = 0; j < 5; j++) {
       let slotX = x + 39 + j * 35;
       let slotY = y - 16;
-
+//haalt de hele tijd een img weg als die 20% lager is
       let isFilled = j < imagesRemaining;
       let statImage = icons[i];
 
