@@ -25,6 +25,8 @@ let lifeEmptyImg;
 let lives = 5;
 let nextLifeLossAt = null;
 
+let backgroundMusic;
+
 // Screens
 let showDormScreen = false;
 let showGuestRoomScreen = false;
@@ -51,6 +53,7 @@ let isGameOver = false;
 
 // PRELOAD IMAGES
 function preload() {
+  backgroundMusic = loadSound("music.mp3");
   homescreen = loadImage("start5.png");
   roomImg = loadImage("guest room.png");
   dormImg = loadImage("dorm.png");
@@ -78,6 +81,8 @@ function preload() {
 
   // Health image used for happiness
   pomefioreImg = loadImage("bathe.png");
+   soundFormats('mp3');
+  backgroundMusic = loadSound('music.mp3');
 }
 
 
@@ -87,7 +92,14 @@ function setup() {
   textFont("Arial");
 
   loadGame();
+
+  // Start music as soon as the game opens; browsers may defer audio until interaction.
+  if (backgroundMusic) {
+    backgroundMusic.loop();
+  }
 }
+
+
 
 
 // UPDATE PET STATISTICS
@@ -532,6 +544,11 @@ function loadGame() {
 }
 
 function mousePressed() {
+  // Start looping music after the first user interaction.
+  if (backgroundMusic && !backgroundMusic.isPlaying()) {
+    backgroundMusic.loop();
+  }
+
   // CAFETERIA ACTIONS
   if (showCafeteriaScreen) {
     // FEED button
