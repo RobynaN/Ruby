@@ -53,6 +53,7 @@ let isGameOver = false;
 
 // PRELOAD IMAGES
 function preload() {
+  soundFormats("mp3");
   backgroundMusic = loadSound("music.mp3");
   homescreen = loadImage("start5.png");
   roomImg = loadImage("guest room.png");
@@ -81,8 +82,6 @@ function preload() {
 
   // Health image used for happiness
   pomefioreImg = loadImage("bathe.png");
-   soundFormats('mp3');
-  backgroundMusic = loadSound('music.mp3');
 }
 
 
@@ -95,6 +94,7 @@ function setup() {
 
   // Start music as soon as the game opens; browsers may defer audio until interaction.
   if (backgroundMusic) {
+    userStartAudio();
     backgroundMusic.loop();
   }
 }
@@ -116,10 +116,10 @@ function updatePetStats() {
     // Normal time passing.
     energy = max(0, energy - elapsed * 0.3);
     hunger = min(100, hunger + elapsed * 0.25);
-    happiness = max(0, happiness - elapsed * 0.15);
+    happiness = max(0, happiness - elapsed * 0.3);
 
     // Hunger can damage health.
-    let healthLoss = hunger > 70 ? 0.16 : 0.03;
+    let healthLoss = hunger > 70 ? 0.45 : 0.3;
     health = max(0, health - elapsed * healthLoss);
   }
 
@@ -205,7 +205,7 @@ function drawPet(x, y, w, h) {
   }
 
   if (petImage) {
-    image(petImage, x, y, w, 400);
+    image(petImage, x, y, 250, 400);
   }
 }
 
@@ -253,7 +253,7 @@ function drawCountdownBars() {
 
     // Each stat has five slots.
     // Each slot represents 20%.
-    let imagesRemaining = i === 3 ? constrain(lives, 0, 5) : ceil(value / 20);
+    let imagesRemaining = ceil(value / 20);
 
     // Draw five image slots.
     for (let j = 0; j < 5; j++) { //let j is een tijdelijke loop
@@ -342,12 +342,52 @@ function drawHeader(title) {
 }
 
 
+// GAME OVER SCREEN
+function drawGameOverScreen() {
+  if (deadImg) {
+    image(deadImg, 0, 0, width, height);
+  }
+
+  push();
+  rectMode(CENTER);
+  noStroke();
+  fill(0, 180);
+  rect(width / 2, height - 70, 190, 52, 10);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  textStyle(BOLD);
+  textSize(20);
+  text("RESTART", width / 2, height - 70);
+  pop();
+}
+
+
+function restartGame() {
+  energy = 100;
+  hunger = 0;
+  happiness = 100;
+  health = 100;
+  cleanliness = 100;
+  lives = 5;
+  nextLifeLossAt = null;
+  isSleeping = false;
+  feedingCount = 0;
+  isGameOver = false;
+
+  showDormScreen = false;
+  showGuestRoomScreen = false;
+  showMissionScreen = false;
+  showBathScreen = false;
+  showCafeteriaScreen = false;
+
+  saveGame();
+}
+
+
 // MAIN DRAW FUNCTION
 function draw() {
   if (isGameOver) {
-    if (deadImg) {
-      image(deadImg, 0, 0, width, height);
-    }
+    drawGameOverScreen();
     return;
   }
 
@@ -355,9 +395,7 @@ function draw() {
   updatePetStats();
 
   if (isGameOver) {
-    if (deadImg) {
-      image(deadImg, 0, 0, width, height);
-    }
+    drawGameOverScreen();
     return;
   }
 
@@ -544,7 +582,16 @@ function loadGame() {
 }
 
 function mousePressed() {
+  if (isGameOver) {
+    if (mouseX >= width / 2 - 95 && mouseX <= width / 2 + 95 &&
+        mouseY >= height - 96 && mouseY <= height - 44) {
+      restartGame();
+    }
+    return;
+  }
+
   // Start looping music after the first user interaction.
+  userStartAudio();
   if (backgroundMusic && !backgroundMusic.isPlaying()) {
     backgroundMusic.loop();
   }
@@ -588,7 +635,8 @@ function mousePressed() {
     // PLAY button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
       happiness = min(100, happiness + 35);
-      energy = max(0, energy - 10);
+      energy = min(100, energy - 10);
+      health = min(100, health - 10);
       return;
     }
 
