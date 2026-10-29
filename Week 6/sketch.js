@@ -239,15 +239,13 @@ function drawCountdownBars() {
   // less hunger means more filled slots.
   let values = [100 - hunger,energy,happiness,health];
 
-  let startX = 27;
-  let startY = height - 34;
-  let barWidth = 190;
-  let barHeight = 22;
-  let spacing = 34;
+  let startX = 24;
+  let startY = height - 20;
+  let spacing = 48;
 
   for (let i = 0; i < values.length; i++) {
     let x = startX;
-    let y = startY - (values.length - 1 - i) * spacing;
+    let y = startY - (values.length - 1 - i) * spacing - 28;
 
     let value = constrain(values[i], 0, 100);
 
@@ -257,8 +255,8 @@ function drawCountdownBars() {
 
     // Draw five image slots.
     for (let j = 0; j < 5; j++) { //let j is een tijdelijke loop
-      let slotX = x + 80 + j * 25;
-      let slotY = y - 16;
+      let slotX = x + j * 25;
+      let slotY = y;
 //haalt de hele tijd een img weg als die 20% lager is
       let isFilled = j < imagesRemaining;
       let statImage = icons[i];
@@ -301,14 +299,13 @@ function drawCountdownBars() {
       }
     }
 
-    // Show the name and value for every statistic.
+    // Keep each label beside its icons in the left-side stats panel.
     if (i < labels.length) {
       fill(255);
       textStyle(BOLD);
-      textSize(10);
+      textSize(9);
       textAlign(LEFT, CENTER);
-
-      text(labels[i] + " " + round(value) + "%", x + 8, y - 7);
+      text(labels[i] + " " + round(value) + "%", x, y - 8);
     }
   }
 
@@ -486,7 +483,7 @@ function draw() {
   }
 
   fill(0,180)
-  rect(20, 430, 220, 150,10);
+  rect(20, 380, 200, 210,10);
 
   drawPet(270, 220, 260, 340);
 
