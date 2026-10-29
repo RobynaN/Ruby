@@ -529,14 +529,8 @@ let lastSaveTime = 0;
 
 function saveGame() {
   let gameData = {
-    energy: energy,
-    hunger: hunger,
-    happiness: happiness,
-    health: health,
-    cleanliness: cleanliness,
-    lives: lives,
-    isSleeping: isSleeping,
-    feedingCount: feedingCount
+    energy: energy, hunger: hunger, happiness: happiness, health: health, cleanliness: cleanliness,
+   lives: lives, isSleeping: isSleeping, feedingCount: feedingCount
   };
 
   try {
