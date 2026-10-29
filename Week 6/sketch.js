@@ -205,7 +205,8 @@ function drawPet(x, y, w, h) {
   }
 
   if (petImage) {
-    image(petImage, x, y, 250, 400);
+    // Draw every expression, including grim mad, in the same position and size.
+    image(petImage, 300, 180, 250, 400);
   }
 }
 
@@ -239,9 +240,9 @@ function drawCountdownBars() {
   // less hunger means more filled slots.
   let values = [100 - hunger,energy,happiness,health];
 
-  let startX = 24;
-  let startY = height - 20;
-  let spacing = 48;
+  let startX = 34;
+  let startY = height - 19;
+  let spacing = 46;
 
   for (let i = 0; i < values.length; i++) {
     let x = startX;
@@ -291,7 +292,7 @@ function drawCountdownBars() {
         }
          //pomefoire.png stats. 
         image(statImage, slotX - (i === 2 ? 2 : i >= 1 ? 5 : 0),
-          slotY - (i === 0 || i >= 1 ? (i === 2 ? 2 : 5) : 0),
+          slotY + 3 - (i === 0 || i >= 1 ? (i === 2 ? 2 : 5) : 0),
           i === 2 ? 25 : i === 0 || i === 1 ? 31 : 28,
           i === 2 ? 26 : i === 1 ? 32 : i === 0 ? 31 : 28);
 
