@@ -39,6 +39,7 @@ let energy = 100;
 let hunger = 0;
 let happiness = 100;
 let health = 100;
+let statDecayTimers = null;
 
 // Hidden cleanliness value
 let cleanliness = 100;
@@ -90,6 +91,8 @@ function setup() {
   imageMode(CORNER);
   textFont("Arial");
 
+  resetStatDecayTimers();
+
   loadGame();
 
   // Start music as soon as the game opens; browsers may defer audio until interaction.
@@ -100,6 +103,15 @@ function setup() {
 }
 
 
+
+function resetStatDecayTimers() {
+  statDecayTimers = {
+    energy: random(10, 20),
+    hunger: random(10, 20),
+    happiness: random(10, 20),
+    health: random(10, 10)
+  };
+}
 
 
 // UPDATE PET STATISTICS
@@ -113,14 +125,18 @@ function updatePetStats() {
 
     // Hunger and happiness do not change while sleeping.
   } else {
-    // Normal time passing.
-    energy = max(0, energy - elapsed * 0.3);
-    hunger = min(100, hunger + elapsed * 0.25);
-    happiness = max(0, happiness - elapsed * 0.3);
-
-    // Hunger can damage health.
-    let healthLoss = hunger > 70 ? 0.45 : 0.3;
-    health = max(0, health - elapsed * healthLoss);
+    // Each statistic loses one 20% step on its own 10-20 second timer.
+    for (let stat in statDecayTimers) {
+      statDecayTimers[stat] -= elapsed;
+      if (statDecayTimers[stat] <= 0) {
+        if (stat === "hunger") {
+          hunger = min(100, hunger + 20);
+        } else {
+          this[stat] = max(0, this[stat] - 20);
+        }
+        statDecayTimers[stat] = random(10, 20);
+      }
+    }
   }
 
   // Keep all statistics between 0 and 100.
@@ -162,7 +178,7 @@ function updatePetStats() {
 
 
 // DRAW PET
-function drawPet(x, y, w, h) {
+function drawPet(x, y) {
   let petImage = grimHappyImg;
 
   // Unwell pet
@@ -205,7 +221,7 @@ function drawPet(x, y, w, h) {
   }
 
   if (petImage) {
-    image(petImage, x, y, 250, 400);
+    image(petImage, 350, 200, 290, 370);
   }
 }
 
@@ -239,11 +255,11 @@ function drawCountdownBars() {
   // less hunger means more filled slots.
   let values = [100 - hunger,energy,happiness,health];
 
-  let startX = 12;
-  let startY = height - 24;
+  let startX = 20;
+  let startY = height - 34;
   let barWidth = 190;
   let barHeight = 22;
-  let spacing = 30;
+  let spacing = 34;
 
   for (let i = 0; i < values.length; i++) {
     let x = startX;
@@ -257,7 +273,7 @@ function drawCountdownBars() {
 
     // Draw five image slots.
     for (let j = 0; j < 5; j++) { //let j is een tijdelijke loop
-      let slotX = x + 39 + j * 35;
+      let slotX = x + 80 + j * 25;
       let slotY = y - 16;
 //haalt de hele tijd een img weg als die 20% lager is
       let isFilled = j < imagesRemaining;
@@ -301,15 +317,14 @@ function drawCountdownBars() {
       }
     }
 
-    // Draw labels only for hunger and energy.
-    if (i < 2) {
+    // Show the name and value for every statistic.
+    if (i < labels.length) {
       fill(255);
       textStyle(BOLD);
-      textSize(11);
+      textSize(10);
       textAlign(LEFT, CENTER);
 
-      text(
-        labels[i] + " " + round(value) + "%", x + 42, y - 7);
+  text(labels[i], x + 8, y - 7);
     }
   }
 
@@ -344,45 +359,23 @@ function drawHeader(title) {
 
 // GAME OVER SCREEN
 function drawGameOverScreen() {
-  if (deadImg) {
-    image(deadImg, 0, 0, width, height);
+  let petImage = grimDisImg;
+  // Hunger is inversely represented: a low hunger value is good.
+  let goodStats = [100 - hunger, energy, happiness, health];
+  let lowestStat = Math.min(...goodStats);
+
+  if (hunger >= 0 && hunger <= 40) {
+    petImage = grimMadImg;
+  } else if (lowestStat >= 70) {
+    petImage = grimCheerImg;
+  } else if (lowestStat >= 40) {
+    petImage = grimHappyImg;
+  } else if (lowestStat >= 20) {
+    petImage = grimShockedImg;
   }
 
-  push();
-  rectMode(CENTER);
-  noStroke();
-  fill(0, 180);
-  rect(width / 2, height - 70, 190, 52, 10);
-  fill(255);
-  textAlign(CENTER, CENTER);
-  textStyle(BOLD);
-  textSize(20);
-  text("RESTART", width / 2, height - 70);
-  pop();
+  image(petImage, 460, 220, 260, 340);
 }
-
-
-function restartGame() {
-  energy = 100;
-  hunger = 0;
-  happiness = 100;
-  health = 100;
-  cleanliness = 100;
-  lives = 5;
-  nextLifeLossAt = null;
-  isSleeping = false;
-  feedingCount = 0;
-  isGameOver = false;
-
-  showDormScreen = false;
-  showGuestRoomScreen = false;
-  showMissionScreen = false;
-  showBathScreen = false;
-  showCafeteriaScreen = false;
-
-  saveGame();
-}
-
 
 // MAIN DRAW FUNCTION
 function draw() {
@@ -487,7 +480,7 @@ function draw() {
   }
 
   fill(0,180)
-  rect(20, 460, 220, 130,10);
+  rect(20, 430, 220, 150,10);
 
   drawPet(270, 220, 260, 340);
 
