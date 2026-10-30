@@ -9,6 +9,10 @@ let foodImg;
 let cafeteriaImg;
 let bannerImg;
 let deadImg;
+let settingImg;
+let klapImg;
+let showMaintenanceMessage = false;
+let maintenanceMessageUntil = 0;
 
 let grimShockedImg;
 let grimMadImg;
@@ -68,6 +72,8 @@ function preload() {
   cafeteriaImg = loadImage("cafetaria.jpg");
   bannerImg = loadImage("banner.jpeg");
   deadImg = loadImage("dead.png");
+  settingImg = loadImage("setting.png");
+  klapImg = loadImage("klap.png");
 
   grimShockedImg = loadImage("grim shocked.png");
   grimMadImg = loadImage("grim mad.png");
@@ -115,11 +121,11 @@ function updatePetStats() {
   } else {
     // Normal time passing.
     energy = max(0, energy - elapsed * 2.5);
-    hunger = min(100, hunger + elapsed * 2.7);
+    hunger = min(100, hunger + elapsed * 2.3);
     happiness = max(0, happiness - elapsed * 3);
 
     // Hunger can damage health.
-    let healthLoss = hunger > 70 ? 0.45 : 2;
+    let healthLoss = hunger > 70 ? 0.45 : 1.6;
     health = max(0, health - elapsed * healthLoss);
   }
 
@@ -217,6 +223,13 @@ function drawCareButton(label) {
     image(bannerImg, 25, 97, 150, 46);
   }
 
+  // Invisible overlay over the banner on every screen that uses this button.
+  push();
+  noStroke();
+ fill(0, 180);
+  rect(25, 97, 150, 46);
+  pop();
+
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(20);
@@ -231,6 +244,11 @@ function drawCareButton(label) {
 
 // STATISTICS BARS
 function drawCountdownBars() {
+  // Keep the stat bars readable on every screen.
+  noStroke();
+  fill(0, 180);
+  rect(20, 380, 200, 210, 10);
+
   // Icon for each statistic.
   let icons = [food1Img, energyImg, pomefioreImg, lifeBannerImg];
 
@@ -332,7 +350,7 @@ function drawHeader(title) {
 
   textSize(22);
   textAlign(RIGHT, BASELINE);
-  text("RETURN", 1180, 48);
+  text("RETURN", width - 95, 48);
 
   textAlign(LEFT, BASELINE);
   textStyle(NORMAL);
@@ -483,8 +501,25 @@ function draw() {
     background(30, 24, 45);
   }
 
-  fill(0,180)
-  rect(20, 380, 200, 210,10);
+  if (settingImg) {
+    image(settingImg, width - 268, 12, 60, 60);
+  }
+
+  if (showMaintenanceMessage && millis() >= maintenanceMessageUntil) {
+    showMaintenanceMessage = false;
+  }
+
+  if (showMaintenanceMessage) {
+    push();
+    noStroke();
+    fill(0, 180);
+    rect(width - 310, 78, 280, 34, 6);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(13);
+    text("this area is still under maintenance", width - 170, 95);
+    pop();
+  }
 
   drawPet(270, 220, 260, 340);
 
@@ -526,6 +561,10 @@ function draw() {
 
   // Draw statistics on the home screen.
   drawCountdownBars();
+
+  if (klapImg) {
+    image(klapImg, width - 200, 12, 60, 60);
+  }
 }
 
 // DATA OPSLAG
@@ -678,6 +717,20 @@ function mousePressed() {
 
   // HOME SCREEN ACTIONS
   else {
+    // Klap icon
+    if (mouseX >= width - 200 && mouseX <= width - 140 && mouseY >= 12 && mouseY <= 72) {
+      showMaintenanceMessage = true;
+      maintenanceMessageUntil = millis() + 1200;
+      return;
+    }
+
+    // Settings icon
+    if (mouseX >= width - 268 && mouseX <= width - 208 && mouseY >= 12 && mouseY <= 72) {
+      showMaintenanceMessage = true;
+      maintenanceMessageUntil = millis() + 1200;
+      return;
+    }
+
     // Mission entrance
     if (mouseX >= 740 && mouseX <= 840 && mouseY >= 120 && mouseY <= 200) {
       showMissionScreen = true;
