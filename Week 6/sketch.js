@@ -191,7 +191,7 @@ function drawPet(x, y, w, h) {
     petImage = grimDisImg;
   }
 
-  else if(energy > 60) {
+  else if (energy > 60) {
     petImage = grimHappyImg;
   }
 
@@ -231,7 +231,7 @@ function drawCareButton(label) {
   // Invisible overlay over the banner on every screen that uses this button.
   push();
   noStroke();
- fill(0, 180);
+  fill(0, 180);
   rect(25, 97, 150, 46);
   pop();
 
@@ -281,7 +281,7 @@ function drawCountdownBars() {
     for (let j = 0; j < 5; j++) { //let j is een tijdelijke loop
       let slotX = x + j * 25;
       let slotY = y;
-//haalt de hele tijd een img weg als die 20% lager is
+      //haalt de hele tijd een img weg als die 20% lager is
       let isFilled = j < imagesRemaining;
       let statImage = icons[i];
 
@@ -316,7 +316,7 @@ function drawCountdownBars() {
         if (!isFilled && i !== 3) {
           tint(255, 65);
         }
-         //pomefoire.png stats. 
+        //pomefoire.png stats. 
         image(statImage, slotX - (i === 2 ? 2 : i >= 1 ? 5 : 0),
           slotY + 3 - (i === 0 || i >= 1 ? (i === 2 ? 2 : 5) : 0),
           i === 2 ? 25 : i === 0 || i === 1 ? 31 : 28,
@@ -652,7 +652,7 @@ function applyOfflineTime(seconds) {
 function mousePressed() {
   if (isGameOver) {
     if (mouseX >= width / 2 - 95 && mouseX <= width / 2 + 95 &&
-        mouseY >= height - 96 && mouseY <= height - 44) {
+      mouseY >= height - 96 && mouseY <= height - 44) {
       restartGame();
     }
     return;
