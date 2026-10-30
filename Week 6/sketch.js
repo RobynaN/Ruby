@@ -14,7 +14,8 @@ let klapImg;
 let shopImg;
 let showMaintenanceMessage = false;
 let maintenanceMessageUntil = 0;
-let maintenanceMessageText = "this area is still under maintenance";
+let showShopMessage = false;
+let shopMessageUntil = 0;
 
 let grimShockedImg;
 let grimMadImg;
@@ -524,11 +525,27 @@ function draw() {
     push();
     noStroke();
     fill(0, 180);
+    rect(width - 393, 78, 310, 34, 6);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(13);
+    text("this area is currently under maintenance.", width - 238, 95);
+    pop();
+  }
+
+  if (showShopMessage && millis() >= shopMessageUntil) {
+    showShopMessage = false;
+  }
+
+  if (showShopMessage) {
+    push();
+    noStroke();
+    fill(0, 180);
     rect(width - 560, 550, 310, 34, 6);
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(13);
-    text(maintenanceMessageText, width - 405, 565);
+    text("the shop is currently getting updated, my apologies", width - 405, 567);
     pop();
   }
 
@@ -759,9 +776,8 @@ function mousePressed() {
     // Shop icon
     if (mouseX >= width - 251 && mouseX <= width - 146 &&
       mouseY >= height - 152 && mouseY <= height - 47) {
-      showMaintenanceMessage = true;
-      maintenanceMessageUntil = millis() + 2500;
-      maintenanceMessageText = "the shop is currently getting updated, my apologies.";
+      showShopMessage = true;
+      shopMessageUntil = millis() + 2500;
       return;
     }
 
@@ -769,7 +785,6 @@ function mousePressed() {
     if (mouseX >= width - 200 && mouseX <= width - 140 && mouseY >= 12 && mouseY <= 72) {
       showMaintenanceMessage = true;
       maintenanceMessageUntil = millis() + 1200;
-      maintenanceMessageText = "this area is still under maintenance";
       return;
     }
 
@@ -777,7 +792,6 @@ function mousePressed() {
     if (mouseX >= width - 268 && mouseX <= width - 208 && mouseY >= 12 && mouseY <= 72) {
       showMaintenanceMessage = true;
       maintenanceMessageUntil = millis() + 1200;
-      maintenanceMessageText = "this area is still under maintenance";
       return;
     }
 
