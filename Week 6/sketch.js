@@ -12,6 +12,9 @@ let deadImg;
 let settingImg;
 let klapImg;
 let shopImg;
+let miniGameImg;
+let miniGameVideo;
+let miniGameBackgroundImg;
 let showMaintenanceMessage = false;
 let maintenanceMessageUntil = 0;
 let showShopMessage = false;
@@ -41,6 +44,7 @@ let showGuestRoomScreen = false;
 let showMissionScreen = false;
 let showBathScreen = false;
 let showCafeteriaScreen = false;
+let showMiniGameScreen = false;
 
 // Pet statistics (0-100)
 let energy = 100;
@@ -79,6 +83,8 @@ function preload() {
   settingImg = loadImage("setting.png");
   klapImg = loadImage("klap.png");
   shopImg = loadImage("shop.png");
+  miniGameImg = loadImage("mini-game.png");
+  miniGameBackgroundImg = loadImage("tart.jpe");
 
   grimShockedImg = loadImage("grim shocked.png");
   grimMadImg = loadImage("grim mad.png");
@@ -104,6 +110,9 @@ function setup() {
 
   loadGame();
   window.addEventListener("pagehide", saveGame);
+
+  miniGameVideo = createVideo("game.mp4");
+  miniGameVideo.hide();
 
   // Start music as soon as the game opens; browsers may defer audio until interaction.
   if (backgroundMusic) {
@@ -421,6 +430,11 @@ function draw() {
   // Update statistics once per frame.
   updatePetStats();
 
+  if (showMiniGameScreen && miniGameVideo && miniGameVideo.elt &&
+    !miniGameVideo.elt.paused && !miniGameVideo.elt.ended) {
+    happiness = min(100, happiness + deltaTime / 1000 * 8);
+  }
+
   if (isGameOver) {
     drawGameOverScreen();
     return;
@@ -442,6 +456,35 @@ function draw() {
     drawCareButton("FEED");
     drawCountdownBars();
 
+    return;
+  }
+
+  // MINI-GAME SCREEN
+  if (showMiniGameScreen) {
+    if (miniGameBackgroundImg) {
+      image(miniGameBackgroundImg, 0, 0, width, height);
+    } else {
+      background(30, 24, 45);
+    }
+    if (miniGameVideo) {
+      image(miniGameVideo, 200, 100, 800, 400);
+    }
+    drawHeader("MINI-GAME");
+    drawCountdownBars();
+
+    if (!miniGameVideo || !miniGameVideo.elt || miniGameVideo.elt.paused || miniGameVideo.elt.ended) {
+      push();
+      rectMode(CENTER);
+      noStroke();
+      fill(0, 180);
+      rect(width / 2, height - 55, 170, 48, 10);
+      fill(255);
+      textAlign(CENTER, CENTER);
+      textStyle(BOLD);
+      textSize(20);
+      text("START", width / 2, height - 55);
+      pop();
+    }
     return;
   }
 
@@ -525,7 +568,7 @@ function draw() {
     push();
     noStroke();
     fill(0, 180);
-    rect(width - 393, 78, 310, 34, 6);
+    rect(width - 370, 77, 310, 34, 6);
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(13);
@@ -550,6 +593,11 @@ function draw() {
   }
 
   drawPet(270, 220, 260, 340);
+
+  // Mini-game image in the middle-left of the home screen.
+  if (miniGameImg) {
+    image(miniGameImg, 20, 120, 160, 160);
+  }
 
   // Dorm entrance
   if (roomImg) {
@@ -698,8 +746,35 @@ function mousePressed() {
 
   // Start looping music after the first user interaction.
   userStartAudio();
-  if (backgroundMusic && !backgroundMusic.isPlaying()) {
+  if (!showMiniGameScreen && backgroundMusic && !backgroundMusic.isPlaying()) {
     backgroundMusic.loop();
+  }
+
+  // Handle mini-game controls first so RETURN works during video playback.
+  if (showMiniGameScreen) {
+    if (mouseX >= 1040 && mouseX <= width && mouseY >= 0 && mouseY <= 80) {
+      if (miniGameVideo) {
+        miniGameVideo.pause();
+        miniGameVideo.time(0);
+      }
+      showMiniGameScreen = false;
+      if (backgroundMusic && !backgroundMusic.isPlaying()) {
+        backgroundMusic.loop();
+      }
+      return;
+    }
+
+    if (mouseX >= width / 2 - 85 && mouseX <= width / 2 + 85 &&
+      mouseY >= height - 79 && mouseY <= height - 31) {
+      if (backgroundMusic && backgroundMusic.isPlaying()) {
+        backgroundMusic.pause();
+      }
+      if (miniGameVideo && miniGameVideo.elt) {
+        if (miniGameVideo.elt.ended) miniGameVideo.time(0);
+        miniGameVideo.play();
+      }
+    }
+    return;
   }
 
   // CAFETERIA ACTIONS
@@ -787,6 +862,15 @@ function mousePressed() {
 
   // HOME SCREEN ACTIONS
   else {
+    // Open the mini-game.
+    if (mouseX >= 20 && mouseX <= 180 && mouseY >= 120 && mouseY <= 280) {
+      if (backgroundMusic && backgroundMusic.isPlaying()) {
+        backgroundMusic.pause();
+      }
+      showMiniGameScreen = true;
+      return;
+    }
+
     // Shop icon
     if (mouseX >= width - 251 && mouseX <= width - 146 &&
       mouseY >= height - 152 && mouseY <= height - 47) {
@@ -829,4 +913,5 @@ function mousePressed() {
       showCafeteriaScreen = true;
     }
   }
+
 }
