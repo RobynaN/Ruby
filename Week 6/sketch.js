@@ -627,25 +627,39 @@ function loadGame() {
   try {
     let savedData = localStorage.getItem("grimTamagotchi");
     if (savedData === null) return;
-
+    //converts the saved data into an object.
     let gameData = JSON.parse(savedData);
     if (!gameData || typeof gameData !== "object" || Array.isArray(gameData)) return;
-
+   //constrain(gameData.energy, 0, 100 = keeps the value a certain specified range. 
     if (Number.isFinite(gameData.energy)) energy = constrain(gameData.energy, 0, 100);
     if (Number.isFinite(gameData.hunger)) hunger = constrain(gameData.hunger, 0, 100);
     if (Number.isFinite(gameData.happiness)) happiness = constrain(gameData.happiness, 0, 100);
     if (Number.isFinite(gameData.health)) health = constrain(gameData.health, 0, 100);
     if (Number.isFinite(gameData.cleanliness)) cleanliness = constrain(gameData.cleanliness, 0, 100);
-    if (Number.isFinite(gameData.lives)) lives = constrain(Math.floor(gameData.lives), 0, 5);
-    if (typeof gameData.isSleeping === "boolean") isSleeping = gameData.isSleeping;
-    if (Number.isFinite(gameData.feedingCount)) feedingCount = Math.max(0, Math.floor(gameData.feedingCount));
 
+     //restores Grim's lives/lifes?? 
+    if (Number.isFinite(gameData.lives)) lives = constrain(Math.floor(gameData.lives), 0, 5);
+    //checks if grims sleeping. 
+    if (typeof gameData.isSleeping === "boolean") isSleeping = gameData.isSleeping;
+    //restores/ checks the feeding stat. 
+    if (Number.isFinite(gameData.feedingCount)) feedingCount = Math.max(0, Math.floor(gameData.feedingCount));
+   //checks how much time has passed since the last save. (data-opslag) 
+   //Number.isFinite = checks wether the time stamp is a valid number
+   //gameData.savedAt <= Date.now = checks wether the saved timestamp is earlier or equal to the current time. 
     if (Number.isFinite(gameData.savedAt) && gameData.savedAt <= Date.now()) {
       applyOfflineTime(min((Date.now() - gameData.savedAt) / 1000, 31536000));
+      //gameData.savedAt) / 1000, = calculates how many seconds have passed since the game was saved. 
+      //the number 31536000 represents the seconds in 365 days. 
+      //the min() function chooses the smaller of the two values. 
+      //applyOfflineTime = updates everything while the game is closed. 
+      //for example, applyOfflineTime can adjust ur stats even though the game's closed. 
+      //null means the assigned variable has no value. 
     }
 
     isGameOver = hunger >= 100 && energy <= 0 && happiness <= 0 && health <= 0;
     nextLifeLossAt = null;
+
+    //If an error occurs inside the try block, JavaScript executes the code inside catch.
   } catch (error) {
     console.warn("Could not load game data:", error);
   }
