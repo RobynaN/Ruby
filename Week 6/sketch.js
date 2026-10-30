@@ -11,8 +11,10 @@ let bannerImg;
 let deadImg;
 let settingImg;
 let klapImg;
+let shopImg;
 let showMaintenanceMessage = false;
 let maintenanceMessageUntil = 0;
+let maintenanceMessageText = "this area is still under maintenance";
 
 let grimShockedImg;
 let grimMadImg;
@@ -75,6 +77,7 @@ function preload() {
   deadImg = loadImage("dead.png");
   settingImg = loadImage("setting.png");
   klapImg = loadImage("klap.png");
+  shopImg = loadImage("shop.png");
 
   grimShockedImg = loadImage("grim shocked.png");
   grimMadImg = loadImage("grim mad.png");
@@ -521,11 +524,11 @@ function draw() {
     push();
     noStroke();
     fill(0, 180);
-    rect(width - 310, 78, 280, 34, 6);
+    rect(width - 560, 550, 310, 34, 6);
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(13);
-    text("this area is still under maintenance", width - 170, 95);
+    text(maintenanceMessageText, width - 405, 565);
     pop();
   }
 
@@ -572,6 +575,10 @@ function draw() {
 
   if (klapImg) {
     image(klapImg, width - 200, 12, 60, 60);
+  }
+
+  if (shopImg) {
+    image(shopImg, width - 251, height - 152, 105, 105);
   }
 }
 
@@ -749,10 +756,20 @@ function mousePressed() {
 
   // HOME SCREEN ACTIONS
   else {
+    // Shop icon
+    if (mouseX >= width - 251 && mouseX <= width - 146 &&
+      mouseY >= height - 152 && mouseY <= height - 47) {
+      showMaintenanceMessage = true;
+      maintenanceMessageUntil = millis() + 2500;
+      maintenanceMessageText = "the shop is currently getting updated, my apologies.";
+      return;
+    }
+
     // Klap icon
     if (mouseX >= width - 200 && mouseX <= width - 140 && mouseY >= 12 && mouseY <= 72) {
       showMaintenanceMessage = true;
       maintenanceMessageUntil = millis() + 1200;
+      maintenanceMessageText = "this area is still under maintenance";
       return;
     }
 
@@ -760,6 +777,7 @@ function mousePressed() {
     if (mouseX >= width - 268 && mouseX <= width - 208 && mouseY >= 12 && mouseY <= 72) {
       showMaintenanceMessage = true;
       maintenanceMessageUntil = millis() + 1200;
+      maintenanceMessageText = "this area is still under maintenance";
       return;
     }
 
