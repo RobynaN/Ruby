@@ -23,6 +23,7 @@ let grimCheerImg;
 let energyImg;
 let food1Img;
 let pomefioreImg;
+let cleannessImg;
 let lifeBannerImg;
 let lifeEmptyImg;
 
@@ -85,6 +86,7 @@ function preload() {
   lifeBannerImg = loadImage("health.png");
 
   food1Img = loadImage("hunger.png");
+  cleannessImg = loadImage("Cleanness.png");
 
   // Health image used for happiness
   pomefioreImg = loadImage("bathe.png");
@@ -97,6 +99,7 @@ function setup() {
   textFont("Arial");
 
   loadGame();
+  window.addEventListener("pagehide", saveGame);
 
   // Start music as soon as the game opens; browsers may defer audio until interaction.
   if (backgroundMusic) {
@@ -123,6 +126,7 @@ function updatePetStats() {
     energy = max(0, energy - elapsed * 2.5);
     hunger = min(100, hunger + elapsed * 2.3);
     happiness = max(0, happiness - elapsed * 3);
+    cleanliness = max(0, cleanliness - elapsed * 1.8);
 
     // Hunger can damage health.
     let healthLoss = hunger > 70 ? 0.45 : 1.6;
@@ -135,6 +139,7 @@ function updatePetStats() {
   hunger = constrain(hunger, 0, 100);
   happiness = constrain(happiness, 0, 100);
   health = constrain(health, 0, 100);
+  cleanliness = constrain(cleanliness, 0, 100);
 
   // The hunger bar is reversed, so it is empty when hunger reaches 100.
   if (hunger >= 100 && energy <= 0 && happiness <= 0 && health <= 0) {
@@ -247,16 +252,16 @@ function drawCountdownBars() {
   // Keep the stat bars readable on every screen.
   noStroke();
   fill(0, 180);
-  rect(20, 380, 200, 210, 10);
+  rect(20, 350, 200, 235, 10);
 
   // Icon for each statistic.
-  let icons = [food1Img, energyImg, pomefioreImg, lifeBannerImg];
+  let icons = [food1Img, energyImg, pomefioreImg, lifeBannerImg, cleannessImg];
 
-  let labels = [ "HUNGER", "ENERGY", "HAPPINESS", "HEALTH"];
+  let labels = ["HUNGER", "ENERGY", "HAPPINESS", "HEALTH", "CLEANLINESS"];
 
   // Hunger is reversed:
   // less hunger means more filled slots.
-  let values = [100 - hunger,energy,happiness,health];
+  let values = [100 - hunger, energy, happiness, health, cleanliness];
 
   let startX = 34;
   let startY = height - 19;
@@ -295,16 +300,19 @@ function drawCountdownBars() {
         continue;
       }
 
-      // Health loses one 5de.png icon for each 20% lost.
+      // Empty stat slots disappear as their values decrease.
       if (i === 3 && !isFilled) {
+        continue;
+      }
+
+      if (i === 4 && !isFilled) {
         continue;
       }
 
       if (statImage) {
         push();
 
-        // Fade empty slots for hunger, energy,
-        // and happiness.
+        // Fade empty slots for hunger, energy, and happiness.
         if (!isFilled && i !== 3) {
           tint(255, 65);
         }
@@ -579,7 +587,8 @@ function saveGame() {
     cleanliness: cleanliness,
     lives: lives,
     isSleeping: isSleeping,
-    feedingCount: feedingCount
+    feedingCount: feedingCount,
+    savedAt: Date.now()
   };
 
   try {
@@ -596,9 +605,8 @@ function loadGame() {
     if (savedData === null) return;
 
     let gameData = JSON.parse(savedData);
-    if (!gameData || typeof gameData !== "object") return;
+    if (!gameData || typeof gameData !== "object" || Array.isArray(gameData)) return;
 
-    // Validate saved values and retain defaults for missing or invalid fields.
     if (Number.isFinite(gameData.energy)) energy = constrain(gameData.energy, 0, 100);
     if (Number.isFinite(gameData.hunger)) hunger = constrain(gameData.hunger, 0, 100);
     if (Number.isFinite(gameData.happiness)) happiness = constrain(gameData.happiness, 0, 100);
@@ -606,15 +614,39 @@ function loadGame() {
     if (Number.isFinite(gameData.cleanliness)) cleanliness = constrain(gameData.cleanliness, 0, 100);
     if (Number.isFinite(gameData.lives)) lives = constrain(Math.floor(gameData.lives), 0, 5);
     if (typeof gameData.isSleeping === "boolean") isSleeping = gameData.isSleeping;
-    if (Number.isFinite(gameData.feedingCount)) {
-      feedingCount = Math.max(0, Math.floor(gameData.feedingCount));
+    if (Number.isFinite(gameData.feedingCount)) feedingCount = Math.max(0, Math.floor(gameData.feedingCount));
+
+    if (Number.isFinite(gameData.savedAt) && gameData.savedAt <= Date.now()) {
+      applyOfflineTime(min((Date.now() - gameData.savedAt) / 1000, 31536000));
     }
 
-    // Reset the timer for losing lives after loading.
+    isGameOver = hunger >= 100 && energy <= 0 && happiness <= 0 && health <= 0;
     nextLifeLossAt = null;
   } catch (error) {
-    console.warn("Could not load saved game data:", error);
+    console.warn("Could not load game data:", error);
   }
+}
+
+function applyOfflineTime(seconds) {
+  if (seconds <= 0) return;
+
+  if (isSleeping) {
+    energy = min(100, energy + seconds * 8);
+    health = min(100, health + seconds * 1.5);
+  } else {
+    energy = max(0, energy - seconds * 2.5);
+    happiness = max(0, happiness - seconds * 3);
+    cleanliness = max(0, cleanliness - seconds);
+
+    let secondsUntilHungry = max(0, (70 - hunger) / 2.3);
+    let timeAtLowHunger = min(seconds, secondsUntilHungry);
+    let timeAtHighHunger = max(0, seconds - timeAtLowHunger);
+    hunger = min(100, hunger + seconds * 2.3);
+    health = max(0, health - timeAtLowHunger * 1.6 - timeAtHighHunger * 0.45);
+  }
+
+  lives = health <= 0 ? 0 : ceil(health / 20);
+  isGameOver = hunger >= 100 && energy <= 0 && happiness <= 0 && health <= 0;
 }
 
 function mousePressed() {
