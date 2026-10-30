@@ -678,22 +678,22 @@ function loadGame() {
     //converts the saved data into an object.
     let gameData = JSON.parse(savedData);
     if (!gameData || typeof gameData !== "object" || Array.isArray(gameData)) return;
-   //constrain(gameData.energy, 0, 100 = keeps the value a certain specified range. 
+    //constrain(gameData.energy, 0, 100 = keeps the value a certain specified range. 
     if (Number.isFinite(gameData.energy)) energy = constrain(gameData.energy, 0, 100);
     if (Number.isFinite(gameData.hunger)) hunger = constrain(gameData.hunger, 0, 100);
     if (Number.isFinite(gameData.happiness)) happiness = constrain(gameData.happiness, 0, 100);
     if (Number.isFinite(gameData.health)) health = constrain(gameData.health, 0, 100);
     if (Number.isFinite(gameData.cleanliness)) cleanliness = constrain(gameData.cleanliness, 0, 100);
 
-     //restores Grim's lives/lifes?? 
+    //restores Grim's lives/lifes?? 
     if (Number.isFinite(gameData.lives)) lives = constrain(Math.floor(gameData.lives), 0, 5);
     //checks if grims sleeping. 
     if (typeof gameData.isSleeping === "boolean") isSleeping = gameData.isSleeping;
     //restores/ checks the feeding stat. 
     if (Number.isFinite(gameData.feedingCount)) feedingCount = Math.max(0, Math.floor(gameData.feedingCount));
-   //checks how much time has passed since the last save. (data-opslag) 
-   //Number.isFinite = checks wether the time stamp is a valid number
-   //gameData.savedAt <= Date.now = checks wether the saved timestamp is earlier or equal to the current time. 
+    //checks how much time has passed since the last save. (data-opslag) 
+    //Number.isFinite = checks wether the time stamp is a valid number
+    //gameData.savedAt <= Date.now = checks wether the saved timestamp is earlier or equal to the current time. 
     if (Number.isFinite(gameData.savedAt) && gameData.savedAt <= Date.now()) {
       applyOfflineTime(min((Date.now() - gameData.savedAt) / 1000, 31536000));
       //gameData.savedAt) / 1000, = calculates how many seconds have passed since the game was saved. 
