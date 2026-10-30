@@ -63,7 +63,7 @@ let feedingCount = 0;
 let isGameOver = false;
 
 
-// PRELOAD IMAGES
+// Preload img
 function preload() {
   soundFormats("mp3");
   backgroundMusic = loadSound("music.mp3");
@@ -124,7 +124,7 @@ function setup() {
 
 
 
-// UPDATE PET STATISTICS
+// Update pet statics
 function updatePetStats() {
   let elapsed = min(deltaTime / 1000, 0.1);
 
@@ -185,7 +185,7 @@ function updatePetStats() {
 }
 
 
-// DRAW PET
+// draw pet. 
 function drawPet(x, y, w, h) {
   let petImage = grimHappyImg;
 
@@ -235,13 +235,13 @@ function drawPet(x, y, w, h) {
 }
 
 
-// CARE BUTTON
+// Care button
 function drawCareButton(label) {
   if (bannerImg) {
     image(bannerImg, 25, 97, 150, 46);
   }
 
-  // Invisible overlay over the banner on every screen that uses this button.
+  // Invisible overlay
   push();
   noStroke();
   fill(0, 180);
@@ -260,7 +260,7 @@ function drawCareButton(label) {
 }
 
 
-// STATISTICS BARS
+// stat bars. 
 function drawCountdownBars() {
   // Keep the stat bars readable on every screen.
   noStroke();
@@ -356,7 +356,7 @@ function drawCountdownBars() {
 }
 
 
-// HEADER
+// Header
 function drawHeader(title) {
   noStroke();
   fill(0, 180);
@@ -378,7 +378,7 @@ function drawHeader(title) {
 }
 
 
-// GAME OVER SCREEN
+// Game over screen. 
 function drawGameOverScreen() {
   if (deadImg) {
     image(deadImg, 0, 0, width, height);
@@ -420,7 +420,7 @@ function restartGame() {
 }
 
 
-// MAIN DRAW FUNCTION
+// Main draw func 
 function draw() {
   if (isGameOver) {
     drawGameOverScreen();
@@ -445,7 +445,7 @@ function draw() {
     saveGame();
   }
 
-  // CAFETERIA SCREEN
+  // Cafeteria screen
   if (showCafeteriaScreen) {
     if (cafeteriaImg) {
       image(cafeteriaImg, 0, 0, width, height);
@@ -459,7 +459,7 @@ function draw() {
     return;
   }
 
-  // MINI-GAME SCREEN
+  // Mini-game screen
   if (showMiniGameScreen) {
     if (miniGameBackgroundImg) {
       image(miniGameBackgroundImg, 0, 0, width, height);
@@ -488,7 +488,7 @@ function draw() {
     return;
   }
 
-  // BATHROOM SCREEN
+  // Bathroom screen
   if (showBathScreen) {
     if (bathScreenImg) {
       image(bathScreenImg, 0, 0, width, height);
@@ -502,7 +502,7 @@ function draw() {
     return;
   }
 
-  // MISSION SCREEN
+  // Mission screen
   if (showMissionScreen) {
     if (missionBackImg) {
       image(missionBackImg, 0, 0, width, height);
@@ -516,7 +516,7 @@ function draw() {
     return;
   }
 
-  // DORM SCREEN
+  // Dorm screen.
   if (showDormScreen) {
     background(30, 24, 45);
 
@@ -534,7 +534,7 @@ function draw() {
     return;
   }
 
-  // GUEST ROOM SCREEN
+  // Guest room screen
   if (showGuestRoomScreen) {
     background(30, 24, 45);
 
@@ -549,7 +549,7 @@ function draw() {
     return;
   }
 
-  // HOME SCREEN
+  // Home screen
   if (homescreen) {
     image(homescreen, 0, 0, width, height);
   } else {
@@ -647,7 +647,7 @@ function draw() {
   }
 }
 
-// DATA OPSLAG
+// Data opslag
 let lastSaveTime = 0;
 
 function saveGame() {
@@ -771,7 +771,7 @@ function mousePressed() {
     return;
   }
 
-  // CAFETERIA ACTIONS
+  // Cafeteria actions
   if (showCafeteriaScreen) {
     // FEED button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
@@ -782,32 +782,32 @@ function mousePressed() {
       return;
     }
 
-    // RETURN button
+    // Return button
     if (mouseX >= 1040 && mouseY <= 80) {
       showCafeteriaScreen = false;
       return;
     }
   }
 
-  // BATHROOM ACTIONS
+  // Bathroom action
   if (showBathScreen) {
-    // BATHE button
+    // Bathe button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
       cleanliness = min(100, cleanliness + 40);
       health = min(100, health + 20);
       return;
     }
 
-    // RETURN button
+    // Return button
     if (mouseX >= 1040 && mouseY <= 80) {
       showBathScreen = false;
       return;
     }
   }
 
-  // MISSION ACTIONS
+  // Mission action
   else if (showMissionScreen) {
-    // PLAY button
+    // Play button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
       happiness = min(100, happiness + 35);
       energy = min(100, energy - 10);
@@ -815,29 +815,29 @@ function mousePressed() {
       return;
     }
 
-    // RETURN button
+    // Return button
     if (mouseX >= 1040 && mouseY <= 80) {
       showMissionScreen = false;
       return;
     }
   }
 
-  // DORM ACTIONS
+  // Dorm actions
   else if (showDormScreen) {
-    // SLEEP / WAKE button
+    // Sleep/wake-up button
     if (mouseX >= 25 && mouseX <= 175 && mouseY >= 97 && mouseY <= 143) {
       isSleeping = !isSleeping;
       return;
     }
 
-    // Open the guest room.
+    // guest room sesam open ?? 
     if (mouseX >= 810 && mouseX <= 930 && mouseY >= 230 && mouseY <= 390) {
       showDormScreen = false;
       showGuestRoomScreen = true;
       return;
     }
 
-    // RETURN button
+    // Return button
     if (mouseX >= 1040 && mouseY <= 80) {
       showDormScreen = false;
       isSleeping = false;
@@ -845,7 +845,7 @@ function mousePressed() {
     }
   }
 
-  // GUEST ROOM ACTIONS
+  // Guest room actions
   else if (showGuestRoomScreen) {
     if (mouseX >= 1040 && mouseY <= 80) {
       showGuestRoomScreen = false;
@@ -854,9 +854,9 @@ function mousePressed() {
     }
   }
 
-  // HOME SCREEN ACTIONS
+  // Home screen actions
   else {
-    // Open the mini-game.
+    // Open mini-game.
     if (mouseX >= 20 && mouseX <= 180 && mouseY >= 120 && mouseY <= 280) {
       if (backgroundMusic && backgroundMusic.isPlaying()) {
         backgroundMusic.pause();
