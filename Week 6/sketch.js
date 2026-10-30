@@ -130,8 +130,8 @@ function updatePetStats() {
 
   if (isSleeping) {
     // Sleeping restores energy and health.
-    energy = min(100, energy + elapsed * 8);
-    health = min(100, health + elapsed * 1.5);
+    energy = min(100, energy + elapsed * 3);
+    health = min(100, health + elapsed * 2);
 
     // Hunger and happiness do not change while sleeping.
   } else {
@@ -204,13 +204,13 @@ function drawPet(x, y, w, h) {
     petImage = grimDisImg;
   }
 
-  else if (energy > 60) {
-    petImage = grimHappyImg;
+  else if (energy > 80) {
+    petImage = grimCheerImg;
   }
 
   // Very happy pet
-  else if (happiness > 80) {
-    petImage = grimCheerImg;
+  else if (happiness > 60) {
+    petImage = grimHappyImg;
   }
 
   // Unhappy pet
@@ -652,14 +652,8 @@ let lastSaveTime = 0;
 
 function saveGame() {
   let gameData = {
-    energy: energy,
-    hunger: hunger,
-    happiness: happiness,
-    health: health,
-    cleanliness: cleanliness,
-    lives: lives,
-    isSleeping: isSleeping,
-    feedingCount: feedingCount,
+    energy: energy, hunger: hunger, happiness: happiness, health: health, cleanliness: cleanliness,
+    lives: lives, isSleeping: isSleeping, feedingCount: feedingCount,
     savedAt: Date.now()
   };
 
@@ -718,7 +712,7 @@ function applyOfflineTime(seconds) {
 
   if (isSleeping) {
     energy = min(100, energy + seconds * 8);
-    health = min(100, health + seconds * 1.5);
+    health = min(100, health + seconds * 2);
   } else {
     energy = max(0, energy - seconds * 2.5);
     happiness = max(0, happiness - seconds * 3);
